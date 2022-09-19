@@ -4,18 +4,20 @@
 
 ### Prerequisites
 
-* Docker
-* [mpwn](https://github.com/lunixbochs/mpwn)
-* Python 3
+- Docker
+- [mpwn](https://github.com/lunixbochs/mpwn)
+- Python 3
 
 ### Configuration
 
 You'll need to set the following environment variables:
-* `ETH_RPC_URL` to a valid Ethereum JSON-RPC endpoint
-* `PYTHONPATH` to point to mpwn
+
+- `ETH_RPC_URL` to a valid Ethereum JSON-RPC endpoint
+- `PYTHONPATH` to point to mpwn
 
 You'll also need to manually install the following:
-* `pip install yaml ecdsa pysha3 web3 cairo-lang`
+
+- `pip install yaml ecdsa pysha3 web3 cairo-lang`
 
 ## Usage
 
@@ -27,12 +29,12 @@ You'll also need to manually install the following:
 
 ### Run a challenge
 
-Running a challenge will open a port which users will `nc` to. For Ethereum/Starknet related
-challenges, an additional port must be supplied so that users can connect to the Ethereum/Starknet
+Running a challenge will open a port which users will `nc` to. For Starknet related
+challenges, an additional port must be supplied so that users can connect to the Starknet
 node
 
 ```
-./run.sh random 31337 8545
+./run.sh random 31337 5050
 ```
 
 On another terminal:
