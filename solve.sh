@@ -45,20 +45,9 @@ function solve_one() {
 }
 
 declare -a chals=(
-    # "stealing-sats 0.8.16 1"
-    # "vanity 0.7.6"
-    # "merkledrop 0.8.16"
-    # "lockbox2 0.8.16"
-    # "hint-finance 0.8.16 50"
-    # "sourcecode 0.8.16"
-    # "cairo-proxy 0.0.0"
-    # "cairo-auction 0.0.0"
-    # "riddle-of-the-sphinx 0.0.0"
-    # "just-in-time 0.8.16"
-    # "rescue 0.8.16 25"
-    # "random 0.8.16"
-    "trapdooor"
-    "trapdoooor"
+    "cairo-proxy 0.0.0"
+    "cairo-auction 0.0.0"
+    "riddle-of-the-sphinx 0.0.0"
 )
 
 for chal in "${chals[@]}"; do
