@@ -1,4 +1,10 @@
-# Paradigm CTF 2022
+# StarkNet.CC CTF 2022
+
+*NOTICE* This is currently a scratchpad for challenges for the StarkNet.CC CTF
+
+Challanges here are taken from the paradigm CTF, but can be a usefull example of what should be the deliverables for the challenges:
+* Contracts in Cairo
+* Deployment script using starknet.py
 
 ## Installing
 
