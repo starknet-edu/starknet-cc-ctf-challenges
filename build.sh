@@ -6,7 +6,7 @@ build_challenge() {
     name="$1"
     echo "building $name"
 
-    tag="gcr.io/paradigm-ctf/2022/$name:latest"
+    tag="0xaurelou/$name:latest"
 
     docker buildx build --platform linux/amd64 -t "$tag" "$name/public"
 }
