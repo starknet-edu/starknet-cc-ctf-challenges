@@ -6,15 +6,15 @@ build_challenge() {
     name="$1"
     echo "building $name"
 
-    tag="gcr.io/paradigm-ctf/2022/$name:latest"
+    tag="amanusk/$name:latest"
 
     docker buildx build --platform linux/amd64 -t "$tag" "$name/public"
 }
 
 declare -a chals=(
-    "cairo-proxy"
+    # "cairo-proxy"
     "riddle-of-the-sphinx"
-    "cairo-auction"
+    # "cairo-auction"
 )
 
 for chal in "${chals[@]}"; do

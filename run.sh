@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE="gcr.io/paradigm-ctf/2022/$1:latest"
+IMAGE="amanusk/$1:latest"
 PORT="$2"
 HTTP_PORT="$3"
 

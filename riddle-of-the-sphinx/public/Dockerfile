@@ -1,4 +1,4 @@
-FROM gcr.io/paradigmxyz/ctf/cairo-base:latest
+FROM amanusk/cairo-base:latest
 
 COPY deploy/ /home/ctf/
 
