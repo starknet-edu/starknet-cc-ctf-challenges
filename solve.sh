@@ -36,7 +36,7 @@ function solve_one() {
         else
             file="../../private/paradigmctf/eth_challenge.py"
         fi
-        PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$PYTHONPATH:../../private" SOLC_VERSION=$VERSION REMOTE_IP="$REMOTE_IP" REMOTE_PORT="$REMOTE_PORT" DEPLOY_ETH=$ETH HTTP_PORT="8545" python3 $file
+        PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$PYTHONPATH:../../private" SOLC_VERSION=$VERSION REMOTE_IP="$REMOTE_IP" REMOTE_PORT="$REMOTE_PORT" DEPLOY_ETH=$ETH HTTP_PORT="5050" python3 $file
     fi
 
     popd >/dev/null
@@ -45,9 +45,8 @@ function solve_one() {
 }
 
 declare -a chals=(
-    # "cairo-proxy 0.0.0"
-    # "cairo-auction 0.0.0"
-    "riddle-of-the-sphinx 0.0.0"
+    "cairo-auction 0.0.0"
+    # "riddle-of-the-sphinx 0.0.0"
 )
 
 for chal in "${chals[@]}"; do
