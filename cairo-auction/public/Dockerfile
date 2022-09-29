@@ -1,4 +1,4 @@
-FROM gcr.io/paradigmxyz/ctf/cairo-base:latest
+FROM amanusk/cairo-base:latest
 
 COPY deploy/ /home/ctf/
 
@@ -8,6 +8,6 @@ RUN true \
     && mkdir /home/ctf/compiled \
     && cd /tmp/contracts \
     && starknet-compile --debug_info_with_source auction.cairo > /home/ctf/compiled/auction.cairo \
-    && starknet-compile --debug_info_with_source openzeppelin/token/erc20/ERC20.cairo > /home/ctf/compiled/erc20.cairo \
+    && starknet-compile --debug_info_with_source openzeppelin/token/erc20/presets/ERC20.cairo > /home/ctf/compiled/erc20.cairo \
     && rm -rf /tmp/contracts \
     && true
