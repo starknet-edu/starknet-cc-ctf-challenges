@@ -14,5 +14,6 @@ https://docs.starknet.io/docs/CLI/commands
 # Contract Address
 
 ```
-contract address : 0x7227289b7ad67ea15fb740dc1b94a1b722250fc407277eb5a907f94dcd924ee
+contract address : 
+0x2824a7e1b99344a6ec6da04d2e33b07a3d84597526fd0cd552227cb6aaffc40
 ```
