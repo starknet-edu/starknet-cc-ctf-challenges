@@ -14,19 +14,32 @@ Challanges here are taken from the paradigm CTF, but can be a usefull example of
 ### Prerequisites
 
 - Docker
-- [mpwn](https://github.com/lunixbochs/mpwn)
 - Python 3
 
 ### Configuration
 
 You'll need to set the following environment variables:
 
-- `ETH_RPC_URL` to a valid Ethereum JSON-RPC endpoint
 - `PYTHONPATH` to point to mpwn
+- You can source the existing `envs.sh` file: `source envs.sh`
 
-You'll also need to manually install the following:
+It's recommended that you run everything from a `venv`:
 
-- `pip install yaml ecdsa pysha3 web3 cairo-lang`
+```bash
+python3 -m venv venv
+. ./venv/bin/activate
+```
+
+Install the requirements in the requirements file if you are running the first time.
+Requirements match those in the development environment
+
+```bash
+pip install -r requirements.txt
+```
+
+You'll also need to install the following:
+
+- `pip install pyyaml ecdsa pysha3 web3`
 
 ## Usage
 
@@ -43,7 +56,7 @@ challenges, an additional port must be supplied so that users can connect to the
 node
 
 ```
-./run.sh random 31337 5050
+./run.sh riddle-of-the-sphinx 31337 5050
 ```
 
 On another terminal:
