@@ -23,9 +23,15 @@ You'll need to set the following environment variables:
 - `ETH_RPC_URL` to a valid Ethereum JSON-RPC endpoint
 - `PYTHONPATH` to point to mpwn
 
+It's recommended that you run everything from a `venv`:
+```bash
+python3 -m venv venv
+. ./venv/bin/activate
+```
+
 You'll also need to manually install the following:
 
-- `pip install yaml ecdsa pysha3 web3 cairo-lang`
+- `pip install pyyaml ecdsa pysha3 web3 cairo-lang`
 
 ## Usage
 
