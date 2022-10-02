@@ -14,7 +14,6 @@ Challanges here are taken from the paradigm CTF, but can be a usefull example of
 ### Prerequisites
 
 - Docker
-- [mpwn](https://github.com/lunixbochs/mpwn)
 - Python 3
 
 ### Configuration
