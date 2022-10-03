@@ -1,0 +1,7 @@
+name: "frozen-finances"
+author: ["Jorik"]
+rpc_port: 8555
+flag: "PCTF{}"
+tags: [""]
+description: |
+  your friend called, they sent money to an address they found on Twitter 🙄, guess you'll help them get it back.
