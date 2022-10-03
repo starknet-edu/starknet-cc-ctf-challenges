@@ -85,3 +85,36 @@ here's some useful information
 ```bash
 ./solve.sh
 ```
+
+## Create new Challenge
+
+To create a new challenge, please create a new PR, following a similar structure to the existing examples.
+The new directory should contain:
+
+- A `public` dir
+- A `private` dir
+
+### The public dir
+
+The public dir should have the following structure:
+
+- `./public/contracts`
+- `./public/deploy`
+
+The contracts dir should have all the contract needed to setup the sandbox environment on the deployed devnet.
+The deploy dir should have a file called `chal.py`, in charge of setting up the contracts and checking results
+
+#### The structure of chal.py
+
+- The script should have a `deploy` function which deploys the contracts, and gives some information on the deployment process
+- The script should have a `check` function running the final check on the state, to make sure the challenges was solved correctly
+
+### The private dir
+
+The private dir should have a solution to the challenge, that we can easily run and test that all challenges are working well
+
+### Questions
+
+- Following the structure of the examples should solve most of the issues.
+
+- For any question, please feel free to reach out to me @amanusk on Tg or open an issue here
