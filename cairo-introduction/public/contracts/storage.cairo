@@ -74,6 +74,7 @@ func challenge_passed{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_chec
 
 // Internal
 func owner_check{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(amount : felt){
+    let (caller : felt) = get_caller_address();
     let (_,r : felt) = unsigned_div_rem(amount, 14);
     if(r == 0){
         let condition : felt = is_le(41,amount);
