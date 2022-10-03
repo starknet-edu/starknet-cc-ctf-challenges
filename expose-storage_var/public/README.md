@@ -10,10 +10,3 @@ You are free to setup your own envrionnement and use the package you want but we
 Check Starknet documentation
 
 https://docs.starknet.io/docs/CLI/commands
-
-# Contract Address
-
-```
-contract address : 
-0x2824a7e1b99344a6ec6da04d2e33b07a3d84597526fd0cd552227cb6aaffc40
-```

@@ -1,8 +1,14 @@
-#!/bin/python3
-from starkware.starknet.public.abi import get_storage_var_address
+from paradigmctf.cairo_challenge import *
 
-def hex_to_felt(val):
-    return int(val,16);
+from starknet_py.net import AccountClient
+from starknet_py.contract import Contract
 
-balance_key = get_storage_var_address('balance')
-print(f'balance_key : {balance_key}')
+from starkware.python.utils import from_bytes
+
+async def solver(client: AccountClient, storage_contract: Contract):
+    first_call = await storage_contract.functions["increase_balance"].invoke(42, max_fee=int(1e16))
+    await first_call.wait_for_acceptance()
+    second_call = await storage_contract.functions["challenge_passed"].invoke(max_fee=int(1e16))
+    await second_call.wait_for_acceptance()
+
+run_solver(solver)
