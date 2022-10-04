@@ -93,6 +93,7 @@ The new directory should contain:
 
 - A `public` dir
 - A `private` dir
+- A `info.yaml` file, with the authors name, and a short description of the challenge
 
 ### The public dir
 
@@ -104,6 +105,8 @@ The public dir should have the following structure:
 The contracts dir should have all the contract needed to setup the sandbox environment on the deployed devnet.
 The deploy dir should have a file called `chal.py`, in charge of setting up the contracts and checking results
 
+The public dir should also have the `Dockerfile` that will later be used during the event, and for local testing.
+
 #### The structure of chal.py
 
 - The script should have a `deploy` function which deploys the contracts, and gives some information on the deployment process
@@ -111,7 +114,33 @@ The deploy dir should have a file called `chal.py`, in charge of setting up the 
 
 ### The private dir
 
-The private dir should have a solution to the challenge, that we can easily run and test that all challenges are working well
+The private dir should have a solution to the challenge, that we can easily run and test that all challenges are working well. The solution file should be called `solve.py`
+
+## Checking challenge packaging with docker
+
+The best way to make sure the challenge and the solution works is to build a local docker image, and to test it with the existing infra. Here are the instructios on how to do this:
+
+1. Copy the same stracture of the example challneges: `public`, `private`, `chal.py`, `Dockerfile`, etc. The infra expects the filenames in this format. The names `chal.py`, `solve.py` should be kept and only their content should be updated.
+2. Update the `chal.py` script for the correct contract names in your `public/contracts`
+3. Update the `solve.py` to call and execute the correct sequence of calls. No need to setup new accounts etc.
+
+Next are instructions to create a local image and test it
+
+1. Inside the `public` directory of the challenge, which contains the file `Dockerfile`, run a docker build command:
+
+```
+docker build -t  <CHALLANE_NAME> .
+```
+
+2. Update the `local-run.sh` file with the name of the challenge dir. (add it to the list of existing challenges)
+
+3. Run the challenge with `./local-run.sh <CHALLENGE_NAME> 31337 5050`
+
+4. Update the `solver.sh` file to include the challenge name, and comment out all other challenges
+
+5. Run the solver file `./solver.sh`
+
+The result of the run should be the template flag name
 
 ### Questions
 
