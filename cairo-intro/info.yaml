@@ -1,0 +1,7 @@
+name: "cairo-intro"
+author: ["0xAurelou"]
+flag: "STKCTF{1ntro_is_just_34sy}"
+rpc_port: 5050
+tags: ["ez"]
+description: |
+  Just a simple auction contract for introduction
