@@ -1,0 +1,7 @@
+name: "storage-collision"
+author: ["amanusk"]
+flag: "PCTF{fix-you-later}"
+rpc_port: 5050
+tags: ["pwn"]
+description: |
+  Not all proxies are built the same
