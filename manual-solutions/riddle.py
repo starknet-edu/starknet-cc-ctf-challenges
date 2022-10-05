@@ -54,6 +54,8 @@ if __name__ == "__main__":
 
     # TO CHANGE /*
 
+    # Solution for your exercise log it as you want 
+
     print("Before solve call")
     print(c.functions["solution"].call_sync())
     c.functions["solve"].invoke_sync("man", max_fee=0)
