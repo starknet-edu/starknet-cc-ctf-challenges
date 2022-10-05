@@ -1,17 +1,3 @@
-import asyncio
-from pathlib import Path
-
-from starknet_py.contract import Contract
-from starknet_py.net import AccountClient, KeyPair
-from starknet_py.net.gateway_client import GatewayClient
-from starknet_py.net.models.chains import StarknetChainId
-from starknet_py.net.networks import MAINNET, TESTNET
-from starknet_py.net.signer.stark_curve_signer import StarkCurveSigner
-from starkware.python.utils import to_bytes
-from starkware.starknet.core.os.contract_address.contract_address import \
-    calculate_contract_address_from_hash
-from starkware.starknet.public.abi import starknet_keccak
-from unittest import result
 from starknet_py.contract import Contract
 from starknet_py.net import AccountClient, KeyPair
 from starknet_py.net.gateway_client import GatewayClient
@@ -21,7 +7,6 @@ from starknet_py.net.signer.stark_curve_signer import StarkCurveSigner
 from starkware.starknet.core.os.contract_address.contract_address import \
     calculate_contract_address_from_hash
 from starkware.crypto.signature.signature import private_to_stark_key
-from starknet_py.net.signer.stark_curve_signer import StarkCurveSigner
 
 testnet = "testnet"
 chain_id = StarknetChainId.TESTNET
@@ -33,11 +18,11 @@ if __name__ == "__main__":
     # Update your info after running ./run.sh riddle-of-sphinx 31337 5050 in a terminal (don't shutdown it)
     # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
     # This will show you can all the variable use in this contract, copy paste them here.
-    uuid="201db821-ab88-4a1f-bb61-bddc29a3eb71"
-    rpc_endpoint="http://201db821-ab88-4a1f-bb61-bddc29a3eb71@127.0.0.1:5050"
-    private_key="0xfb9c0202cb1c3b795137d6a1351a815a"
-    player_address="3093356919849550014663208539056113523381897438137275787029043341496972702517"
-    contract=("0x17c124a685541ee7f96dc88ad121304aada337fc71473d707d85019d85ff6e3")
+    uuid="7bd2134b-567a-4fd4-88f3-5dd0494f55d4"
+    rpc_endpoint="http://7bd2134b-567a-4fd4-88f3-5dd0494f55d4@127.0.0.1:5050"
+    private_key="0xe44d7d9909d5ed624cb18b65f8dc2a14"
+    player_address="23307312107433609350014491282813071041812899821410253437176121181065082512"
+    contract=("")
 
     # TO CHANGE */
 

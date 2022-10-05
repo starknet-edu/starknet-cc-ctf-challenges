@@ -1,4 +1,3 @@
-from unittest import result
 from starknet_py.contract import Contract
 from starknet_py.net import AccountClient, KeyPair
 from starknet_py.net.gateway_client import GatewayClient
@@ -8,7 +7,6 @@ from starknet_py.net.signer.stark_curve_signer import StarkCurveSigner
 from starkware.starknet.core.os.contract_address.contract_address import \
     calculate_contract_address_from_hash
 from starkware.crypto.signature.signature import private_to_stark_key
-from starknet_py.net.signer.stark_curve_signer import StarkCurveSigner
 
 def felt_to_str(felt):
     length = (felt.bit_length() + 7) // 8
@@ -21,11 +19,11 @@ if __name__ == "__main__":
     # Update your info after running ./run.sh riddle-of-sphinx 31337 5050 in a terminal (don't shutdown it)
     # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
     # This will show you can all the variable use in this contract, copy paste them here.
-    uuid="7b4349b3-2339-47de-99ac-d9742920ac34"
-    rpc_endpoint="http://7b4349b3-2339-47de-99ac-d9742920ac34@127.0.0.1:5050"
-    private_key="0xa7b5f4033a7470fbdc8e5f1d62391b97"
-    player_address="3493649071163658078167914646442170644288368666862236563148118203450221157864"
-    contract=("0x78fe8c8dae0ed159d978edd6b9e69b9f5626b6053bbf3a1b5af2fa5a05140cc")
+    uuid="49c4b773-fdde-4439-9198-100d5320bc99"
+    rpc_endpoint="http://49c4b773-fdde-4439-9198-100d5320bc99@127.0.0.1:5050"
+    private_key="0x80897bd82a407f6df66abecee9aea145"
+    player_address="3617269791017485783585274582344873647555423880427149928123605773983863201907"
+    contract=("0x30bf8e81ae4abbd4546b142219efc5c0fc0769b9bfc663157cdc36cd32ad103")
 
     # TO CHANGE */
 
@@ -61,8 +59,9 @@ if __name__ == "__main__":
     c.functions["solve"].invoke_sync("man", max_fee=0)
     result = c.functions["solution"].call_sync()
     print("After solve call")
+    print(result)
     if felt_to_str(getattr(result, "solution")) == "man" or getattr(result, "solution") == 7168366:
-        print("You found the solution:", felt_to_str(getattr(result, "solution")))
+        print("SOLVED !")
     else:
         print("Try again you didn't find the solution")
 

@@ -129,7 +129,7 @@ Next are instructions to create a local image and test it
 1. Inside the `public` directory of the challenge, which contains the file `Dockerfile`, run a docker build command:
 
 ```
-docker build -t  <CHALLANE_NAME> .
+docker build -t  <CHALLENGE_NAME> .
 ```
 
 2. Update the `local-run.sh` file with the name of the challenge dir. (add it to the list of existing challenges)
@@ -150,7 +150,7 @@ You can write and run a similar solution as well.
 1. Run the `run.sh` script as before
 2. `nc` to the port and select create new instance (as before)
 3. Update the `node_url`, `private_key`, `contract`, `player_address` variables after runing `nc` and creating a new instance
-4. Write the soluion to the challenge
+4. Write the solution to the challenge
 5. Run the script bring the state to the desired condtions
 6. Run `nc` again and ask for the flag
 
