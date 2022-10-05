@@ -78,8 +78,12 @@ func owner_check{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
     let (_,r : felt) = unsigned_div_rem(amount, 14);
     if(r == 0){
         let condition : felt = is_le(41,amount);
+        let condition2 : felt = is_le(amount,55);
         if(condition == 1 ){
+            if(condition2 == 1) {
             owner.write(caller);
+            return();
+            }
             return();
         }
         return();

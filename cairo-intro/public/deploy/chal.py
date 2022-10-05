@@ -7,10 +7,10 @@ from starknet_py.contract import Contract
 from starkware.python.utils import to_bytes
 
 async def deploy(client: AccountClient, player_address: int) -> int:
-    print("[+] deploying storage")
+    print("[+] deploying cairo-intro")
     storage_deploy = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/storage.cairo").read_text(),
+        compiled_contract=Path("compiled/cairo-intro.cairo").read_text(),
         constructor_args=[0],
     )
     await storage_deploy.wait_for_acceptance()
@@ -18,8 +18,8 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     return storage_deploy.deployed_contract.address
 
 
-async def checker(client: AccountClient, storage_contract: Contract, player_address: int) -> bool:
-    solution = (await storage_contract.functions["is_challenge_done"].call()).solution
+async def checker(client: AccountClient, intro_contract: Contract, player_address: int) -> bool:
+    solution = (await intro_contract.functions["is_challenge_done"].call()).solution
 
     return solution == 1
 
