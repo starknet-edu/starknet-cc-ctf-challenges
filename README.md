@@ -142,6 +142,18 @@ docker build -t  <CHALLANE_NAME> .
 
 The result of the run should be the template flag name
 
+## Another solutions options
+
+The dir `./manual-solutions` has the example for the solution as it should be written by the contestors.
+You can write and run a similar solution as well.
+
+1. Run the `run.sh` script as before
+2. `nc` to the port and select create new instance (as before)
+3. Update the `RPC`, `Private_key` and `contract` variables after runing `nc` and creating a new instance
+4. Write the soluion to the challenge
+5. Run the script bring the state to the desired condtions
+6. Run `nc` again and ask for the flag
+
 ### Questions
 
 - Following the structure of the examples should solve most of the issues.
