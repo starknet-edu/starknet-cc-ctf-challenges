@@ -149,7 +149,7 @@ You can write and run a similar solution as well.
 
 1. Run the `run.sh` script as before
 2. `nc` to the port and select create new instance (as before)
-3. Update the `RPC`, `Private_key` and `contract` variables after runing `nc` and creating a new instance
+3. Update the `node_url`, `private_key`, `contract`, `player_address` variables after runing `nc` and creating a new instance
 4. Write the soluion to the challenge
 5. Run the script bring the state to the desired condtions
 6. Run `nc` again and ask for the flag

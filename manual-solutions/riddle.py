@@ -24,11 +24,12 @@ def str_to_felt(text):
 
 
 async def main():
-    node_url = "http://06192d05-4b82-4403-8abc-b7e548a966f4@127.0.0.1:5050"
+    node_url = "http://3a666138-b77a-4251-9e73-4896f7e05a6c@127.0.0.1:5050"
     contractAddress = (
-        "0x47e6bf1bd86b8ce5dd9f3e69353fe77701a96a7114dc0b47cf8f32ab3330df3"
+        "0x2377325ddc7575c83eb51d2b223b53b9a834726d26c4a72f2f4aaf1a8f881b1"
     )
-    private_key = "0xdf89d8e281b2dea400dd68afaf44e79c"
+    private_key = "0xf23a838c17900bb04f8337c3cbc40ef3"
+    player_address = 1061187669397351790558506865006261457388527257759064434023491866176219505681
 
     gateway_client = GatewayClient(node_url, TESTNET)
 
@@ -38,13 +39,13 @@ async def main():
     player_public_key = key_pair.public_key
     print("Player public key", player_public_key)
 
-    player_address = calculate_contract_address_from_hash(
-        salt=20,
-        class_hash=1803505466663265559571280894381905521939782500874858933595227108099796801620,
-        constructor_calldata=[player_public_key],
-        deployer_address=0,
-    )
-    print("Player address", player_address, hex(player_address))
+    # player_address = calculate_contract_address_from_hash(
+    #     salt=20,
+    #     class_hash=1803505466663265559571280894381905521939782500874858933595227108099796801620,
+    #     constructor_calldata=[player_public_key],
+    #     deployer_address=0,
+    # )
+    # print("Player address", player_address, hex(player_address))
 
     signer = StarkCurveSigner(player_address, key_pair, StarknetChainId.TESTNET)
     account_client = AccountClient(
