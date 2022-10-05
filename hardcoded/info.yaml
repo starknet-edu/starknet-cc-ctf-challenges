@@ -1,0 +1,6 @@
+name: "harcoded"
+author: ["Seb"]
+rpc_port: 8545
+flag: "PCTF{r3ver53_I5_Co01}"
+description: |
+  You want to know the pass to become a H4cker ?
