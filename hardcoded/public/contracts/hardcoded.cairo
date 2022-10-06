@@ -1,14 +1,28 @@
 %lang starknet
 
+from starkware.cairo.common.cairo_builtins import HashBuiltin
+
 @storage_var
-func owner() -> (res: felt) {
+func real_password() -> (res: felt) {
 }
 
-const real_password = 592965625081988036501471237208223793;
+@constructor
+func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(password : felt){
+    real_password.write(password);
+    return ();
+}
 
 @view
-func test_password(password : felt) -> (res : felt){
-    if (real_password == password){
+func get_password {syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr} () -> (password : felt){
+    let (password) = real_password.read();
+    return(password,);
+}
+
+
+@view
+func test_password{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr} (password : felt) -> (res : felt){
+    let (real_password_ : felt) = real_password.read();
+    if (real_password_ == password){
         return (res= 1);
     }
     return (res= 0);
