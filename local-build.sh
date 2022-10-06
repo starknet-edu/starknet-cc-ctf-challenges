@@ -13,6 +13,7 @@ build_challenge() {
 
 declare -a chals=(
     # "cairo-intro"
+    "bitwise-xor"
     "riddle-of-the-sphinx"
     "cairo-auction"
 )
