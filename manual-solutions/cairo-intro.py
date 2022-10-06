@@ -18,11 +18,11 @@ if __name__ == "__main__":
     # Update your info after running ./run.sh cairo-intro 31337 5050 in a terminal (don't shutdown it)
     # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
     # This will show you can all the variable use in this contract, copy paste them here.
-    uuid="426c1886-0e1e-46e8-92c3-2e37f34dc284"
-    rpc_endpoint="http://426c1886-0e1e-46e8-92c3-2e37f34dc284@127.0.0.1:5050"
-    private_key="0x5133351ccb44a8df7ad274e9bb732430"
-    player_address="812225536336116147378969209567067939151675045750270196004146504500868885583"
-    contract=("0x1fbb3e5ca7c04742da4af7947c8cc7d994cec30355679f72637096eafc039a6")
+    uuid="83105a03-9da8-4826-aff6-8a0c6776768e"
+    rpc_endpoint="http://83105a03-9da8-4826-aff6-8a0c6776768e@127.0.0.1:5050"
+    private_key="0x83753b1660199e4ccdd69b4ff698301"
+    player_address="3448323533803714245552402473325308817396493025463700460697268229833976791785"
+    contract=("0x6985812cfe5ff790aa87b31585a948947f87fb6b8a1e666e8e37a5b93281ee9")
 
     # TO CHANGE */
 

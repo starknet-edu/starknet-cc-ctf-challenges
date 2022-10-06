@@ -19,7 +19,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
 
 
 async def checker(client: AccountClient, intro_contract: Contract, player_address: int) -> bool:
-    solution = (await intro_contract.functions["is_challenge_done"].call()).solution
+    solution = (await intro_contract.functions["is_challenge_done"].call()).id
 
     return solution == 1
 
