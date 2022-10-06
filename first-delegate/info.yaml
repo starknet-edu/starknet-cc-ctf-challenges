@@ -1,0 +1,10 @@
+name: "cairo-auction"
+author: ["Seb,0xAurelou"]
+flag: "STKCTF{DE139a73_Au7hOr1Ty_buT_n0T_r35p0nSiBIl17y}"
+rpc_port: 5050
+tags: ["pwn"]
+description: |
+    The goal of this exercise is to reverse a contract which delegates its calls.
+    You see it delegates its calls to another contract using a contract address,
+    to finally reverse the contract to which it delegates its calls in order to find the solution.
+
