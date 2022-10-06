@@ -1,0 +1,8 @@
+name: "bitwise-xor"
+author: ["Seb"]
+flag: "SKCTF{x0r_1s_p0w3rfu1}"
+rpc_port: 5050
+tags: ["pwn"]
+description: |
+  The goal of this exercise is to go deeper into the contract reversing.
+  You need to reverse the contract, then solve a bitwise_xor operation to find the solution.
