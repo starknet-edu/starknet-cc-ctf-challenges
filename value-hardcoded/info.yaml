@@ -1,0 +1,7 @@
+name: "value-hardcoded"
+author: ["Fuzzinglabs, Seb, 0xAurelou, Patrick"]
+rpc_port: 8545
+flag: "STKCTF{HArcoD1NG_va1u3_15_bAd_}"
+tags: ["pwn"]
+description: |
+    Value is hardcoded in the contract
