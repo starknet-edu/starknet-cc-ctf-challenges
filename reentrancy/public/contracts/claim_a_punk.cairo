@@ -2,7 +2,9 @@
 
 // @author Gershon Ballas <gershon@gingerlabs.xyz>
 
-// This contract
+// This contract allows whitelisted users to call `claim()` which will mint a punk NFT for them
+// Each whitelisted user is allowed to mint just one time
+// The contract owner is the only one who can whitelist addresses
 
 %lang starknet
 %builtins pedersen range_check
@@ -37,12 +39,12 @@ func _token_counter() -> (count: Uint256) {
 
 // NFT contract implementation hash
 @storage_var
-func _nft_class_hash() -> (count: felt){
+func _nft_class_hash() -> (hash: felt){
 }
 
 // NFT contract representing punks
 @storage_var
-func _punks_nft_address() -> (count: felt){
+func _punks_nft_address() -> (address: felt){
 }
 
 // TRUE or FALSE whether user with given address is whitelisted (i.e. able to claim a punk)
@@ -129,6 +131,33 @@ func whitelist{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 
     // Add given address to whitelist
     _whitelisted_users.write(address=address, value=TRUE);
+
+    return ();
+}
+
+// Transfer your whitelist spot to a different address
+@external
+func transferWhitelistSpot{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    to: felt
+) -> () {
+    // Assert caller is whitelisted
+    let (caller_address) = get_caller_address();
+    with_attr error_message("Caller is not whitelisted") {
+        let (is_caller_whitelisted: felt) = _whitelisted_users.read(caller_address);
+        assert is_caller_whitelisted = TRUE;
+    }
+
+    // Assert `to` address is not already whitelisted
+    with_attr error_message("`to` address is already whitelisted") {
+        let (is_to_whitelisted: felt) = _whitelisted_users.read(to);
+        assert is_caller_whitelisted = FALSE;
+    }
+
+    // Remove caller address from whitelist
+    _whitelisted_users.write(address=caller_address, value=FALSE);
+
+    // Add `to` address to whitelist
+    _whitelisted_users.write(address=to, value=TRUE);
 
     return ();
 }
