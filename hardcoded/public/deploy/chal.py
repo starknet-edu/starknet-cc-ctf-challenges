@@ -9,7 +9,7 @@ from starkware.python.utils import to_bytes
 OWNER = 0x1234567890123456789012345678901234567890
 
 async def deploy(client: AccountClient, player_address: int) -> int:
-    print("[+] deploying riddle")
+    print("[+] deploying hardcoded")
     riddle_deployment = await Contract.deploy(
         client=client,
         compiled_contract=Path("compiled/hardcoded.cairo").read_text(),
@@ -20,10 +20,10 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     return riddle_deployment.deployed_contract.address
 
 
-async def checker(client: AccountClient, riddle_contract: Contract, player_address: int) -> bool:
-    solution = (await riddle_contract.functions["solution"].call()).solution
+async def checker(client: AccountClient, hardcoded_contract: Contract, player_address: int) -> bool:
+    result = (await hardcoded_contract.functions["is_challenge_done"].call()).res
 
-    return to_bytes(solution).lstrip(b"\x00") == b"man"
+    return result == 1
 
 cairo_sandbox.run_launcher([
     cairo_sandbox.new_launch_instance_action(deploy),

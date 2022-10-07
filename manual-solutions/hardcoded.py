@@ -20,11 +20,12 @@ if __name__ == "__main__":
     # Update your info after running ./run.sh riddle-of-sphinx 31337 5050 in a terminal (don't shutdown it)
     # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
     # This will show you can all the variable use in this contract, copy paste them here.
-    uuid="378542da-4f53-48f5-846a-2a1ac13f0eb9"
-    rpc_endpoint="http://378542da-4f53-48f5-846a-2a1ac13f0eb9@127.0.0.1:5050"
-    private_key="0xa4c3234f8e7f13cdb21fe70802dcaa75"
-    player_address="1241110535188280126858073401387392131399892228675729763341753052341486221210"
-    contract=("0x1c1566ff52a986036b45a67675051aa477ad6dcbe94864e5df07a7d5594086b")
+    uuid="93f306ad-ff34-4b02-8e95-747a970774b2"
+    rpc_endpoint="http://93f306ad-ff34-4b02-8e95-747a970774b2@127.0.0.1:5050"
+    private_key="0x12bc8616b9e8750ad6266a78a77af770"
+    player_address="746060252831011862211542257461394990082971962040515971693863966335615000344"
+    contract=("0x7064595110938355ebff47d0f87fc29b6e056561cd07c9047790c8cb2c2ec5b")
+
 
     # TO CHANGE */
 

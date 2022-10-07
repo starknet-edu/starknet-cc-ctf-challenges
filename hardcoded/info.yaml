@@ -1,5 +1,5 @@
 name: "harcoded"
-author: ["Seb,0xAurelou"]
+author: ["Fuzzinglabs,Seb,0xAurelou,Patrick"]
 rpc_port: 8545
 flag: "PCTF{r3ver53_I5_Co01}"
 description: |
