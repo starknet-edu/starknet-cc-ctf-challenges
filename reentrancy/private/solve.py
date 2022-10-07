@@ -1,5 +1,5 @@
 # Before calling this solve.py script you must compile the exploit contract!
-# starknet-compile --debug_info_with_source ./exploit.cairo > ./compiled/exploit.cairo
+# starknet-compile --debug_info_with_source ./exploit.cairo > ./exploit.compiled.cairo
 # 
 # 
 
@@ -14,7 +14,7 @@ async def solver(client: AccountClient, claim_a_punk_contract: Contract):
     punk_nft_address = (await claim_a_punk_contract.functions["getPunksNftAddress"].call()).address
     exploit_contract_deployment = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/exploit.cairo").read_text(),
+        compiled_contract=Path("exploit.compiled.cairo").read_text(),
         constructor_args=[
             claim_a_punk_contract.address,
             punk_nft_address
