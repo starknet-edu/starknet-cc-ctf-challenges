@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # TO CHANGE /*
 
-    # Update your info after running ./run.sh riddle-of-sphinx 31337 5050 in a terminal (don't shutdown it)
+    # Update your info after running ./run.sh hardcoded 31337 5050 in a terminal (don't shutdown it)
     # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
     # This will show you can all the variable use in this contract, copy paste them here.
     uuid="93f306ad-ff34-4b02-8e95-747a970774b2"
