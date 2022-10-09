@@ -1,0 +1,7 @@
+name: "cairo-bid"
+author: ["kaliberpoziomka"]
+rpc_port: 5050
+# flag: "PCTF{600D_1UCK_H4V3_FUN}"
+# tags: ["sanity check"]
+description: |
+  Sometimes less is more. Outbid that guy!
