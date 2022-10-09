@@ -53,17 +53,6 @@ async def solver(client: AccountClient, proxy_contract: Contract):
         max_fee=int(1e16),
     )
     await result.wait_for_acceptance()
-    # response = await client.execute(
-    #     calls=[
-    #         wrapper_contract.deployed_contract.functions["upgrade"].prepare(
-    #             await client.get_class_hash_at(
-    #                 exploit_deployment.deployed_contract.address
-    #             )
-    #         ),
-    #     ],
-    #     max_fee=int(1e16),
-    # )
-    # await client.wait_for_tx(response.transaction_hash)
 
 
 run_solver(solver)
