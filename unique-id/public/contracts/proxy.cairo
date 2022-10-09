@@ -9,7 +9,7 @@ from starkware.starknet.common.syscalls import (
 )
 
 @storage_var
-func owner() -> (owner: felt) {
+func owners(account: felt) -> (is_owner: felt) {
 }
 
 @storage_var
@@ -25,21 +25,32 @@ func get_implementation{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_ch
 }
 
 @view
-func get_owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
-    curr_owner: felt
-) {
-    let (curr_owner) = owner.read();
-    return (curr_owner=curr_owner);
+func get_is_owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    account: felt
+) -> (is_owner: felt) {
+    let (is_owner) = owners.read(account);
+    return (is_owner=is_owner);
 }
 
 @external
 func set_owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(new_owner: felt) {
-    let (curr_owner) = owner.read();
     let (caller) = get_caller_address();
-    with_attr error_message("Ownable: caller is not the owner") {
-        assert curr_owner = caller;
+    let (is_owner) = owners.read(caller);
+    with_attr error_message("Ownable: caller is not an owner") {
+        assert is_owner = 1;
     }
-    owner.write(new_owner);
+    owners.write(new_owner, 1);
+    return ();
+}
+
+@external
+func remove_owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) {
+    let (caller) = get_caller_address();
+    let (is_owner) = owners.read(caller);
+    with_attr error_message("Ownable: caller is not an owner") {
+        assert is_owner = 1;
+    }
+    owners.write(owner, 0);
     return ();
 }
 
@@ -47,10 +58,10 @@ func set_owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 func upgrade{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     new_implementation: felt
 ) {
-    let (curr_owner) = owner.read();
     let (caller) = get_caller_address();
-    with_attr error_message("Ownable: caller is not the owner") {
-        assert curr_owner = caller;
+    let (is_owner) = owners.read(caller);
+    with_attr error_message("Ownable: caller is not an owner") {
+        assert is_owner = 1;
     }
     implementation.write(new_implementation);
     return ();
@@ -60,11 +71,9 @@ func upgrade{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     class_hash: felt, proxy_owner: felt
 ) {
-    // Ensure that a contract is not deployed with ZERO implementation
     assert_not_zero(class_hash);
     implementation.write(class_hash);
-    // TODO: set owner as caller, which should be 0 before upgrade
-    owner.write(proxy_owner);
+    owners.write(proxy_owner, 1);
 
     return ();
 }

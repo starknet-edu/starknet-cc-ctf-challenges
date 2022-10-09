@@ -12,7 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
-    "storage-collision"
+    "unique-id"
     "riddle-of-the-sphinx"
     "cairo-auction"
 )
