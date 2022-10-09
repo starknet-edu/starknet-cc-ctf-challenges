@@ -13,6 +13,7 @@ build_challenge() {
 
 declare -a chals=(
     "unique-id"
+    "cairo-intro"
     "riddle-of-the-sphinx"
     "cairo-auction"
 )

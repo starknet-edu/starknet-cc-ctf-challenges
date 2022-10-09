@@ -1,43 +1,43 @@
-import asyncio
-from pathlib import Path
-
 from starknet_py.contract import Contract
 from starknet_py.net import AccountClient, KeyPair
 from starknet_py.net.gateway_client import GatewayClient
 from starknet_py.net.models.chains import StarknetChainId
-from starknet_py.net.networks import MAINNET, TESTNET
+from starknet_py.net.networks import TESTNET
 from starknet_py.net.signer.stark_curve_signer import StarkCurveSigner
-from starkware.python.utils import to_bytes
 from starkware.starknet.core.os.contract_address.contract_address import \
     calculate_contract_address_from_hash
-from starkware.starknet.public.abi import starknet_keccak
+from starkware.crypto.signature.signature import private_to_stark_key
 
 testnet = "testnet"
 chain_id = StarknetChainId.TESTNET
 
+if __name__ == "__main__":
+   
+    # TO CHANGE /*
 
-async def main():
-    node_url = "http://bee96bc8-34aa-4af6-8545-380a7cc2c7a4@127.0.0.1:5050"
-    contract_address = (
-        "0x87faf13deeb037e4f228f432baea115e44a839dbb8b0a34d6722a8f977d431"
-    )
-    private_key = "0xd9498a90ec597080bfbc8e9f5530d10b"
+    # Update your info after running ./run.sh riddle-of-sphinx 31337 5050 in a terminal (don't shutdown it)
+    # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
+    # This will show you can all the variable use in this contract, copy paste them here.
+    uuid="7bd2134b-567a-4fd4-88f3-5dd0494f55d4"
+    rpc_endpoint="http://7bd2134b-567a-4fd4-88f3-5dd0494f55d4@127.0.0.1:5050"
+    private_key="0xe44d7d9909d5ed624cb18b65f8dc2a14"
+    player_address="23307312107433609350014491282813071041812899821410253437176121181065082512"
+    contract=("")
 
-    gateway_client = GatewayClient(node_url, TESTNET)
+    # TO CHANGE */
 
-    key_pair = KeyPair.from_private_key(key=int(private_key, 16))
-    print(key_pair)
-
-    player_public_key = key_pair.public_key
-    print("Player public key", player_public_key)
-
-    player_address = calculate_contract_address_from_hash(
+    prvkey=int(private_key, 16)
+    pubkey=private_to_stark_key(prvkey)
+    key_pair=KeyPair(private_key=prvkey, public_key=pubkey)
+    player_address=calculate_contract_address_from_hash(
         salt=20,
         class_hash=1803505466663265559571280894381905521939782500874858933595227108099796801620,
-        constructor_calldata=[player_public_key],
-        deployer_address=0,
+        constructor_calldata=[pubkey],
+        deployer_address=0
     )
-    print("Player address", player_address, hex(player_address))
+
+    gateway_client = GatewayClient(rpc_endpoint, TESTNET)
+    print("Player address", hex(player_address))
 
     signer = StarkCurveSigner(player_address, key_pair, StarknetChainId.TESTNET)
     account_client = AccountClient(
@@ -47,278 +47,37 @@ async def main():
         supported_tx_version=1,
     )
 
-    auction_contract = Contract(
-        address=contract_address, abi=auctionABI, client=account_client
-    )
+    auction_contract = Contract.from_address_sync(contract, account_client)
 
-    token_address = (await auction_contract.functions["token"].call()).token_address
+    token_address = auction_contract.functions["token"].call_sync()
+    token_address = getattr(token_address,"token_address")
     print("Token Address", token_address, hex(token_address))
 
-    token_contract = Contract(
-        address=token_address, abi=erc20ABI, client=account_client
-    )
+    token_contract = Contract.from_address_sync(token_address, account_client)
 
-    my_balance = (
-        await token_contract.functions["balanceOf"].call(player_address)
-    ).balance
+    my_balance = token_contract.functions["balanceOf"].call_sync(player_address)
+
     print("My Balance", my_balance)
 
-    my_balance = (
-        await auction_contract.functions["balanceOf"].call(player_address)
-    ).balance
+
+    my_balance = auction_contract.functions["balanceOf"].call_sync(player_address)
     print("My Auction Balance", my_balance)
 
-    my_balance = (
-        await auction_contract.functions["auctionBalanceOf"].call(1, player_address)
-    ).balance
+    my_balance = auction_contract.functions["auctionBalanceOf"].call_sync(1,player_address)
     print("Acution balance of 1:", my_balance)
 
-    winner = (await auction_contract.functions["current_winner"].call(1)).current_winner
+    winner = auction_contract.functions["current_winner"].call_sync(1)
+    winner = getattr(winner,"current_winner")
     print("Winner", winner, hex(winner))
 
     print("Raising bid")
-    response = await account_client.execute(
-        calls=[
-            auction_contract.functions["raise_bid"].prepare(
-                1, {"high": 0, "low": 2**128 + 1}
-            ),
-        ],
-        max_fee=int(1e16),
-    )
-    await account_client.wait_for_tx(response.transaction_hash)
+    auction_contract.functions["raise_bid"].invoke_sync(1, {
+        "high": 0, "low": 2**128 +1
+    }, max_fee=0)
 
-    winner = (await auction_contract.functions["current_winner"].call(1)).current_winner
+    winner = auction_contract.functions["current_winner"].call_sync(1)
+    winner = getattr(winner,"current_winner")
     print("Winner", winner, hex(winner))
 
     if winner == player_address:
         print("SOLVED!")
-
-
-auctionABI = [
-    {
-        "members": [
-            {"name": "low", "offset": 0, "type": "felt"},
-            {"name": "high", "offset": 1, "type": "felt"},
-        ],
-        "name": "Uint256",
-        "size": 2,
-        "type": "struct",
-    },
-    {
-        "inputs": [
-            {"name": "token_address", "type": "felt"},
-            {"name": "owner", "type": "felt"},
-        ],
-        "name": "constructor",
-        "outputs": [],
-        "type": "constructor",
-    },
-    {
-        "inputs": [{"name": "account", "type": "felt"}],
-        "name": "balanceOf",
-        "outputs": [{"name": "balance", "type": "Uint256"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "auction_id", "type": "felt"},
-            {"name": "account", "type": "felt"},
-        ],
-        "name": "auctionBalanceOf",
-        "outputs": [{"name": "balance", "type": "Uint256"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [],
-        "name": "token",
-        "outputs": [{"name": "token_address", "type": "felt"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [{"name": "auction_id", "type": "felt"}],
-        "name": "current_winner",
-        "outputs": [{"name": "current_winner", "type": "felt"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [{"name": "auction_id", "type": "felt"}],
-        "name": "end_time",
-        "outputs": [{"name": "end_time", "type": "felt"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {"inputs": [], "name": "start_auction", "outputs": [], "type": "function"},
-    {
-        "inputs": [{"name": "amount", "type": "Uint256"}],
-        "name": "increase_credit",
-        "outputs": [],
-        "type": "function",
-    },
-    {
-        "inputs": [{"name": "amount", "type": "Uint256"}],
-        "name": "withdraw_credit",
-        "outputs": [],
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "auction_id", "type": "felt"},
-            {"name": "amount", "type": "Uint256"},
-        ],
-        "name": "raise_bid",
-        "outputs": [],
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "auction_id", "type": "felt"},
-            {"name": "amount", "type": "Uint256"},
-        ],
-        "name": "unlock_funds",
-        "outputs": [],
-        "type": "function",
-    },
-]
-
-erc20ABI = [
-    {
-        "members": [
-            {"name": "low", "offset": 0, "type": "felt"},
-            {"name": "high", "offset": 1, "type": "felt"},
-        ],
-        "name": "Uint256",
-        "size": 2,
-        "type": "struct",
-    },
-    {
-        "data": [
-            {"name": "from_", "type": "felt"},
-            {"name": "to", "type": "felt"},
-            {"name": "value", "type": "Uint256"},
-        ],
-        "keys": [],
-        "name": "Transfer",
-        "type": "event",
-    },
-    {
-        "data": [
-            {"name": "owner", "type": "felt"},
-            {"name": "spender", "type": "felt"},
-            {"name": "value", "type": "Uint256"},
-        ],
-        "keys": [],
-        "name": "Approval",
-        "type": "event",
-    },
-    {
-        "inputs": [
-            {"name": "name", "type": "felt"},
-            {"name": "symbol", "type": "felt"},
-            {"name": "decimals", "type": "felt"},
-            {"name": "initial_supply", "type": "Uint256"},
-            {"name": "recipient", "type": "felt"},
-        ],
-        "name": "constructor",
-        "outputs": [],
-        "type": "constructor",
-    },
-    {
-        "inputs": [],
-        "name": "name",
-        "outputs": [{"name": "name", "type": "felt"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [],
-        "name": "symbol",
-        "outputs": [{"name": "symbol", "type": "felt"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [],
-        "name": "totalSupply",
-        "outputs": [{"name": "totalSupply", "type": "Uint256"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [],
-        "name": "decimals",
-        "outputs": [{"name": "decimals", "type": "felt"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [{"name": "account", "type": "felt"}],
-        "name": "balanceOf",
-        "outputs": [{"name": "balance", "type": "Uint256"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "owner", "type": "felt"},
-            {"name": "spender", "type": "felt"},
-        ],
-        "name": "allowance",
-        "outputs": [{"name": "remaining", "type": "Uint256"}],
-        "stateMutability": "view",
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "recipient", "type": "felt"},
-            {"name": "amount", "type": "Uint256"},
-        ],
-        "name": "transfer",
-        "outputs": [{"name": "success", "type": "felt"}],
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "sender", "type": "felt"},
-            {"name": "recipient", "type": "felt"},
-            {"name": "amount", "type": "Uint256"},
-        ],
-        "name": "transferFrom",
-        "outputs": [{"name": "success", "type": "felt"}],
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "spender", "type": "felt"},
-            {"name": "amount", "type": "Uint256"},
-        ],
-        "name": "approve",
-        "outputs": [{"name": "success", "type": "felt"}],
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "spender", "type": "felt"},
-            {"name": "added_value", "type": "Uint256"},
-        ],
-        "name": "increaseAllowance",
-        "outputs": [{"name": "success", "type": "felt"}],
-        "type": "function",
-    },
-    {
-        "inputs": [
-            {"name": "spender", "type": "felt"},
-            {"name": "subtracted_value", "type": "Uint256"},
-        ],
-        "name": "decreaseAllowance",
-        "outputs": [{"name": "success", "type": "felt"}],
-        "type": "function",
-    },
-]
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
