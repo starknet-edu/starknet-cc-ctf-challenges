@@ -1,10 +1,13 @@
+%lang starknet
+
+from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.math import split_felt
 from starkware.cairo.common.uint256 import Uint256, uint256_check
 from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.bool import TRUE, FALSE
 
 // safe conversion from uint256 to felt
-func uint256_to_felt{range_check_ptr}(
+func uint256_to_felt{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     value: Uint256
 ) -> (res: felt) {
     uint256_check(value);
@@ -18,7 +21,7 @@ func uint256_to_felt{range_check_ptr}(
     return (res,);
 }
 // safe conversion from felt to uint256
-func felt_to_uint256{range_check_ptr}(
+func felt_to_uint256{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     value: felt
 ) -> (res: Uint256) {
     alloc_locals;
@@ -30,10 +33,10 @@ func felt_to_uint256{range_check_ptr}(
     let res = Uint256(low, high);
     uint256_check(res);
 
-    return res;
+    return (res,);
 }
 
-func assert_251_bit{range_check_ptr}(
+func assert_251_bit{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     val: felt
 ) {
     let is_proper_felt = is_le_felt(val, 2**251);
