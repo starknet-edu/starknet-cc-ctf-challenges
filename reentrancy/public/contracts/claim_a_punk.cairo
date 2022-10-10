@@ -156,7 +156,13 @@ func transferWhitelistSpot{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range
     // Remove caller address from whitelist
     _whitelisted_users.write(address=caller_address, value=FALSE);
 
+    // Remove caller from _claimers mapping
+    _claimers.write(address=caller_address, value=FALSE);
+
     // Add `to` address to whitelist
+    _whitelisted_users.write(address=to, value=TRUE);
+
+    // Add `to` address to _claimers mapping
     _whitelisted_users.write(address=to, value=TRUE);
 
     return ();
