@@ -1,7 +1,7 @@
 name: "cairo-bid"
 author: ["kaliberpoziomka"]
 rpc_port: 5050
-# flag: "PCTF{600D_1UCK_H4V3_FUN}"
-# tags: ["sanity check"]
+flag: "PCTF{r3m3m83r_2137_w3_w1ll_n343r_f0r637}"
+tags: ["tag"]
 description: |
   Sometimes less is more. Outbid that guy!
