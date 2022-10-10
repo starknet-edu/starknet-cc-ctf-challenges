@@ -10,7 +10,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] declaring erc721mintable")
     # Create declaration transaction
     declare_transaction = await client.sign_declare_transaction(
-        compilation_source=Path("compiled/erc721mintable.cairo").read_text(), max_fee=int(1e16)
+        compiled_contract=Path("compiled/erc721mintable.cairo").read_text(), max_fee=int(1e16)
     )
 
     # Send it
@@ -26,9 +26,12 @@ async def deploy(client: AccountClient, player_address: int) -> int:
         compiled_contract=Path("compiled/claim_a_punk.cairo").read_text(),
         constructor_args=[
             declared_contract_class_hash,
+            client.address
         ],
     )
     await contract_deployment.wait_for_acceptance()
+
+    claim_a_punk = contract_deployment.deployed_contract
 
     print("[+] creating users")
     user_1 = await AccountClient.create_account(client.client)
@@ -47,7 +50,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     )
     await client.wait_for_tx(response.transaction_hash)
 
-    return contract_deployment.deployed_contract.address
+    return claim_a_punk.address
 
 
 async def checker(client: AccountClient, contract: Contract, player_address: int) -> bool:

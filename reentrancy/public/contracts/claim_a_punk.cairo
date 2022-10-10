@@ -59,7 +59,8 @@ func _claimers(address: felt) -> (claimed: felt){
 
 @constructor
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-    nft_class_hash: felt
+    nft_class_hash: felt,
+    owner: felt
 ) {
     // Set NFT implementation class hash field
     assert_not_zero(nft_class_hash);
@@ -68,6 +69,9 @@ func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
     // Create punk NFT collection
     let (punks_nft_address: felt) = _deploy_punks_nft_contract_instance();
     _punks_nft_address.write(punks_nft_address);
+
+    // Set `owner` field
+    _owner_address.write(owner);
 
     return ();
 }

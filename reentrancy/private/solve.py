@@ -8,6 +8,8 @@ from pathlib import Path
 from starknet_py.net import AccountClient
 from starknet_py.contract import Contract
 
+from private.paradigmctf.cairo_challenge import run_solver
+
 async def solver(client: AccountClient, claim_a_punk_contract: Contract):
     # Deploy exploit contract
     # print("[+] Deploy exploit contract")
