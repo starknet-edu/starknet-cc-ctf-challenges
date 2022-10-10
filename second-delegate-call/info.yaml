@@ -1,0 +1,7 @@
+name: "second-delegate-call"
+author: ["Fuzzinglabs,Seb,0xAurelou,Patrick"]
+rpc_port: 8545
+flag: "STKCTF{C145S_Ha5H_iS_NoT_a_c0N7rAct}"
+tags: [""]
+description: |
+  What walks on four legs in the morning, two legs in the afternoon, three legs in the evening, and no legs at night?
