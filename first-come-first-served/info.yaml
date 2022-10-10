@@ -1,0 +1,7 @@
+name: "first-come-first-served"
+author: ["amanusk"]
+flag: "SNCTF{d1v1d1n9_8y_p21m35}"
+rpc_port: 5050
+tags: ["pwn"]
+description: |
+  Distributing the loot evenly to first comers
