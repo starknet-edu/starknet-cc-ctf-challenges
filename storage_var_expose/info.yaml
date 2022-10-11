@@ -1,0 +1,7 @@
+name: "storage_var_expose"
+author: ["Fuzzinglabs, 0xAurelou"]
+rpc_port: 8545
+flag: "STKCTF{S3n5Ib1e_inF0rMAtIon_HerE}"
+tags: ["tres tres secret"]
+description: |
+          A secret that shouldn't be exposed 😱
