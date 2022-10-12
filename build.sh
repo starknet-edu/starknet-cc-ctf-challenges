@@ -12,8 +12,6 @@ build_challenge() {
 }
 
 declare -a chals=(
-    #"riddle-of-the-sphinx"
-    #"cairo-auction"
     "value-hardcoded"
 )
 
