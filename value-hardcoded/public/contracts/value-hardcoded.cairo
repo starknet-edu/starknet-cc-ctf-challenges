@@ -15,9 +15,10 @@ func is_challenge_done{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_c
 }
 
 @external
-func test_password{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(password : felt) -> (res : felt){
+func test_password{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(password : felt) -> (){
     if (real_password == password){
-        return (res= 1);
+        challenge_is_done.write(1);
+        return ();
     }
-    return (res= 0);
+    return ();
 }

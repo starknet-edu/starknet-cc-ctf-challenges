@@ -45,8 +45,6 @@ function solve_one() {
 }
 
 declare -a chals=(
-    # "cairo-auction 0.0.0"
-    #"riddle-of-the-sphinx 0.0.0"
     "value-hardcoded 0.0.0"
 )
 
