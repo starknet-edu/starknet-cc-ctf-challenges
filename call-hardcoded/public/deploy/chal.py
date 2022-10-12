@@ -9,10 +9,10 @@ from starkware.python.utils import to_bytes
 OWNER = 0x1234567890123456789012345678901234567890
 
 async def deploy(client: AccountClient, player_address: int) -> int:
-    print("[+] deploying hardcoded")
+    print("[+] deploying call-hardcoded")
     riddle_deployment = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/hardcoded.cairo").read_text(),
+        compiled_contract=Path("compiled/call-hardcoded.cairo").read_text(),
         constructor_args=[592965625081988036501471237208223793],
     )
     await riddle_deployment.wait_for_acceptance()

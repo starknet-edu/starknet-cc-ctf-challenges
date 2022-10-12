@@ -20,11 +20,11 @@ if __name__ == "__main__":
     # Update your info after running ./run.sh hardcoded 31337 5050 in a terminal (don't shutdown it)
     # And in an another terminal do nc localhost 31137, this will show you an interface, press 1, 1.
     # This will show you can all the variable use in this contract, copy paste them here.
-    uuid="93f306ad-ff34-4b02-8e95-747a970774b2"
-    rpc_endpoint="http://93f306ad-ff34-4b02-8e95-747a970774b2@127.0.0.1:5050"
-    private_key="0x12bc8616b9e8750ad6266a78a77af770"
-    player_address="746060252831011862211542257461394990082971962040515971693863966335615000344"
-    contract=("0x7064595110938355ebff47d0f87fc29b6e056561cd07c9047790c8cb2c2ec5b")
+    uuid=""
+    rpc_endpoint=""
+    private_key=""
+    player_address=""
+    contract=("")
 
 
     # TO CHANGE */
