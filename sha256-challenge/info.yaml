@@ -1,0 +1,7 @@
+name: "sha256"
+author: ["Fuzzinglabs, Seb, 0xAurelou, Patrick"]
+rpc_port: 8545
+flag: "STKCTF{4e03f47af910c6e5383a02332538502d5780bcc604ab38888b3ef6f10262e3fd}"
+tags: ["sha256"]
+description: |
+    You don't know me but I will find you

@@ -12,9 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
-    # "cairo-intro"
-    "riddle-of-the-sphinx"
-    "cairo-auction"
+    "sha256-challenge"
 )
 
 for chal in "${chals[@]}"; do
