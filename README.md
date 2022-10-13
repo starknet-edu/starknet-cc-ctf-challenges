@@ -132,7 +132,7 @@ Next are instructions to create a local image and test it
 docker build -t  <CHALLENGE_NAME> .
 ```
 
-2. Update the `local-run.sh` file with the name of the challenge dir. (add it to the list of existing challenges)
+2. Update the `local-build.sh` file with the name of the challenge dir. (add it to the list of existing challenges)
 
 3. Run the challenge with `./local-run.sh <CHALLENGE_NAME> 31337 5050`
 
@@ -141,6 +141,8 @@ docker build -t  <CHALLENGE_NAME> .
 5. Run the solver file `./solver.sh`
 
 The result of the run should be the template flag name
+
+**NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE_NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again _without_ running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
 
 ## Another solutions options
 
