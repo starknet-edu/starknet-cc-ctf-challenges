@@ -1,0 +1,7 @@
+name: "block-number"
+author: ["Fuzzinglabs, Seb, 0xAurelou, Patrick"]
+rpc_port: 8545
+flag: "STKCTF{D1d_y0u_9E7_da74_1n_re4l_time}"
+tags: ["block number"]
+description: |
+    Wait you can get block_number 
