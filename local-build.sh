@@ -13,8 +13,8 @@ build_challenge() {
 
 declare -a chals=(
     # "cairo-intro"
-    "riddle-of-the-sphinx"
-    "cairo-auction"
+    # "riddle-of-the-sphinx"
+    # "cairo-auction"
     "cairo-bid"
 )
 
