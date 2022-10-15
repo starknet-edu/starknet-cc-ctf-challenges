@@ -12,6 +12,10 @@ from openzeppelin.security.safemath.library import SafeUint256
 from openzeppelin.token.erc721.library import ERC721
 from openzeppelin.utils.constants.library import IERC721_ENUMERABLE_ID
 
+// NOTE: This import does NOT exist in original OZ version
+from starkware.cairo.common.alloc import alloc
+// END NOTE
+
 //
 // Storage
 //
@@ -116,7 +120,15 @@ namespace ERC721Enumerable {
     ) {
         _add_token_to_all_tokens_enumeration(token_id);
         _add_token_to_owner_enumeration(to, token_id);
-        ERC721._mint(to, token_id);
+
+        // NOTE: The original OZ code calls ERC721._mint() here
+        // NOTE: For the purposes of demonstrating reentrancy in the reentrancy challenge,
+        // NOTE: ERC721._safe_mint() is used here instead (which in turn calls _check_onERC721Received())
+        let (array: felt*) = alloc();
+        assert array[0] = 1337;
+        ERC721._safe_mint(to, token_id, 0, array);
+        // END NOTE
+
         return ();
     }
 

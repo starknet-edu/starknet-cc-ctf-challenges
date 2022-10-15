@@ -10,7 +10,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] declaring erc721mintable")
     # Create declaration transaction
     declare_transaction = await client.sign_declare_transaction(
-        compiled_contract=Path("compiled/erc721mintable.cairo").read_text(), max_fee=int(1e16)
+        compiled_contract=Path("compiled/erc721enumerable_mintable.cairo").read_text(), max_fee=int(1e16)
     )
 
     # Send it
@@ -18,14 +18,14 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     await client.wait_for_tx(resp.transaction_hash)
 
     # Get declared contract class hash from response
-    declared_contract_class_hash = resp.class_hash
+    nft_enumerable_mintable_class_hash = resp.class_hash
 
     print("[+] deploying claim_a_punk contract")
     contract_deployment = await Contract.deploy(
         client=client,
         compiled_contract=Path("compiled/claim_a_punk.cairo").read_text(),
         constructor_args=[
-            declared_contract_class_hash,
+            nft_enumerable_mintable_class_hash,
             client.address
         ],
     )
@@ -54,7 +54,9 @@ async def deploy(client: AccountClient, player_address: int) -> int:
 
 
 async def checker(client: AccountClient, contract: Contract, player_address: int) -> bool:
-    player_nft_balance = (await contract.functions["balanceOf"].call(player_address)).balance
+    punks_nft_contract_address = (await contract.functions["getPunksNftAddress"].call()).address
+    punks_nft = await Contract.from_address(punks_nft_contract_address, client)
+    player_nft_balance = (await punks_nft.functions["balanceOf"].call(player_address)).balance
 
     return player_nft_balance > 1
 

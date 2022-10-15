@@ -112,6 +112,17 @@ func getPunksNftAddress{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_ch
 }
 
 @view
+func isWhitelisted{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    address: felt
+) -> (
+    result: felt
+) {
+    let (result) = _whitelisted_users.read(address);
+
+    return (result=result);
+}
+
+@view
 func owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 ) -> (
     address: felt
@@ -154,7 +165,7 @@ func transferWhitelistSpot{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range
     // Assert `to` address is not already whitelisted
     with_attr error_message("`to` address is already whitelisted") {
         let (is_to_whitelisted: felt) = _whitelisted_users.read(to);
-        assert is_caller_whitelisted = FALSE;
+        assert is_to_whitelisted = FALSE;
     }
 
     // Remove caller address from whitelist
@@ -185,26 +196,26 @@ func claim{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     }
 
     // Assert caller hasn't already claimed a punk
-    with_attr error_message("Caller is not whitelisted to mint a punk") {
-        let (is_caller_whitelisted: felt) = _claimers.read(caller_address);
-        assert caller_address = TRUE;
+    with_attr error_message("Caller already claimed a punk") {
+        let (caller_already_claimed: felt) = _claimers.read(caller_address);
+        assert caller_already_claimed = FALSE;
     }
+    
+    // Increment token ID counter
+    let (token_id) = _token_counter.read();
+    let (new_token_counter, overflow) = uint256_add(token_id, Uint256(1, 0));
+    with_attr error_message("Token ID overflow uint256, this should never happen") {
+        assert overflow = FALSE;
+    }
+    _token_counter.write(new_token_counter);
 
     // Mint a punk for caller
-    let (token_id) = _token_counter.read();
     let (punks_contract_address) = _punks_nft_address.read();
     IERC721Mintable.mint(
         contract_address = punks_contract_address,
         to = to,
         tokenId = token_id
     );
-
-    // Increment token ID counter
-    let (new_token_counter, overflow) = uint256_add(token_id, Uint256(1, 0));
-    with_attr error_message("Token ID overflow uint256, this should never happen") {
-        assert overflow = FALSE;
-    }
-    _token_counter.write(new_token_counter);
 
     // Mark caller as having claimed a punk
     _claimers.write(address=caller_address, value=TRUE);
