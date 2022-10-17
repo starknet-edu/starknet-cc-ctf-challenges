@@ -9,7 +9,7 @@ from starkware.cairo.common.math_cmp import is_le
 from starkware.starknet.common.syscalls import get_caller_address
 
 
-// Define a storage variable.
+// Storage var
 @storage_var
 func balance() -> (res: felt) {
 }
@@ -22,6 +22,8 @@ func team_has_resolved() -> (bool : felt) {
 func owner () -> (owner : felt){
 }
 
+// Constructor
+
 @constructor
 func constructor {syscall_ptr : felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(_owner : felt) {
     owner.write(_owner);
@@ -31,11 +33,10 @@ func constructor {syscall_ptr : felt*, pedersen_ptr: HashBuiltin*, range_check_p
 // View
 
 @view
-func is_challenge_done{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr} () -> (id : felt) {
+func is_challenge_done{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr} () -> (res : felt) {
     let (test) = team_has_resolved.read();
     return (test,);
 }
-
 
 @view
 func get_balance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (res: felt) {
@@ -62,7 +63,7 @@ func increase_balance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_chec
 }
 
 @external
-func challenge_passed{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
+func solve_challenge{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
    let (caller : felt) = get_caller_address(); 
    let (owner_ : felt) = owner.read();
     with_attr error_msg("Only the owner can call this function"){
