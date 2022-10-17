@@ -40,14 +40,14 @@ func compute_sha256{range_check_ptr, bitwise_ptr : BitwiseBuiltin*}(
 }
 
 
-@view
+@external
 func test_password{syscall_ptr : felt*, pedersen_ptr : HashBuiltin* ,range_check_ptr, bitwise_ptr : BitwiseBuiltin*}(input_len : felt, input : felt*, n_bytes : felt) -> (res : felt){
     alloc_locals;
 
     let (a, b) = compute_sha256(input_len , input, n_bytes);
 
-    if (a == 0xa7c18f1e470e97275fe14be700dd74dc){
-        if (b == 0xf94969eccb92901d1474e75b0361f161){
+    if (a == 0x045bebe048e43fde0a822fb6e6ef8ae8){
+        if (b == 0x6e2797cbdea22c25f912b435cf8927bd){
             challenge_is_done.write(1);
             return (res=1);
         }
