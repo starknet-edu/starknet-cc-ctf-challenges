@@ -11,7 +11,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     riddle_deployment = await Contract.deploy(
         client=client,
         compiled_contract=Path("compiled/dna.cairo").read_text(),
-        constructor_args=[35742549198872617291353508656645411919],
+        constructor_args=[46024169],
     )
     await riddle_deployment.wait_for_acceptance()
 
