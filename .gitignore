@@ -14,9 +14,7 @@ venv*
 *.pyc
 *.zip
 envs.sh
-<<<<<<< Updated upstream
-=======
+
 .venv
 
 my-solutions/*
->>>>>>> Stashed changes
