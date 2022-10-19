@@ -15,6 +15,7 @@ declare -a chals=(
     "riddle-of-the-sphinx"
     "unique-id"
     "cairo-auction"
+    "cairo-intro"
 )
 
 for chal in "${chals[@]}"; do

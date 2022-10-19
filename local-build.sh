@@ -13,9 +13,8 @@ build_challenge() {
 
 declare -a chals=(
     "unique-id"
-    # "cairo-intro"
+    "cairo-intro"
     "riddle-of-the-sphinx"
-    "cairo-auction"
     "cairo-auction"
     "first-come-first-served"
 )
