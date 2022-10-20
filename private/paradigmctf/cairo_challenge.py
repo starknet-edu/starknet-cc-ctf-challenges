@@ -37,6 +37,9 @@ async def run_solver_async(
     p >> "private key:"
     private = p.recvline().strip().decode("utf8")
 
+    p >> "player address:"
+    player_address = p.recvline().strip().decode("utf8")
+
     p >> "contract:"
     setup = p.recvline().strip().decode("utf8")
 
@@ -48,12 +51,7 @@ async def run_solver_async(
     # https://github.com/Shard-Labs/starknet-devnet/blob/a5c53a52dcf453603814deedb5091ab8c231c3bd/starknet_devnet/account.py#L35
     player_client = AccountClient(
         client=client,
-        address=calculate_contract_address_from_hash(
-            salt=20,
-            class_hash=1803505466663265559571280894381905521939782500874858933595227108099796801620,
-            constructor_calldata=[player_public_key],
-            deployer_address=0,
-        ),
+        address=int(player_address, 16),
         key_pair=KeyPair(private_key=player_private_key, public_key=player_public_key),
         chain=StarknetChainId.TESTNET,
         supported_tx_version=1,
@@ -71,7 +69,7 @@ async def run_solver_async(
 
     output = p.readall().decode("utf8").strip().split("\n")
 
-    if not output[-1].startswith("PCTF"):
+    if not output[-1].startswith("SNCTF"):
         print("failed to get flag")
         raise Exception("\n".join(output))
 

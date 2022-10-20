@@ -13,6 +13,7 @@ build_challenge() {
 
 declare -a chals=(
     "call-hardcoded"
+    "cairo-intro"
 )
 
 for chal in "${chals[@]}"; do
