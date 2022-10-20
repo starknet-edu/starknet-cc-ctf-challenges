@@ -10,7 +10,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] deploying second-delegate")
     second_deployment = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/second.cairo").read_text(),
+        compiled_contract=Path("compiled/second.json").read_text(),
         constructor_args=[],
     )
     class_hash = await client.get_class_hash_at(hex(second_deployment.deployed_contract.address))
@@ -20,7 +20,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] deploying proxy-second-delegate")
     proxy_second_deployment = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/proxy-second.cairo").read_text(),
+        compiled_contract=Path("compiled/proxy-second.json").read_text(),
         constructor_args=[class_hash],
     )
     await proxy_second_deployment.wait_for_acceptance()
