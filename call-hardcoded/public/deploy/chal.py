@@ -12,8 +12,8 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] deploying call-hardcoded")
     riddle_deployment = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/call-hardcoded.cairo").read_text(),
-        constructor_args=[592965625081988036501471237208223793],
+        compiled_contract=Path("compiled/call-hardcoded.json").read_text(),
+        constructor_args=[3561470905133257691224279274856475401570806533926019036691622443711812985345],
     )
     await riddle_deployment.wait_for_acceptance()
 

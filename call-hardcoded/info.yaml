@@ -1,6 +1,6 @@
 name: "call-harcoded"
 author: ["Fuzzinglabs,Seb,0xAurelou,Patrick"]
 rpc_port: 8545
-flag: "STKCTF{r3ver53_I5_Co01}"
+flag: "SNCTF{r3ver53_I5_Co01}"
 description: |
   You want to know the password in order to become a H4cker ?

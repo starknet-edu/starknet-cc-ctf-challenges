@@ -7,6 +7,6 @@ COPY contracts /tmp/contracts
 RUN true \
     && mkdir /home/ctf/compiled \
     && cd /tmp/contracts \
-    && starknet-compile --debug_info_with_source call-hardcoded.cairo > /home/ctf/compiled/call-hardcoded.cairo \
+    && cat call-hardcoded.json > /home/ctf/compiled/call-hardcoded.json \
     && rm -rf /tmp/contracts \
     && true
