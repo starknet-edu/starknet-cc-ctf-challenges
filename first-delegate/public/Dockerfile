@@ -7,7 +7,7 @@ COPY contracts /tmp/contracts
 RUN true \
     && mkdir /home/ctf/compiled \
     && cd /tmp/contracts \
-    && starknet-compile --debug_info_with_source proxy-first.cairo > /home/ctf/compiled/proxy-first.cairo \
-    && starknet-compile --debug_info_with_source first-delegate.cairo > /home/ctf/compiled/first-delegate.cairo \
+    && cat proxy-first.json > /home/ctf/compiled/proxy-first.json\
+    && cat first-delegate.json > /home/ctf/compiled/first-delegate.json\
     && rm -rf /tmp/contracts \
     && true

@@ -1,6 +1,6 @@
 name: "cairo-auction"
 author: ["Fuzzinglabs,Seb,0xAurelou,Patrick"]
-flag: "STKCTF{DE139a73_Au7hOr1Ty_buT_n0T_r35p0nSiBIl17y}"
+flag: "SNCTF{DE139a73_Au7hOr1Ty_buT_n0T_r35p0nSiBIl17y}"
 rpc_port: 5050
 tags: ["pwn"]
 description: |

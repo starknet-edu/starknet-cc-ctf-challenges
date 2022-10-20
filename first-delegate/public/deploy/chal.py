@@ -11,7 +11,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] deploying proxy-first")
     proxy_deployment = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/proxy-first.cairo").read_text(),
+        compiled_contract=Path("compiled/proxy-first.json").read_text(),
         constructor_args=[],
     )
     await proxy_deployment.wait_for_acceptance()
@@ -19,7 +19,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] deploying first-delegate")
     first_deployement= await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/first-delegate.cairo").read_text(),
+        compiled_contract=Path("compiled/first-delegate.json").read_text(),
         constructor_args=[proxy_deployment.deployed_contract.address],
     )
     await first_deployement.wait_for_acceptance()
