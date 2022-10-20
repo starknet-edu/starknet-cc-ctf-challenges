@@ -45,7 +45,10 @@ function solve_one() {
 }
 
 declare -a chals=(
+
     "sha256-challenge 0.0.0"
+
+    "cairo-intro 0.0.0"
 )
 
 for chal in "${chals[@]}"; do
