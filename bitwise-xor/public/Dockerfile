@@ -7,6 +7,6 @@ COPY contracts /tmp/contracts
 RUN true \
     && mkdir /home/ctf/compiled \
     && cd /tmp/contracts \
-    && starknet-compile --debug_info_with_source bitwise-xor.cairo > /home/ctf/compiled/bitwise-xor.cairo \
+    && cat bitwise-xor.json > /home/ctf/compiled/bitwise-xor.json \
     && rm -rf /tmp/contracts \
     && true

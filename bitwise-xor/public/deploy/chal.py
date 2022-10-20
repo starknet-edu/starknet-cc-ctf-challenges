@@ -7,16 +7,13 @@ from starknet_py.contract import Contract
 from starkware.python.utils import to_bytes
 
 async def deploy(client: AccountClient, player_address: int) -> int:
-    print("[+] deploying riddle")
-    riddle_deployment = await Contract.deploy(
+    print("[+] deploying bitwise")
+    bitwise_deployement = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/bitwise-xor.cairo").read_text(),
+        compiled_contract=Path("compiled/bitwise-xor.json").read_text(),
         constructor_args=[],
     )
-    await riddle_deployment.wait_for_acceptance()
-
-    return riddle_deployment.deployed_contract.address
-
+    await bitwise_deployement.wait_for_acceptance()
 
 async def checker(client: AccountClient, bitwise_contract: Contract, player_address: int) -> bool:
     solution = (await bitwise_contract.functions["is_challenge_done"].call()).res
