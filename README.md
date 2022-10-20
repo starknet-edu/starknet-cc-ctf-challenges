@@ -121,8 +121,10 @@ The private dir should have a solution to the challenge, that we can easily run 
 The best way to make sure the challenge and the solution works is to build a local docker image, and to test it with the existing infra. Here are the instructios on how to do this:
 
 1. Copy the same stracture of the example challneges: `public`, `private`, `chal.py`, `Dockerfile`, etc. The infra expects the filenames in this format. The names `chal.py`, `solve.py` should be kept and only their content should be updated.
-2. Update the `chal.py` script for the correct contract names in your `public/contracts`
-3. Update the `solve.py` to call and execute the correct sequence of calls. No need to setup new accounts etc.
+2. Update `Dockerfile` with the corrent contract names and the order in which they should be compiled (see exampless)
+3. Update the `chal.py` script for the correct contract names in your `public/contracts`
+4. Update the `solve.py` to call and execute the correct sequence of calls. No need to setup new accounts etc.
+
 
 Next are instructions to create a local image and test it
 
@@ -132,7 +134,7 @@ Next are instructions to create a local image and test it
 docker build -t  <CHALLENGE_NAME> .
 ```
 
-2. Update the `local-run.sh` file with the name of the challenge dir. (add it to the list of existing challenges)
+2. Update the `local-build.sh` file with the name of the challenge dir. (add it to the list of existing challenges)
 
 3. Run the challenge with `./local-run.sh <CHALLENGE_NAME> 31337 5050`
 
@@ -141,6 +143,8 @@ docker build -t  <CHALLENGE_NAME> .
 5. Run the solver file `./solver.sh`
 
 The result of the run should be the template flag name
+
+**NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE_NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again *without* running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
 
 ## Another solutions options
 

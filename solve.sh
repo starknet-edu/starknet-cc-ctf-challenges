@@ -46,6 +46,7 @@ function solve_one() {
 
 declare -a chals=(
     "dna 0.0.0"
+    "cairo-intro 0.0.0"
 )
 
 for chal in "${chals[@]}"; do

@@ -13,6 +13,7 @@ build_challenge() {
 
 declare -a chals=(
     "dna"
+    "cairo-intro"
 )
 
 for chal in "${chals[@]}"; do
