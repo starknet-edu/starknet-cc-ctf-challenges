@@ -1,6 +1,7 @@
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
+from starkware.cairo.common.hash import hash2
 
 @storage_var
 func test_pass(number : felt) -> (res : felt){
@@ -108,7 +109,8 @@ func test_password{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check
     test_value([values+16], 9091, 101, 333667, 9901);
     let result17 = [ap-1] + result16;
 
-    let (read_storage) = test_pass.read(result17);
+    let (test_password_) = hash2{hash_ptr=pedersen_ptr}(result17, 317);
+    let (read_storage) = test_pass.read(test_password_);
     if (read_storage == 1){
         challenge_is_done.write(1);
         return();
