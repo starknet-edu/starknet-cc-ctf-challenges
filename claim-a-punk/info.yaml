@@ -1,6 +1,6 @@
-name: "reentrancy"
+name: "claim-a-punk"
 author: ["ggballas"]
-flag: "PCTF{ch3ck5_eff3c7s_1n73r4c710n5}"
+flag: "SNCTF{ch3ck5_eff3c7s_1n73r4c710n5}"
 rpc_port: 5050
 tags: ["pwn"]
 description: |

@@ -12,11 +12,7 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.uint256 import Uint256, uint256_add
 from starkware.cairo.common.math import assert_not_zero
-from starkware.starknet.common.syscalls import (
-    get_caller_address,
-    get_contract_address,
-    deploy,
-)
+from starkware.starknet.common.syscalls import get_caller_address, get_contract_address, deploy
 
 const TRUE = 1;
 const FALSE = 0;
@@ -29,7 +25,7 @@ namespace IERC721Mintable {
 
 // Contract owner
 @storage_var
-func _owner_address() -> (owner_address: felt){
+func _owner_address() -> (owner_address: felt) {
 }
 
 // Token counter (initialized to 0, incremented for every punk minted)
@@ -39,28 +35,27 @@ func _token_counter() -> (count: Uint256) {
 
 // NFT contract implementation hash
 @storage_var
-func _nft_class_hash() -> (hash: felt){
+func _nft_class_hash() -> (hash: felt) {
 }
 
 // NFT contract representing punks
 @storage_var
-func _punks_nft_address() -> (address: felt){
+func _punks_nft_address() -> (address: felt) {
 }
 
 // TRUE or FALSE whether user with given address is whitelisted (i.e. able to claim a punk)
 @storage_var
-func _whitelisted_users(address: felt) -> (whitelisted: felt){
+func _whitelisted_users(address: felt) -> (whitelisted: felt) {
 }
 
 // TRUE or FALSE whether user with given address already claimed a punk
 @storage_var
-func _claimers(address: felt) -> (claimed: felt){
+func _claimers(address: felt) -> (claimed: felt) {
 }
 
 @constructor
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-    nft_class_hash: felt,
-    owner: felt
+    nft_class_hash: felt, owner: felt
 ) {
     // Set NFT implementation class hash field
     assert_not_zero(nft_class_hash);
@@ -76,10 +71,9 @@ func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
     return ();
 }
 
-func _deploy_punks_nft_contract_instance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-) -> (
-    contract_address: felt
-) {
+func _deploy_punks_nft_contract_instance{
+    syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
+}() -> (contract_address: felt) {
     let (this_contract_address) = get_contract_address();
     let (nft_class_hash) = _nft_class_hash.read();
     let (contract_address) = deploy(
@@ -87,15 +81,14 @@ func _deploy_punks_nft_contract_instance{syscall_ptr: felt*, pedersen_ptr: HashB
         contract_address_salt=0,
         constructor_calldata_size=3,
         constructor_calldata=cast(new ('Punks', 'PUNK', this_contract_address,), felt*),
-        deploy_from_zero=FALSE
+        deploy_from_zero=FALSE,
     );
 
     return (contract_address=contract_address);
 }
 
 @view
-func getNftClassHash{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-) -> (
+func getNftClassHash{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
     hash: felt
 ) {
     let (hash) = _nft_class_hash.read();
@@ -103,8 +96,7 @@ func getNftClassHash{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check
 }
 
 @view
-func getPunksNftAddress{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-) -> (
+func getPunksNftAddress{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
     address: felt
 ) {
     let (address) = _punks_nft_address.read();
@@ -114,19 +106,14 @@ func getPunksNftAddress{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_ch
 @view
 func isWhitelisted{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     address: felt
-) -> (
-    result: felt
-) {
+) -> (result: felt) {
     let (result) = _whitelisted_users.read(address);
 
     return (result=result);
 }
 
 @view
-func owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-) -> (
-    address: felt
-) {
+func owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (address: felt) {
     let (address) = _owner_address.read();
     return (address=address);
 }
@@ -134,9 +121,8 @@ func owner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 // Add user address to whitelist (allowing user to mint a punk
 // Only this contract's owner may call this func
 @external
-func whitelist{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-    address: felt
-) -> () {
+func whitelist{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(address: felt) -> (
+    ) {
     // Assert caller is owner
     let (caller_address) = get_caller_address();
     let (owner_address) = _owner_address.read();
@@ -185,9 +171,7 @@ func transferWhitelistSpot{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range
 
 // If calling user is whitelisted and still hasn't claimed their punk, mint a punk for them
 @external
-func claim{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
-    to: felt
-) -> () {
+func claim{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(to: felt) -> () {
     // Assert caller is whitelisted
     let (caller_address) = get_caller_address();
     with_attr error_message("Caller is not whitelisted to mint a punk") {
@@ -200,7 +184,7 @@ func claim{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
         let (caller_already_claimed: felt) = _claimers.read(caller_address);
         assert caller_already_claimed = FALSE;
     }
-    
+
     // Increment token ID counter
     let (token_id) = _token_counter.read();
     let (new_token_counter, overflow) = uint256_add(token_id, Uint256(1, 0));
@@ -211,11 +195,7 @@ func claim{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
 
     // Mint a punk for caller
     let (punks_contract_address) = _punks_nft_address.read();
-    IERC721Mintable.mint(
-        contract_address = punks_contract_address,
-        to = to,
-        tokenId = token_id
-    );
+    IERC721Mintable.mint(contract_address=punks_contract_address, to=to, tokenId=token_id);
 
     // Mark caller as having claimed a punk
     _claimers.write(address=caller_address, value=TRUE);
