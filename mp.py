@@ -99,7 +99,6 @@ class Scanf:
     """
     (%d int) (%f float) (%o octal) (%x hex) (%s string / bytes)
     %5d %4s, etc all limit the match length to N instead of breaking on whitespace (length is ignored on %f float)
-
     For example: scanf("%d hello %4s %s", "4 hello blah anything") would return (4, "blah", "anything")
     """
     ESCAPES = re.compile(r'(%%|%(?P<len>\d*)(?P<fmtc>[dfoxs])|(?P<text>.+?))')
