@@ -18,8 +18,8 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     return signature_deployment.deployed_contract.address
 
 
-async def checker(client: AccountClient, riddle_contract: Contract, player_address: int) -> bool:
-    solved = (await riddle_contract.functions["solved"].call()).solved
+async def checker(client: AccountClient, signature_contract: Contract, player_address: int) -> bool:
+    solved = (await signature_contract.functions["solved"].call()).solved
 
     return solved == 1
 

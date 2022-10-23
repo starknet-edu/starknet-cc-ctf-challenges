@@ -6,7 +6,7 @@
 @contract_interface
 namespace IAccount {
     // Starknet devnet 0.3.1 uses open zeppelin's camelcased account impl
-    func getPublicKey() -> (
+    func get_public_key() -> (
         res: felt
     ) {
     }

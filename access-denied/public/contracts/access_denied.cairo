@@ -14,7 +14,7 @@ func _solved() -> (res: felt) {
 func solve{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr, ec_op_ptr: EcOpBuiltin*}() {
     alloc_locals;
     let (tx_info) = get_tx_info();
-    let (public_key) = IAccount.getPublicKey(contract_address=tx_info.account_contract_address);
+    let (public_key) = IAccount.get_public_key(contract_address=tx_info.account_contract_address);
     let (is_valid : felt) = check_ecdsa_signature(
         message=tx_info.transaction_hash,
         public_key=public_key,
