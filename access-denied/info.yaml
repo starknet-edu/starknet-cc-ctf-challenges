@@ -1,7 +1,7 @@
 name: "access-denied"
-author: ["samczsun"]
+author: ["jorikschellekens"]
 rpc_port: 8545
-flag: "PCTF{HE6KE-7HOCC-3UCS1-AYA03-LCB6J}"
+flag: "SNCTF{HE6KE-7HOCC-3UCS1-AYA03-LCB6J}"
 tags: ["signatures"]
 description: |
   For some reason your account doesn't work anymore...
