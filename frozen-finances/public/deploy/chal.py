@@ -24,7 +24,7 @@ async def checker(
 ) -> bool:
     balance = await frozen_contract.functions["readBalance"].call()
 
-    return balance == 0
+    return balance.balance == 0
 
 
 cairo_sandbox.run_launcher(

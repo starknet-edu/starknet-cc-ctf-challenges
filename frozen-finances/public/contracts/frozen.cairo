@@ -20,7 +20,7 @@ func deposits_() -> (felt,) {
 
 @constructor
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
-    // Alice got an airdrop bribe
+    // Your friend lost such a small amount, is it really worth it?
     balance_.write(Uint256(50, 0));
     return ();
 }
