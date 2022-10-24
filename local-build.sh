@@ -13,6 +13,7 @@ build_challenge() {
 
 declare -a chals=(
     "cairo-intro"
+    "first-come-first-served"
 )
 
 for chal in "${chals[@]}"; do
