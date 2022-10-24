@@ -33,19 +33,6 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     )
     await proxy_deployment.wait_for_acceptance()
 
-    # print("[+] Upgrading implementation")
-    # response = await client.execute(
-    #     calls=[
-    #         proxy_deployment.deployed_contract.functions["upgrade"].prepare(
-    #             await client.get_class_hash_at(
-    #                 implementation_v1_deployment.deployed_contract.address
-    #             )
-    #         ),
-    #     ],
-    #     max_fee=int(1e16),
-    # )
-    # await client.wait_for_tx(response.transaction_hash)
-
     return proxy_deployment.deployed_contract.address
 
 
@@ -76,7 +63,7 @@ async def checker(
         await wrapper_contract.functions["getIdNumber"].call(player_address)
     ).id_number
 
-    return player_id == 31337
+    return player_id == 1337
 
 
 cairo_sandbox.run_launcher(

@@ -18,7 +18,37 @@ func owners(account: felt) -> (res: Identity) {
 func id_counter() -> (res: felt) {
 }
 
-const start_id = 1000;
+const start_id = 10000;
+
+@view
+func getIdName{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) -> (
+    id_first_name: felt, id_last_name: felt
+) {
+    let (id) = owners.read(owner);
+
+    let is_id_valid = is_le_felt(start_id, id.id_number);
+
+    with_attr error_message("Id does not exist") {
+        assert is_id_valid = 1;
+    }
+
+    return (id_first_name=id.first_name, id_last_name=id.last_name);
+}
+
+@view
+func getIdNumber{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) -> (
+    id_number: felt
+) {
+    let (id) = owners.read(owner);
+
+    let is_id_valid = is_le_felt(start_id, id.id_number);
+
+    with_attr error_message("Id does not exist") {
+        assert is_id_valid = 1;
+    }
+
+    return (id_number=id.id_number);
+}
 
 @external
 func mintNewId{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
@@ -37,36 +67,4 @@ func mintNewId{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     owners.write(caller, new_id);
 
     return ();
-}
-
-@external
-func getIdName{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) -> (
-    id_first_name: felt, id_last_name: felt
-) {
-    let (caller) = get_caller_address();
-    let (id) = owners.read(caller);
-
-    let is_id_valid = is_le_felt(start_id, id.id_number);
-
-    with_attr error_message("Id does not exist") {
-        assert is_id_valid = 1;
-    }
-
-    return (id_first_name=id.first_name, id_last_name=id.last_name);
-}
-
-@external
-func getIdNumber{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) -> (
-    id_number: felt
-) {
-    let (caller) = get_caller_address();
-    let (id) = owners.read(caller);
-
-    let is_id_valid = is_le_felt(start_id, id.id_number);
-
-    with_attr error_message("Id does not exist") {
-        assert is_id_valid = 1;
-    }
-
-    return (id_number=id.id_number);
 }
