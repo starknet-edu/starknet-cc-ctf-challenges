@@ -18,6 +18,7 @@ declare -a chals=(
     "cairo-bid"
     "dna"
     "cairo-intro"
+    "first-come-first-served"
     "claim-a-punk"
 )
 
