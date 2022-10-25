@@ -7,10 +7,10 @@ from starknet_py.contract import Contract
 from starkware.python.utils import to_bytes
 
 async def deploy(client: AccountClient, player_address: int) -> int:
-    print("[+] deploying bitwise-xor")
+    print("[+] deploying magic-encoding")
     bitwise_deployement = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/bitwise-xor.json").read_text(),
+        compiled_contract=Path("compiled/magic-encoding.json").read_text(),
         constructor_args=[],
     )
     await bitwise_deployement.wait_for_acceptance()

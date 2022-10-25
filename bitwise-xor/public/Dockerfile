@@ -7,6 +7,6 @@ COPY contracts /tmp/contracts
 RUN true \
     && mkdir /home/ctf/compiled \
     && cd /tmp/contracts \
-    && cat bitwise-xor.json > /home/ctf/compiled/bitwise-xor.json \
+    && cat magic-encoding.json > /home/ctf/compiled/magic-encoding.json \
     && rm -rf /tmp/contracts \
     && true
