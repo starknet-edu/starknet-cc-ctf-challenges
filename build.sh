@@ -12,6 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
+    "bitwise-xor"
     "account-obstruction"
     "unique-id"
     "cairo-bid"

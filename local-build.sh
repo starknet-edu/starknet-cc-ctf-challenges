@@ -12,6 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
+    "magic-encoding"
     "account-obstruction"
     "unique-id"
     "cairo-bid"
