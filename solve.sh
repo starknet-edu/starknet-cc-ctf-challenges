@@ -45,8 +45,7 @@ function solve_one() {
 }
 
 declare -a chals=(
-    "call-hardcoded 0.0.0"
-    "cairo-intro 0.0.0"
+    "find-value 0.0.0"
 )
 
 for chal in "${chals[@]}"; do
