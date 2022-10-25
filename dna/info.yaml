@@ -1,0 +1,7 @@
+name: "dna"
+author: ["Fuzzinglabs, Seb, 0xAurelou, Patrick"]
+rpc_port: 8545
+flag: "SNCTF{my_dna_yOur_DNa}"
+tags: ["dna"]
+description: |
+          Like Human I have some dna

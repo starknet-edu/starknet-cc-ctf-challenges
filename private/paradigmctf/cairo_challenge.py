@@ -69,7 +69,7 @@ async def run_solver_async(
 
     output = p.readall().decode("utf8").strip().split("\n")
 
-    if not output[-1].startswith("PCTF"):
+    if not output[-1].startswith("SNCTF"):
         print("failed to get flag")
         raise Exception("\n".join(output))
 

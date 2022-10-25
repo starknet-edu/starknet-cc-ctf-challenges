@@ -1,0 +1,7 @@
+name: "unique-id"
+author: ["amanusk"]
+flag: "SNCTF{n0+_4ll_pr0x13s_4r3_+h3_s4m3}"
+rpc_port: 5050
+tags: ["pwn"]
+description: |
+  Lets mint a unique id to each user
