@@ -1,4 +1,4 @@
-from paradigmctf.cairo_challenge import *
+from private.paradigmctf.cairo_challenge import *
 
 from starknet_py.net import AccountClient
 from starknet_py.contract import Contract
