@@ -20,7 +20,7 @@ func id_counter() -> (res: felt) {
 
 const start_id = 10000;
 
-@view
+@external
 func getIdName{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) -> (
     id_first_name: felt, id_last_name: felt
 ) {
@@ -35,7 +35,7 @@ func getIdName{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     return (id_first_name=id.first_name, id_last_name=id.last_name);
 }
 
-@view
+@external
 func getIdNumber{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(owner: felt) -> (
     id_number: felt
 ) {

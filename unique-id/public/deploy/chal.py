@@ -63,7 +63,7 @@ async def checker(
         await wrapper_contract.functions["getIdNumber"].call(player_address)
     ).id_number
 
-    return player_id == 1337
+    return player_id == 313337
 
 
 cairo_sandbox.run_launcher(
