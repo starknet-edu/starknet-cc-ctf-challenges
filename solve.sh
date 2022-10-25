@@ -45,6 +45,7 @@ function solve_one() {
 }
 
 declare -a chals=(
+    # "cairo-bid 0.0.0"
     # "dna 0.0.0"
     # "cairo-intro 0.0.0"
     # "claim-a-punk 0.0.0"
