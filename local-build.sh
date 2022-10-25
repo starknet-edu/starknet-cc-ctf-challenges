@@ -13,6 +13,7 @@ build_challenge() {
 
 declare -a chals=(
     "cairo-intro"
+    "claim-a-punk"
 )
 
 for chal in "${chals[@]}"; do

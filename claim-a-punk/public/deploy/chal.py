@@ -36,14 +36,12 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     print("[+] creating users")
     user_1 = await AccountClient.create_account(client.client)
     user_2 = await AccountClient.create_account(client.client)
-    # user_3 = await AccountClient.create_account(client.client)
 
     print("[+] whitelisting those users as well as the player's address")
     response = await client.execute(
         calls=[
             contract_deployment.deployed_contract.functions["whitelist"].prepare(user_1.address),
             contract_deployment.deployed_contract.functions["whitelist"].prepare(user_2.address),
-            # contract_deployment.deployed_contract.functions["whitelist"].prepare(user_3.address),
             contract_deployment.deployed_contract.functions["whitelist"].prepare(player_address),
         ],
         max_fee=int(1e16)
