@@ -33,12 +33,12 @@ async def deploy(client: AccountClient, player_address: int) -> int:
 async def checker(
     client: AccountClient, fifs_contract: Contract, player_address: int
 ) -> bool:
-    total_supply = (await fifs_contract.functions["get_total_supply"].call()).supply
+    max_supply = (await fifs_contract.functions["get_max_supply"].call()).supply
     user_balance = (
         await fifs_contract.functions["get_balance"].call(player_address)
     ).balance
 
-    return int(user_balance) > int(total_supply)
+    return int(user_balance) > int(max_supply)
 
 
 cairo_sandbox.run_launcher(

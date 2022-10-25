@@ -9,7 +9,7 @@ func shares() -> (res: felt) {
 }
 
 @storage_var
-func total_supply() -> (res: felt) {
+func max_supply() -> (res: felt) {
 }
 
 @storage_var
@@ -27,7 +27,7 @@ func balances(claimer: felt) -> (balance: felt) {
 @constructor
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
     shares.write(178757362047346148211425280000000);
-    total_supply.write(178757362047346148211425280000000);
+    max_supply.write(178757362047346148211425280000000);
     last_claimer.write(1);
     return ();
 }
@@ -64,9 +64,9 @@ func get_balance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
 }
 
 @view
-func get_total_supply{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
+func get_max_supply{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
     supply: felt
 ) {
-    let (supply) = total_supply.read();
+    let (supply) = max_supply.read();
     return (supply=supply);
 }
