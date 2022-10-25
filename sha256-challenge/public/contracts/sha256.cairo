@@ -46,8 +46,8 @@ func test_password{syscall_ptr : felt*, pedersen_ptr : HashBuiltin* ,range_check
 
     let (a, b) = compute_sha256(input_len , input, n_bytes);
 
-    if (a == 0x045bebe048e43fde0a822fb6e6ef8ae8){
-        if (b == 0x6e2797cbdea22c25f912b435cf8927bd){
+    if (a == 0xa9a4d5b87c8cc9c15d449cc197abf691 ){
+        if (b == 0x2449a4c325715668d09aac77369a3af9){
             challenge_is_done.write(1);
             return (res=1);
         }
