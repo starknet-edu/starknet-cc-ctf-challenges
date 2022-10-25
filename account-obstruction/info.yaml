@@ -1,0 +1,7 @@
+name: "account-obstruction"
+author: ["BitBaseBit"]
+flag: "PCTF{83773r_w47ch_the_ch41n_1D}"
+rpc_port: 5050
+tags: ["override"]
+description: |
+  Take control the admin account

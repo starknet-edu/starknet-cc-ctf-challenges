@@ -12,6 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
+    "account-obstruction"
     "unique-id"
     "cairo-bid"
     "dna"
