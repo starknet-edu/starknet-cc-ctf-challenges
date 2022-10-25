@@ -14,3 +14,5 @@ venv*
 *.pyc
 *.zip
 envs.sh
+
+my-solutions/*

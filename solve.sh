@@ -45,7 +45,7 @@ function solve_one() {
 }
 
 declare -a chals=(
-    "bitwise-xor 0.0.0"
+    "magic-encoding 0.0.0"
 )
 
 for chal in "${chals[@]}"; do

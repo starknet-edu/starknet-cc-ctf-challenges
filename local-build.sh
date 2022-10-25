@@ -12,7 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
-    "bitwise-xor"
+    "magic-encoding"
 )
 
 for chal in "${chals[@]}"; do
