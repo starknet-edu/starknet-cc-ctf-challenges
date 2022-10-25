@@ -45,7 +45,14 @@ function solve_one() {
 }
 
 declare -a chals=(
-    "magic-encoding 0.0.0"
+    # "magic-encoding 0.0.0"
+    # "access-denied 0.0.0"
+    # "account-obstruction 0.0.0"
+    # "unique-id 0.0.0"
+    # "cairo-bid 0.0.0"
+    # "dna 0.0.0"
+    # "cairo-intro 0.0.0"
+    # "claim-a-punk 0.0.0"
 )
 
 for chal in "${chals[@]}"; do
