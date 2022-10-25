@@ -12,6 +12,7 @@ build_challenge() {
 }
 
 declare -a chals=(
+    "unique-id"
     "cairo-bid"
     "dna"
     "cairo-intro"
