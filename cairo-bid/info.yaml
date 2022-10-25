@@ -1,0 +1,7 @@
+name: "cairo-bid"
+author: ["kaliberpoziomka"]
+rpc_port: 5050
+flag: "SNCTF{2137}"
+tags: ["bid"]
+description: |
+  Sometimes less is more. Outbid that guy!
