@@ -1,0 +1,7 @@
+name: "access-denied"
+author: ["jorikschellekens"]
+rpc_port: 8545
+flag: "SNCTF{HE6KE-7HOCC-3UCS1-AYA03-LCB6J}"
+tags: ["signatures"]
+description: |
+  For some reason your account doesn't work anymore...

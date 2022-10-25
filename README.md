@@ -4,7 +4,7 @@ _NOTICE_ This is currently a scratchpad for challenges for the StarkNet.CC CTF
 
 Please add you challenge idea in a new directory via a PR.
 
-Challanges here are taken from the paradigm CTF, but can be a usefull example of what should be the deliverables for the challenges:
+Challenges here are taken from the paradigm CTF, but can be a useful example of what should be the deliverables for the challenges:
 
 - Contracts in Cairo
 - Deployment script using starknet.py
@@ -118,13 +118,11 @@ The private dir should have a solution to the challenge, that we can easily run 
 
 ## Checking challenge packaging with docker
 
-The best way to make sure the challenge and the solution works is to build a local docker image, and to test it with the existing infra. Here are the instructios on how to do this:
+The best way to make sure the challenge and the solution works is to build a local docker image, and to test it with the existing infra. Here are the instructions on how to do this:
 
-1. Copy the same stracture of the example challneges: `public`, `private`, `chal.py`, `Dockerfile`, etc. The infra expects the filenames in this format. The names `chal.py`, `solve.py` should be kept and only their content should be updated.
-2. Update `Dockerfile` with the corrent contract names and the order in which they should be compiled (see exampless)
-3. Update the `chal.py` script for the correct contract names in your `public/contracts`
-4. Update the `solve.py` to call and execute the correct sequence of calls. No need to setup new accounts etc.
-
+1. Copy the same structure of the example challenges: `public`, `private`, `chal.py`, `Dockerfile`, etc. The infra expects the filenames in this format. The names `chal.py`, `solve.py` should be kept and only their content should be updated.
+2. Update the `chal.py` script for the correct contract names in your `public/contracts`
+3. Update the `solve.py` to call and execute the correct sequence of calls. No need to setup new accounts etc.
 
 Next are instructions to create a local image and test it
 
@@ -144,18 +142,18 @@ docker build -t  <CHALLENGE_NAME> .
 
 The result of the run should be the template flag name
 
-**NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE_NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again *without* running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
+**NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE_NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again _without_ running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
 
 ## Another solutions options
 
-The dir `./manual-solutions` has the example for the solution as it should be written by the contestors.
+The dir `./manual-solutions` has the example for the solution as it should be written by the contester.
 You can write and run a similar solution as well.
 
 1. Run the `run.sh` script as before
 2. `nc` to the port and select create new instance (as before)
-3. Update the `node_url`, `private_key`, `contract`, `player_address` variables after runing `nc` and creating a new instance
+3. Update the `node_url`, `private_key`, `contract`, `player_address` variables after running `nc` and creating a new instance
 4. Write the solution to the challenge
-5. Run the script bring the state to the desired condtions
+5. Run the script bring the state to the desired conditions
 6. Run `nc` again and ask for the flag
 
 ### Questions
