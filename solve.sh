@@ -45,8 +45,9 @@ function solve_one() {
 }
 
 declare -a chals=(
-    #"cairo-intro 0.0.0"
-    "claim-a-punk 0.0.0"
+    # "dna 0.0.0"
+    # "cairo-intro 0.0.0"
+    # "claim-a-punk 0.0.0"
 )
 
 for chal in "${chals[@]}"; do
