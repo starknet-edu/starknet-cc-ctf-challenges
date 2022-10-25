@@ -45,6 +45,7 @@ function solve_one() {
 }
 
 declare -a chals=(
+    # "access-denied 0.0.0"
     # "account-obstruction 0.0.0"
     # "unique-id 0.0.0"
     # "cairo-bid 0.0.0"
