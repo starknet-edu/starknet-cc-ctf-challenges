@@ -1,0 +1,10 @@
+  ${CHALLENGE_NAME}:
+    image: "$IMAGE/${CHALLENGE_NAME}"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "${CHALLENGE_HTTP_PORT}"
+      PORT: "${CHALLENGE_PORT}"
+      FLAG: "${CHALLENGE_FLAG}"
+    ports:
+      - "${CHALLENGE_PORT}:${CHALLENGE_PORT}"
+      - "${CHALLENGE_HTTP_PORT}:${CHALLENGE_HTTP_PORT}"
