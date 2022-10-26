@@ -13,7 +13,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     riddle_deployment = await Contract.deploy(
         client=client,
         compiled_contract=Path("compiled/find-value.json").read_text(),
-        constructor_args=[3561470905133257691224279274856475401570806533926019036691622443711812985345],
+        constructor_args=[12],
     )
     await riddle_deployment.wait_for_acceptance()
 

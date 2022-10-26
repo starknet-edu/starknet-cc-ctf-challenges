@@ -12,7 +12,8 @@ func challenge_is_done() -> (res: felt) {
 
 @constructor
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(password : felt){
-    real_password.write(password);
+    let new_password : felt = password * 12;
+    real_password.write(new_password);
     return ();
 }
 
