@@ -6,9 +6,9 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 func password() -> (res: felt) {
 }
 
-@external
-func set_password{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(pass : felt) {
-    password.write(pass);
+@constructor
+func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(pass : felt) {
+    password.write(pass + 15);
     return();
 }
 

@@ -8,7 +8,7 @@ from starkware.starknet.core.os.contract_address.contract_address import calcula
 
 
 async def solver(client: AccountClient, bitwise_contract: Contract):
-    result = await bitwise_contract.functions["test_password"].invoke(314159265359, max_fee=int(1e16))
+    result = await bitwise_contract.functions["test_password"].invoke(695, max_fee=int(1e16))
     await result.wait_for_acceptance()
 
 run_solver(solver)

@@ -12,7 +12,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     proxy_deployment = await Contract.deploy(
         client=client,
         compiled_contract=Path("compiled/proxy-first.json").read_text(),
-        constructor_args=[],
+        constructor_args=[680],
     )
     await proxy_deployment.wait_for_acceptance()
 
