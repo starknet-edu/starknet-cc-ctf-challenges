@@ -22,7 +22,7 @@
         "CONSTRUCTOR": [],
         "EXTERNAL": [
             {
-                "offset": "0x19",
+                "offset": "0x1d",
                 "selector": "0x1ffba8fa5b818d215054eaf5ecda4e11353cff22ff07df715eddb319ef29b2b"
             }
         ],
@@ -37,19 +37,23 @@
         "data": [
             "0x40780017fff7fff",
             "0x1",
+            "0x480680017fff8000",
+            "0x1275",
+            "0x482480017fff8000",
+            "0x800000000000010fffffffffffffffffffffffffffffffffffffffffffffff8",
             "0x482680017ffd8000",
             "0x800000000000010fffffffffffffffffffffffffffffffffffffffffffffa16",
             "0x20680017fff7fff",
             "0x6",
-            "0x400680017fff7ffe",
+            "0x400680017fff7ffc",
             "0x1",
             "0x10780017fff7fff",
             "0x4",
-            "0x400680017fff7ffe",
+            "0x400680017fff7ffc",
             "0x0",
             "0x480a7ffb7fff8000",
             "0x480a7ffc7fff8000",
-            "0x48127ffc7fff8000",
+            "0x48127ffa7fff8000",
             "0x208b7fff7fff7ffe",
             "0x40780017fff7fff",
             "0x1",
@@ -67,7 +71,7 @@
             "0x480280017ffb8000",
             "0x480280007ffd8000",
             "0x1104800180018000",
-            "0x800000000000010ffffffffffffffffffffffffffffffffffffffffffffffe2",
+            "0x800000000000010ffffffffffffffffffffffffffffffffffffffffffffffde",
             "0x48127ffe7fff8000",
             "0x1104800180018000",
             "0x800000000000010ffffffffffffffffffffffffffffffffffffffffffffffef",
@@ -79,18 +83,18 @@
         ],
         "debug_info": {
             "file_contents": {
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/alloc.cairo": "// Allocates a new memory segment.\nfunc alloc() -> (ptr: felt*) {\n    %{ memory[ap] = segments.add() %}\n    ap += 1;\n    return (ptr=cast([ap - 1], felt*));\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/bool.cairo": "// Represents boolean values in Cairo.\nconst FALSE = 0;\nconst TRUE = 1;\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/cairo_builtins.cairo": "from starkware.cairo.common.ec_point import EcPoint\nfrom starkware.cairo.common.keccak_state import KeccakBuiltinState\n\n// Specifies the hash builtin memory structure.\nstruct HashBuiltin {\n    x: felt,\n    y: felt,\n    result: felt,\n}\n\n// Specifies the signature builtin memory structure.\nstruct SignatureBuiltin {\n    pub_key: felt,\n    message: felt,\n}\n\n// Specifies the bitwise builtin memory structure.\nstruct BitwiseBuiltin {\n    x: felt,\n    y: felt,\n    x_and_y: felt,\n    x_xor_y: felt,\n    x_or_y: felt,\n}\n\n// Specifies the EC operation builtin memory structure.\nstruct EcOpBuiltin {\n    p: EcPoint,\n    q: EcPoint,\n    m: felt,\n    r: EcPoint,\n}\n\n// Specifies the Keccak builtin memory structure.\nstruct KeccakBuiltin {\n    input: KeccakBuiltinState,\n    output: KeccakBuiltinState,\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/dict_access.cairo": "// Represents an access (read, write or modify) to the dictionary. The dictionary is represented as\n// a chronological list of such accesses. The \"current\" value of a key is the new_value of the last\n// access with that key.\n// In a valid dictionary, the prev_value of each access is equal to the new_value of the previous\n// access to the same key.\nstruct DictAccess {\n    key: felt,\n    prev_value: felt,\n    new_value: felt,\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/ec_point.cairo": "// Represents a point on an elliptic curve.\nstruct EcPoint {\n    x: felt,\n    y: felt,\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/hash.cairo": "from starkware.cairo.common.cairo_builtins import HashBuiltin\n\n// Computes the hash of two given field elements.\n// The hash function is defined by the hash_ptr used.\n// For example, pass the pedersen builtin pointer to compute Pedersen hash.\n//\n// Arguments:\n//   hash_ptr - the hash builtin pointer.\n//   x, y - the two field elements to be hashed, in this order.\n//\n// Returns:\n//   result - the field element result of the hash.\nfunc hash2{hash_ptr: HashBuiltin*}(x, y) -> (result: felt) {\n    hash_ptr.x = x;\n    hash_ptr.y = y;\n    let result = hash_ptr.result;\n    let hash_ptr = hash_ptr + HashBuiltin.SIZE;\n    return (result=result);\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/keccak_state.cairo": "// Represents 1600 bits of a Keccak state (8 felts each containing 200 bits).\nstruct KeccakBuiltinState {\n    s0: felt,\n    s1: felt,\n    s2: felt,\n    s3: felt,\n    s4: felt,\n    s5: felt,\n    s6: felt,\n    s7: felt,\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/math.cairo": "from starkware.cairo.common.bool import FALSE, TRUE\n\n// Inline functions with no locals.\n\n// Verifies that value != 0. The proof will fail otherwise.\nfunc assert_not_zero(value) {\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.value)\n        assert ids.value % PRIME != 0, f'assert_not_zero failed: {ids.value} = 0.'\n    %}\n    if (value == 0) {\n        // If value == 0, add an unsatisfiable requirement.\n        value = 1;\n    }\n\n    return ();\n}\n\n// Verifies that a != b. The proof will fail otherwise.\nfunc assert_not_equal(a, b) {\n    %{\n        from starkware.cairo.lang.vm.relocatable import RelocatableValue\n        both_ints = isinstance(ids.a, int) and isinstance(ids.b, int)\n        both_relocatable = (\n            isinstance(ids.a, RelocatableValue) and isinstance(ids.b, RelocatableValue) and\n            ids.a.segment_index == ids.b.segment_index)\n        assert both_ints or both_relocatable, \\\n            f'assert_not_equal failed: non-comparable values: {ids.a}, {ids.b}.'\n        assert (ids.a - ids.b) % PRIME != 0, f'assert_not_equal failed: {ids.a} = {ids.b}.'\n    %}\n    if (a == b) {\n        // If a == b, add an unsatisfiable requirement.\n        a = a + 1;\n    }\n\n    return ();\n}\n\n// Verifies that a >= 0 (or more precisely 0 <= a < RANGE_CHECK_BOUND).\nfunc assert_nn{range_check_ptr}(a) {\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.a)\n        assert 0 <= ids.a % PRIME < range_check_builtin.bound, f'a = {ids.a} is out of range.'\n    %}\n    a = [range_check_ptr];\n    let range_check_ptr = range_check_ptr + 1;\n    return ();\n}\n\n// Verifies that a <= b (or more precisely 0 <= b - a < RANGE_CHECK_BOUND).\nfunc assert_le{range_check_ptr}(a, b) {\n    assert_nn(b - a);\n    return ();\n}\n\n// Verifies that a <= b - 1 (or more precisely 0 <= b - 1 - a < RANGE_CHECK_BOUND).\nfunc assert_lt{range_check_ptr}(a, b) {\n    assert_le(a, b - 1);\n    return ();\n}\n\n// Verifies that 0 <= a <= b.\n//\n// Prover assumption: b < RANGE_CHECK_BOUND.\n//\n// This function is still sound without the prover assumptions. In that case, it is guaranteed\n// that a < RANGE_CHECK_BOUND and b < 2 * RANGE_CHECK_BOUND.\nfunc assert_nn_le{range_check_ptr}(a, b) {\n    assert_nn(a);\n    assert_le(a, b);\n    return ();\n}\n\n// Asserts that value is in the range [lower, upper).\n// Or more precisely:\n// (0 <= value - lower < RANGE_CHECK_BOUND) and (0 <= upper - 1 - value < RANGE_CHECK_BOUND).\n//\n// Prover assumption: 0 <= upper - lower <= RANGE_CHECK_BOUND.\nfunc assert_in_range{range_check_ptr}(value, lower, upper) {\n    assert_le(lower, value);\n    assert_le(value, upper - 1);\n    return ();\n}\n\n// Asserts that 'value' is in the range [0, 2**250).\n@known_ap_change\nfunc assert_250_bit{range_check_ptr}(value) {\n    const UPPER_BOUND = 2 ** 250;\n    const SHIFT = 2 ** 128;\n    const HIGH_BOUND = UPPER_BOUND / SHIFT;\n\n    let low = [range_check_ptr];\n    let high = [range_check_ptr + 1];\n\n    %{\n        from starkware.cairo.common.math_utils import as_int\n\n        # Correctness check.\n        value = as_int(ids.value, PRIME) % PRIME\n        assert value < ids.UPPER_BOUND, f'{value} is outside of the range [0, 2**250).'\n\n        # Calculation for the assertion.\n        ids.high, ids.low = divmod(ids.value, ids.SHIFT)\n    %}\n\n    assert [range_check_ptr + 2] = HIGH_BOUND - 1 - high;\n\n    // The assert below guarantees that\n    //   value = high * SHIFT + low <= (HIGH_BOUND - 1) * SHIFT + 2**128 - 1 =\n    //   HIGH_BOUND * SHIFT - SHIFT + SHIFT - 1 = 2**250 - 1.\n    assert value = high * SHIFT + low;\n\n    let range_check_ptr = range_check_ptr + 3;\n    return ();\n}\n\n// Splits the unsigned integer lift of a field element into the higher 128 bit and lower 128 bit.\n// The unsigned integer lift is the unique integer in the range [0, PRIME) that represents the field\n// element.\n// For example, if value=17 * 2^128 + 8, then high=17 and low=8.\n@known_ap_change\nfunc split_felt{range_check_ptr}(value) -> (high: felt, low: felt) {\n    // Note: the following code works because PRIME - 1 is divisible by 2**128.\n    const MAX_HIGH = (-1) / 2 ** 128;\n    const MAX_LOW = 0;\n\n    // Guess the low and high parts of the integer.\n    let low = [range_check_ptr];\n    let high = [range_check_ptr + 1];\n    let range_check_ptr = range_check_ptr + 2;\n\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert ids.MAX_HIGH < 2**128 and ids.MAX_LOW < 2**128\n        assert PRIME - 1 == ids.MAX_HIGH * 2**128 + ids.MAX_LOW\n        assert_integer(ids.value)\n        ids.low = ids.value & ((1 << 128) - 1)\n        ids.high = ids.value >> 128\n    %}\n    assert value = high * (2 ** 128) + low;\n    if (high == MAX_HIGH) {\n        assert_le(low, MAX_LOW);\n    } else {\n        assert_le(high, MAX_HIGH - 1);\n    }\n    return (high=high, low=low);\n}\n\n// Asserts that the unsigned integer lift (as a number in the range [0, PRIME)) of a is lower than\n// or equal to that of b.\n@known_ap_change\nfunc assert_le_felt{range_check_ptr}(a, b) {\n    // ceil(PRIME / 3 / 2 ** 128).\n    const PRIME_OVER_3_HIGH = 0x2aaaaaaaaaaaab05555555555555556;\n    // ceil(PRIME / 2 / 2 ** 128).\n    const PRIME_OVER_2_HIGH = 0x4000000000000088000000000000001;\n    // The numbers [0, a, b, PRIME - 1] should be ordered. To prove that, we show that two of the\n    // 3 arcs {0 -> a, a -> b, b -> PRIME - 1} are small:\n    //   One is less than PRIME / 3 + 2 ** 129.\n    //   Another is less than PRIME / 2 + 2 ** 129.\n    // Since the sum of the lengths of these two arcs is less than PRIME, there is no wrap-around.\n    %{\n        import itertools\n\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.a)\n        assert_integer(ids.b)\n        a = ids.a % PRIME\n        b = ids.b % PRIME\n        assert a <= b, f'a = {a} is not less than or equal to b = {b}.'\n\n        # Find an arc less than PRIME / 3, and another less than PRIME / 2.\n        lengths_and_indices = [(a, 0), (b - a, 1), (PRIME - 1 - b, 2)]\n        lengths_and_indices.sort()\n        assert lengths_and_indices[0][0] <= PRIME // 3 and lengths_and_indices[1][0] <= PRIME // 2\n        excluded = lengths_and_indices[2][1]\n\n        memory[ids.range_check_ptr + 1], memory[ids.range_check_ptr + 0] = (\n            divmod(lengths_and_indices[0][0], ids.PRIME_OVER_3_HIGH))\n        memory[ids.range_check_ptr + 3], memory[ids.range_check_ptr + 2] = (\n            divmod(lengths_and_indices[1][0], ids.PRIME_OVER_2_HIGH))\n    %}\n    // Guess two arc lengths.\n    tempvar arc_short = [range_check_ptr] + [range_check_ptr + 1] * PRIME_OVER_3_HIGH;\n    tempvar arc_long = [range_check_ptr + 2] + [range_check_ptr + 3] * PRIME_OVER_2_HIGH;\n    let range_check_ptr = range_check_ptr + 4;\n\n    // First, choose which arc to exclude from {0 -> a, a -> b, b -> PRIME - 1}.\n    // Then, to compare the set of two arc lengths, compare their sum and product.\n    let arc_sum = arc_short + arc_long;\n    let arc_prod = arc_short * arc_long;\n\n    // Exclude \"0 -> a\".\n    %{ memory[ap] = 1 if excluded != 0 else 0 %}\n    jmp skip_exclude_a if [ap] != 0, ap++;\n    assert arc_sum = (-1) - a;\n    assert arc_prod = (a - b) * (1 + b);\n    return ();\n\n    // Exclude \"a -> b\".\n    skip_exclude_a:\n    %{ memory[ap] = 1 if excluded != 1 else 0 %}\n    jmp skip_exclude_b_minus_a if [ap] != 0, ap++;\n    tempvar m1mb = (-1) - b;\n    assert arc_sum = a + m1mb;\n    assert arc_prod = a * m1mb;\n    return ();\n\n    // Exclude \"b -> PRIME - 1\".\n    skip_exclude_b_minus_a:\n    %{ assert excluded == 2 %}\n    assert arc_sum = b;\n    assert arc_prod = a * (b - a);\n    ap += 2;\n    return ();\n}\n\n// Asserts that the unsigned integer lift (as a number in the range [0, PRIME)) of a is lower than\n// that of b.\n@known_ap_change\nfunc assert_lt_felt{range_check_ptr}(a, b) {\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.a)\n        assert_integer(ids.b)\n        assert (ids.a % PRIME) < (ids.b % PRIME), \\\n            f'a = {ids.a % PRIME} is not less than b = {ids.b % PRIME}.'\n    %}\n    if (a == b) {\n        // If a == b, add an unsatisfiable requirement.\n        a = a + 1;\n    }\n    assert_le_felt(a, b);\n    return ();\n}\n\n// Returns the absolute value of value.\n// Prover asumption: -rc_bound < value < rc_bound.\n@known_ap_change\nfunc abs_value{range_check_ptr}(value) -> felt {\n    tempvar is_positive: felt;\n    %{\n        from starkware.cairo.common.math_utils import is_positive\n        ids.is_positive = 1 if is_positive(\n            value=ids.value, prime=PRIME, rc_bound=range_check_builtin.bound) else 0\n    %}\n    if (is_positive == 0) {\n        tempvar new_range_check_ptr = range_check_ptr + 1;\n        tempvar abs_value = value * (-1);\n        [range_check_ptr] = abs_value;\n        let range_check_ptr = new_range_check_ptr;\n        return abs_value;\n    } else {\n        [range_check_ptr] = value;\n        let range_check_ptr = range_check_ptr + 1;\n        return value;\n    }\n}\n\n// Returns the sign of value: -1, 0 or 1.\n// Prover asumption: -rc_bound < value < rc_bound.\n@known_ap_change\nfunc sign{range_check_ptr}(value) -> felt {\n    if (value == 0) {\n        ap += 2;\n        return 0;\n    }\n\n    tempvar is_positive: felt;\n    %{\n        from starkware.cairo.common.math_utils import is_positive\n        ids.is_positive = 1 if is_positive(\n            value=ids.value, prime=PRIME, rc_bound=range_check_builtin.bound) else 0\n    %}\n    if (is_positive == 0) {\n        assert [range_check_ptr] = value * (-1);\n        let range_check_ptr = range_check_ptr + 1;\n        return -1;\n    } else {\n        ap += 1;\n        [range_check_ptr] = value;\n        let range_check_ptr = range_check_ptr + 1;\n        return 1;\n    }\n}\n\n// Returns q and r such that:\n//  0 <= q < rc_bound, 0 <= r < div and value = q * div + r.\n//\n// Assumption: 0 < div <= PRIME / rc_bound.\n// Prover assumption: value / div < rc_bound.\n//\n// The value of div is restricted to make sure there is no overflow.\n// q * div + r < (q + 1) * div <= rc_bound * (PRIME / rc_bound) = PRIME.\nfunc unsigned_div_rem{range_check_ptr}(value, div) -> (q: felt, r: felt) {\n    let r = [range_check_ptr];\n    let q = [range_check_ptr + 1];\n    let range_check_ptr = range_check_ptr + 2;\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.div)\n        assert 0 < ids.div <= PRIME // range_check_builtin.bound, \\\n            f'div={hex(ids.div)} is out of the valid range.'\n        ids.q, ids.r = divmod(ids.value, ids.div)\n    %}\n    assert_le(r, div - 1);\n\n    assert value = q * div + r;\n    return (q, r);\n}\n\n// Returns q and r such that. -bound <= q < bound, 0 <= r < div and value = q * div + r.\n// value < PRIME / 2 is considered positive and value > PRIME / 2 is considered negative.\n//\n// Assumptions:\n//   0 < div <= PRIME / (rc_bound)\n//   bound <= rc_bound / 2.\n// Prover assumption:   -bound <= value / div < bound.\n//\n// The values of div and bound are restricted to make sure there is no overflow.\n// q * div + r <  (q + 1) * div <=  rc_bound / 2 * (PRIME / rc_bound)\n// q * div + r >=  q * div      >= -rc_bound / 2 * (PRIME / rc_bound).\nfunc signed_div_rem{range_check_ptr}(value, div, bound) -> (q: felt, r: felt) {\n    let r = [range_check_ptr];\n    let biased_q = [range_check_ptr + 1];  // == q + bound.\n    let range_check_ptr = range_check_ptr + 2;\n    %{\n        from starkware.cairo.common.math_utils import as_int, assert_integer\n\n        assert_integer(ids.div)\n        assert 0 < ids.div <= PRIME // range_check_builtin.bound, \\\n            f'div={hex(ids.div)} is out of the valid range.'\n\n        assert_integer(ids.bound)\n        assert ids.bound <= range_check_builtin.bound // 2, \\\n            f'bound={hex(ids.bound)} is out of the valid range.'\n\n        int_value = as_int(ids.value, PRIME)\n        q, ids.r = divmod(int_value, ids.div)\n\n        assert -ids.bound <= q < ids.bound, \\\n            f'{int_value} / {ids.div} = {q} is out of the range [{-ids.bound}, {ids.bound}).'\n\n        ids.biased_q = q + ids.bound\n    %}\n    let q = biased_q - bound;\n    assert value = q * div + r;\n    assert_le(r, div - 1);\n    assert_le(biased_q, 2 * bound - 1);\n    return (q, r);\n}\n\n// Splits the given (unsigned) value into n \"limbs\", where each limb is in the range [0, bound),\n// as follows:\n//   value = x[0] + x[1] * base + x[2] * base**2 + ... + x[n - 1] * base**(n - 1).\n// bound must be less than the range check bound (2**128).\n// Note that bound may be smaller than base, in which case the function will fail if there is a\n// limb which is >= bound.\n// Assumptions:\n//   1 < bound <= base\n//   base**n < field characteristic.\nfunc split_int{range_check_ptr}(value, n, base, bound, output: felt*) {\n    if (n == 0) {\n        %{ assert ids.value == 0, 'split_int(): value is out of range.' %}\n        assert value = 0;\n        return ();\n    }\n\n    %{\n        memory[ids.output] = res = (int(ids.value) % PRIME) % ids.base\n        assert res < ids.bound, f'split_int(): Limb {res} is out of range.'\n    %}\n    tempvar low_part = [output];\n    assert_nn_le(low_part, bound - 1);\n\n    return split_int(\n        value=(value - low_part) / base, n=n - 1, base=base, bound=bound, output=output + 1\n    );\n}\n\n// Returns the floor value of the square root of the given value.\n// Assumptions: 0 <= value < 2**250.\n@known_ap_change\nfunc sqrt{range_check_ptr}(value) -> felt {\n    alloc_locals;\n    local root: felt;\n\n    %{\n        from starkware.python.math_utils import isqrt\n        value = ids.value % PRIME\n        assert value < 2 ** 250, f\"value={value} is outside of the range [0, 2**250).\"\n        assert 2 ** 250 < PRIME\n        ids.root = isqrt(value)\n    %}\n\n    assert_nn_le(root, 2 ** 125 - 1);\n    tempvar root_plus_one = root + 1;\n    assert_in_range(value, root * root, root_plus_one * root_plus_one);\n\n    return root;\n}\n\n// Computes the evaluation of a polynomial on the given point.\nfunc horner_eval(n_coefficients: felt, coefficients: felt*, point: felt) -> (res: felt) {\n    if (n_coefficients == 0) {\n        return (res=0);\n    }\n\n    let (n_minus_one_res) = horner_eval(\n        n_coefficients=n_coefficients - 1, coefficients=&coefficients[1], point=point\n    );\n    return (res=n_minus_one_res * point + coefficients[0]);\n}\n\n// Returns TRUE if `x` is a quadratic residue modulo the STARK prime. Returns FALSE otherwise.\n// Returns TRUE on 0.\n@known_ap_change\nfunc is_quad_residue(x: felt) -> felt {\n    alloc_locals;\n    local y;\n    %{\n        from starkware.crypto.signature.signature import FIELD_PRIME\n        from starkware.python.math_utils import div_mod, is_quad_residue, sqrt\n\n        x = ids.x\n        if is_quad_residue(x, FIELD_PRIME):\n            ids.y = sqrt(x, FIELD_PRIME)\n        else:\n            ids.y = sqrt(div_mod(x, 3, FIELD_PRIME), FIELD_PRIME)\n    %}\n    // Relies on the fact that 3 is not a quadratic residue modulo the prime, so for every field\n    // element x, either:\n    //   * x is a quadratic residue and there exists y such that y^2 = x.\n    //   * x is not a quadratic residue and there exists y such that 3 * y^2 = x.\n    tempvar y_squared = y * y;\n    if (y_squared == x) {\n        ap += 1;\n        return TRUE;\n    } else {\n        assert 3 * y_squared = x;\n        return FALSE;\n    }\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/common/memcpy.cairo": "// Copies len field elements from src to dst.\nfunc memcpy(dst: felt*, src: felt*, len) {\n    struct LoopFrame {\n        dst: felt*,\n        src: felt*,\n    }\n\n    if (len == 0) {\n        return ();\n    }\n\n    %{ vm_enter_scope({'n': ids.len}) %}\n    tempvar frame = LoopFrame(dst=dst, src=src);\n\n    loop:\n    let frame = [cast(ap - LoopFrame.SIZE, LoopFrame*)];\n    assert [frame.dst] = [frame.src];\n\n    let continue_copying = [ap];\n    // Reserve space for continue_copying.\n    let next_frame = cast(ap + 1, LoopFrame*);\n    next_frame.dst = frame.dst + 1, ap++;\n    next_frame.src = frame.src + 1, ap++;\n    %{\n        n -= 1\n        ids.continue_copying = 1 if n > 0 else 0\n    %}\n    static_assert next_frame + LoopFrame.SIZE == ap + 1;\n    jmp loop if continue_copying != 0, ap++;\n    // Assert that the loop executed len times.\n    len = cast(next_frame.src, felt) - cast(src, felt);\n\n    %{ vm_exit_scope() %}\n    return ();\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/cairo/lang/compiler/lib/registers.cairo": "// Returns the contents of the fp and pc registers of the calling function.\n// The pc register's value is the address of the instruction that follows directly after the\n// invocation of get_fp_and_pc().\nfunc get_fp_and_pc() -> (fp_val: felt*, pc_val: felt*) {\n    // The call instruction itself already places the old fp and the return pc at\n    // [ap - 2], [ap - 1].\n    return (fp_val=cast([ap - 2], felt*), pc_val=cast([ap - 1], felt*));\n}\n\n// Returns the content of the ap register just before this function was invoked.\n@known_ap_change\nfunc get_ap() -> (ap_val: felt*) {\n    // Once get_ap() is invoked, fp points to ap + 2 (since the call instruction placed the old fp\n    // and pc in memory, advancing ap accordingly).\n    // Hence, the desired ap value is fp - 2.\n    let (fp_val, pc_val) = get_fp_and_pc();\n    return (ap_val=fp_val - 2);\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/starknet/common/storage.cairo": "from starkware.cairo.common.math import assert_250_bit\n\nconst MAX_STORAGE_ITEM_SIZE = 256;\n// Valid storage addresses should satisfy address + offset < 2**251 where\n// offset < MAX_STORAGE_ITEM_SIZE and address < ADDR_BOUND.\nconst ADDR_BOUND = 2 ** 251 - 256;\n\n// Computes addr % ADDR_BOUND so that the result will form a valid storage item address in the\n// storage tree. In particular, we need the result + MAX_STORAGE_ITEM_SIZE to be less that\n// 2**251.\n@known_ap_change\nfunc normalize_address{range_check_ptr}(addr: felt) -> (res: felt) {\n    tempvar is_small;\n    %{\n        # Verify the assumptions on the relationship between 2**250, ADDR_BOUND and PRIME.\n        ADDR_BOUND = ids.ADDR_BOUND % PRIME\n        assert (2**250 < ADDR_BOUND <= 2**251) and (2 * 2**250 < PRIME) and (\n                ADDR_BOUND * 2 > PRIME), \\\n            'normalize_address() cannot be used with the current constants.'\n        ids.is_small = 1 if ids.addr < ADDR_BOUND else 0\n    %}\n    if (is_small != 0) {\n        tempvar is_250;\n        %{ ids.is_250 = 1 if ids.addr < 2**250 else 0 %}\n        if (is_250 != 0) {\n            ap += 11;\n            // In this case addr < 2**250 < ADDR_BOUND, so addr % ADDR_BOUND = addr.\n            assert_250_bit(addr);\n        } else {\n            ap += 10;\n            // In this case 0 <= ADDR_BOUND - 1 - addr < 2**250, so addr < ADDR_BOUND.\n            assert_250_bit(ADDR_BOUND - 1 - addr);\n        }\n        return (res=addr);\n    } else {\n        // The first call to assert_250_bit() checks that 0 <= (addr - ADDR_BOUND) % PRIME < 2**250.\n        // The second call checks that 0 <= (-1 - addr) % PRIME < 2**250.\n        // Let x = (addr - ADDR_BOUND) % PRIME and y = (-1 - addr) % PRIME. Then,\n        //   x + y = (addr - ADDR_BOUND) + (-1 - addr) = PRIME - 1 - ADDR_BOUND  (mod PRIME).\n        // So we have:\n        //   x + y = PRIME - 1 - ADDR_BOUND  (mod PRIME).\n        // Since both hands are in the range [0, PRIME) (since 2 * 2**250 < PRIME),\n        // they must be equal as integers.\n        // In particular, x + ADDR_BOUND = PRIME - 1 - y < PRIME.\n        // Since addr = x + ADDR_BOUND (mod PRIME) and both sides are in the range [0, PRIME)\n        // we have addr = x + ADDR_BOUND (as integers).\n        // Therefore, we should subtract ADDR_BOUND to get addr % ADDR_BOUND.\n        let x = addr - ADDR_BOUND;\n        let y = (-1) - addr;\n        assert_250_bit(x);\n        assert_250_bit(y);\n        return (res=addr - ADDR_BOUND);\n    }\n}\n",
-                "/home/aurelou/Desktop/ctf/starknet-cc-ctf-challenges/.env/lib/python3.8/site-packages/starkware/starknet/common/syscalls.cairo": "from starkware.cairo.common.dict_access import DictAccess\n\nconst SEND_MESSAGE_TO_L1_SELECTOR = 'SendMessageToL1';\n\n// Describes the SendMessageToL1 system call format.\nstruct SendMessageToL1SysCall {\n    selector: felt,\n    to_address: felt,\n    payload_size: felt,\n    payload_ptr: felt*,\n}\n\nconst CALL_CONTRACT_SELECTOR = 'CallContract';\nconst DELEGATE_CALL_SELECTOR = 'DelegateCall';\nconst DELEGATE_L1_HANDLER_SELECTOR = 'DelegateL1Handler';\n\n// Describes the CallContract system call format.\nstruct CallContractRequest {\n    // The system call selector\n    // (= CALL_CONTRACT_SELECTOR, DELEGATE_CALL_SELECTOR or DELEGATE_L1_HANDLER_SELECTOR).\n    selector: felt,\n    // The address of the L2 contract to call.\n    contract_address: felt,\n    // The selector of the function to call.\n    function_selector: felt,\n    // The size of the calldata.\n    calldata_size: felt,\n    // The calldata.\n    calldata: felt*,\n}\n\nstruct CallContractResponse {\n    retdata_size: felt,\n    retdata: felt*,\n}\n\nstruct CallContract {\n    request: CallContractRequest,\n    response: CallContractResponse,\n}\n\nfunc call_contract{syscall_ptr: felt*}(\n    contract_address: felt, function_selector: felt, calldata_size: felt, calldata: felt*\n) -> (retdata_size: felt, retdata: felt*) {\n    let syscall = [cast(syscall_ptr, CallContract*)];\n    assert syscall.request = CallContractRequest(\n        selector=CALL_CONTRACT_SELECTOR,\n        contract_address=contract_address,\n        function_selector=function_selector,\n        calldata_size=calldata_size,\n        calldata=calldata);\n    %{ syscall_handler.call_contract(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n\n    let syscall_ptr = syscall_ptr + CallContract.SIZE;\n    return (retdata_size=response.retdata_size, retdata=response.retdata);\n}\n\nconst LIBRARY_CALL_SELECTOR = 'LibraryCall';\nconst LIBRARY_CALL_L1_HANDLER_SELECTOR = 'LibraryCallL1Handler';\n\n// Describes the LibraryCall system call format.\nstruct LibraryCallRequest {\n    // The system library call selector\n    // (= LIBRARY_CALL_SELECTOR or LIBRARY_CALL_L1_HANDLER_SELECTOR).\n    selector: felt,\n    // The hash of the class to run.\n    class_hash: felt,\n    // The selector of the function to call.\n    function_selector: felt,\n    // The size of the calldata.\n    calldata_size: felt,\n    // The calldata.\n    calldata: felt*,\n}\n\nstruct LibraryCall {\n    request: LibraryCallRequest,\n    response: CallContractResponse,\n}\n\n// Performs a library call: Runs an entry point of another contract class\n// on the current contract state.\nfunc library_call{syscall_ptr: felt*}(\n    class_hash: felt, function_selector: felt, calldata_size: felt, calldata: felt*\n) -> (retdata_size: felt, retdata: felt*) {\n    let syscall = [cast(syscall_ptr, LibraryCall*)];\n    assert syscall.request = LibraryCallRequest(\n        selector=LIBRARY_CALL_SELECTOR,\n        class_hash=class_hash,\n        function_selector=function_selector,\n        calldata_size=calldata_size,\n        calldata=calldata);\n    %{ syscall_handler.library_call(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n\n    let syscall_ptr = syscall_ptr + LibraryCall.SIZE;\n    return (retdata_size=response.retdata_size, retdata=response.retdata);\n}\n\n// Simialr to library_call(), except that the entry point is an L1 handler,\n// rather than an external function.\n// Note that this function does not consume an L1 message,\n// and thus it should only be called from a corresponding L1 handler.\nfunc library_call_l1_handler{syscall_ptr: felt*}(\n    class_hash: felt, function_selector: felt, calldata_size: felt, calldata: felt*\n) -> (retdata_size: felt, retdata: felt*) {\n    let syscall = [cast(syscall_ptr, LibraryCall*)];\n    assert syscall.request = LibraryCallRequest(\n        selector=LIBRARY_CALL_L1_HANDLER_SELECTOR,\n        class_hash=class_hash,\n        function_selector=function_selector,\n        calldata_size=calldata_size,\n        calldata=calldata);\n    %{ syscall_handler.library_call_l1_handler(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n\n    let syscall_ptr = syscall_ptr + LibraryCall.SIZE;\n    return (retdata_size=response.retdata_size, retdata=response.retdata);\n}\n\nconst DEPLOY_SELECTOR = 'Deploy';\n\n// Describes the Deploy system call format.\nstruct DeployRequest {\n    // The system call selector (= DEPLOY_SELECTOR).\n    selector: felt,\n    // The hash of the class to deploy.\n    class_hash: felt,\n    // A salt for the new contract address calculation.\n    contract_address_salt: felt,\n    // The size of the calldata for the constructor.\n    constructor_calldata_size: felt,\n    // The calldata for the constructor.\n    constructor_calldata: felt*,\n    // Used for deterministic contract address deployment.\n    deploy_from_zero: felt,\n}\n\nstruct DeployResponse {\n    contract_address: felt,\n    constructor_retdata_size: felt,\n    constructor_retdata: felt*,\n}\n\nstruct Deploy {\n    request: DeployRequest,\n    response: DeployResponse,\n}\n\n// Deploys a contract with the given class, and returns its address.\n// Fails if a contract with the same parameters was already deployed.\n// If 'deploy_from_zero' is 1, the contract address is not affected by the deployer's address.\nfunc deploy{syscall_ptr: felt*}(\n    class_hash: felt,\n    contract_address_salt: felt,\n    constructor_calldata_size: felt,\n    constructor_calldata: felt*,\n    deploy_from_zero: felt,\n) -> (contract_address: felt) {\n    let syscall = [cast(syscall_ptr, Deploy*)];\n    assert syscall.request = DeployRequest(\n        selector=DEPLOY_SELECTOR,\n        class_hash=class_hash,\n        contract_address_salt=contract_address_salt,\n        constructor_calldata_size=constructor_calldata_size,\n        constructor_calldata=constructor_calldata,\n        deploy_from_zero=deploy_from_zero);\n\n    %{ syscall_handler.deploy(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n    let syscall_ptr = syscall_ptr + Deploy.SIZE;\n\n    return (contract_address=response.contract_address);\n}\n\nconst GET_CALLER_ADDRESS_SELECTOR = 'GetCallerAddress';\n\n// Describes the GetCallerAddress system call format.\nstruct GetCallerAddressRequest {\n    // The system call selector (= GET_CALLER_ADDRESS_SELECTOR).\n    selector: felt,\n}\n\nstruct GetCallerAddressResponse {\n    caller_address: felt,\n}\n\nstruct GetCallerAddress {\n    request: GetCallerAddressRequest,\n    response: GetCallerAddressResponse,\n}\n\n// Returns the address of the calling contract or 0 if this transaction was not initiated by another\n// contract.\nfunc get_caller_address{syscall_ptr: felt*}() -> (caller_address: felt) {\n    let syscall = [cast(syscall_ptr, GetCallerAddress*)];\n    assert syscall.request = GetCallerAddressRequest(selector=GET_CALLER_ADDRESS_SELECTOR);\n    %{ syscall_handler.get_caller_address(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetCallerAddress.SIZE;\n    return (caller_address=syscall.response.caller_address);\n}\n\nconst GET_SEQUENCER_ADDRESS_SELECTOR = 'GetSequencerAddress';\n\n// Describes the GetSequencerAddress system call format.\nstruct GetSequencerAddressRequest {\n    // The system call selector (= GET_SEQUENCER_ADDRESS_SELECTOR).\n    selector: felt,\n}\n\nstruct GetSequencerAddressResponse {\n    sequencer_address: felt,\n}\n\nstruct GetSequencerAddress {\n    request: GetSequencerAddressRequest,\n    response: GetSequencerAddressResponse,\n}\n\n// Returns the address of the sequencer contract.\nfunc get_sequencer_address{syscall_ptr: felt*}() -> (sequencer_address: felt) {\n    let syscall = [cast(syscall_ptr, GetSequencerAddress*)];\n    assert syscall.request = GetSequencerAddressRequest(selector=GET_SEQUENCER_ADDRESS_SELECTOR);\n    %{ syscall_handler.get_sequencer_address(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetSequencerAddress.SIZE;\n    return (sequencer_address=syscall.response.sequencer_address);\n}\n\nconst GET_BLOCK_NUMBER_SELECTOR = 'GetBlockNumber';\n\nstruct GetBlockNumberRequest {\n    selector: felt,\n}\n\nstruct GetBlockNumberResponse {\n    block_number: felt,\n}\n\nstruct GetBlockNumber {\n    request: GetBlockNumberRequest,\n    response: GetBlockNumberResponse,\n}\n\nfunc get_block_number{syscall_ptr: felt*}() -> (block_number: felt) {\n    let syscall = [cast(syscall_ptr, GetBlockNumber*)];\n    assert syscall.request = GetBlockNumberRequest(selector=GET_BLOCK_NUMBER_SELECTOR);\n    %{ syscall_handler.get_block_number(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetBlockNumber.SIZE;\n    return (block_number=syscall.response.block_number);\n}\n\nconst GET_CONTRACT_ADDRESS_SELECTOR = 'GetContractAddress';\n\n// Describes the GetContractAddress system call format.\nstruct GetContractAddressRequest {\n    // The system call selector (= GET_CONTRACT_ADDRESS_SELECTOR).\n    selector: felt,\n}\n\nstruct GetContractAddressResponse {\n    contract_address: felt,\n}\n\nstruct GetContractAddress {\n    request: GetContractAddressRequest,\n    response: GetContractAddressResponse,\n}\n\nfunc get_contract_address{syscall_ptr: felt*}() -> (contract_address: felt) {\n    let syscall = [cast(syscall_ptr, GetContractAddress*)];\n    assert syscall.request = GetContractAddressRequest(selector=GET_CONTRACT_ADDRESS_SELECTOR);\n    %{ syscall_handler.get_contract_address(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetContractAddress.SIZE;\n    return (contract_address=syscall.response.contract_address);\n}\n\nconst GET_BLOCK_TIMESTAMP_SELECTOR = 'GetBlockTimestamp';\n\nstruct GetBlockTimestampRequest {\n    // The system call selector (= GET_BLOCK_TIMESTAMP_SELECTOR).\n    selector: felt,\n}\n\nstruct GetBlockTimestampResponse {\n    block_timestamp: felt,\n}\n\nstruct GetBlockTimestamp {\n    request: GetBlockTimestampRequest,\n    response: GetBlockTimestampResponse,\n}\n\nfunc get_block_timestamp{syscall_ptr: felt*}() -> (block_timestamp: felt) {\n    let syscall = [cast(syscall_ptr, GetBlockTimestamp*)];\n    assert syscall.request = GetBlockTimestampRequest(selector=GET_BLOCK_TIMESTAMP_SELECTOR);\n    %{ syscall_handler.get_block_timestamp(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetBlockTimestamp.SIZE;\n    return (block_timestamp=syscall.response.block_timestamp);\n}\n\nconst GET_TX_SIGNATURE_SELECTOR = 'GetTxSignature';\n\nstruct GetTxSignatureRequest {\n    // The system call selector (= GET_TX_SIGNATURE_SELECTOR).\n    selector: felt,\n}\n\nstruct GetTxSignatureResponse {\n    signature_len: felt,\n    signature: felt*,\n}\n\nstruct GetTxSignature {\n    request: GetTxSignatureRequest,\n    response: GetTxSignatureResponse,\n}\n\n// Returns the signature information of the transaction.\n//\n// NOTE: This function is deprecated. Use get_tx_info() instead.\nfunc get_tx_signature{syscall_ptr: felt*}() -> (signature_len: felt, signature: felt*) {\n    let syscall = [cast(syscall_ptr, GetTxSignature*)];\n    assert syscall.request = GetTxSignatureRequest(selector=GET_TX_SIGNATURE_SELECTOR);\n    %{ syscall_handler.get_tx_signature(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetTxSignature.SIZE;\n    return (signature_len=syscall.response.signature_len, signature=syscall.response.signature);\n}\n\nconst STORAGE_READ_SELECTOR = 'StorageRead';\n\n// Describes the StorageRead system call format.\nstruct StorageReadRequest {\n    // The system call selector (= STORAGE_READ_SELECTOR).\n    selector: felt,\n    address: felt,\n}\n\nstruct StorageReadResponse {\n    value: felt,\n}\n\nstruct StorageRead {\n    request: StorageReadRequest,\n    response: StorageReadResponse,\n}\n\nfunc storage_read{syscall_ptr: felt*}(address: felt) -> (value: felt) {\n    let syscall = [cast(syscall_ptr, StorageRead*)];\n    assert syscall.request = StorageReadRequest(selector=STORAGE_READ_SELECTOR, address=address);\n    %{ syscall_handler.storage_read(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n    let syscall_ptr = syscall_ptr + StorageRead.SIZE;\n    return (value=response.value);\n}\n\nconst STORAGE_WRITE_SELECTOR = 'StorageWrite';\n\n// Describes the StorageWrite system call format.\nstruct StorageWrite {\n    selector: felt,\n    address: felt,\n    value: felt,\n}\n\nfunc storage_write{syscall_ptr: felt*}(address: felt, value: felt) {\n    assert [cast(syscall_ptr, StorageWrite*)] = StorageWrite(\n        selector=STORAGE_WRITE_SELECTOR, address=address, value=value);\n    %{ syscall_handler.storage_write(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + StorageWrite.SIZE;\n    return ();\n}\n\nconst EMIT_EVENT_SELECTOR = 'EmitEvent';\n\n// Describes the EmitEvent system call format.\nstruct EmitEvent {\n    selector: felt,\n    keys_len: felt,\n    keys: felt*,\n    data_len: felt,\n    data: felt*,\n}\n\nfunc emit_event{syscall_ptr: felt*}(keys_len: felt, keys: felt*, data_len: felt, data: felt*) {\n    assert [cast(syscall_ptr, EmitEvent*)] = EmitEvent(\n        selector=EMIT_EVENT_SELECTOR, keys_len=keys_len, keys=keys, data_len=data_len, data=data);\n    %{ syscall_handler.emit_event(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + EmitEvent.SIZE;\n    return ();\n}\n\nstruct TxInfo {\n    // The version of the transaction. It is fixed (currently, 1) in the OS, and should be\n    // signed by the account contract.\n    // This field allows invalidating old transactions, whenever the meaning of the other\n    // transaction fields is changed (in the OS).\n    version: felt,\n\n    // The account contract from which this transaction originates.\n    account_contract_address: felt,\n\n    // The max_fee field of the transaction.\n    max_fee: felt,\n\n    // The signature of the transaction.\n    signature_len: felt,\n    signature: felt*,\n\n    // The hash of the transaction.\n    transaction_hash: felt,\n\n    // The identifier of the chain.\n    // This field can be used to prevent replay of testnet transactions on mainnet.\n    chain_id: felt,\n\n    // The transaction's nonce.\n    nonce: felt,\n}\n\nconst GET_TX_INFO_SELECTOR = 'GetTxInfo';\n\n// Describes the GetTxInfo system call format.\nstruct GetTxInfoRequest {\n    // The system call selector (= GET_TX_INFO_SELECTOR).\n    selector: felt,\n}\n\nstruct GetTxInfoResponse {\n    tx_info: TxInfo*,\n}\n\nstruct GetTxInfo {\n    request: GetTxInfoRequest,\n    response: GetTxInfoResponse,\n}\n\nfunc get_tx_info{syscall_ptr: felt*}() -> (tx_info: TxInfo*) {\n    let syscall = [cast(syscall_ptr, GetTxInfo*)];\n    assert syscall.request = GetTxInfoRequest(selector=GET_TX_INFO_SELECTOR);\n    %{ syscall_handler.get_tx_info(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n    let syscall_ptr = syscall_ptr + GetTxInfo.SIZE;\n    return (tx_info=response.tx_info);\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/alloc.cairo": "// Allocates a new memory segment.\nfunc alloc() -> (ptr: felt*) {\n    %{ memory[ap] = segments.add() %}\n    ap += 1;\n    return (ptr=cast([ap - 1], felt*));\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/bool.cairo": "// Represents boolean values in Cairo.\nconst FALSE = 0;\nconst TRUE = 1;\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/cairo_builtins.cairo": "from starkware.cairo.common.ec_point import EcPoint\nfrom starkware.cairo.common.keccak_state import KeccakBuiltinState\n\n// Specifies the hash builtin memory structure.\nstruct HashBuiltin {\n    x: felt,\n    y: felt,\n    result: felt,\n}\n\n// Specifies the signature builtin memory structure.\nstruct SignatureBuiltin {\n    pub_key: felt,\n    message: felt,\n}\n\n// Specifies the bitwise builtin memory structure.\nstruct BitwiseBuiltin {\n    x: felt,\n    y: felt,\n    x_and_y: felt,\n    x_xor_y: felt,\n    x_or_y: felt,\n}\n\n// Specifies the EC operation builtin memory structure.\nstruct EcOpBuiltin {\n    p: EcPoint,\n    q: EcPoint,\n    m: felt,\n    r: EcPoint,\n}\n\n// Specifies the Keccak builtin memory structure.\nstruct KeccakBuiltin {\n    input: KeccakBuiltinState,\n    output: KeccakBuiltinState,\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/dict_access.cairo": "// Represents an access (read, write or modify) to the dictionary. The dictionary is represented as\n// a chronological list of such accesses. The \"current\" value of a key is the new_value of the last\n// access with that key.\n// In a valid dictionary, the prev_value of each access is equal to the new_value of the previous\n// access to the same key.\nstruct DictAccess {\n    key: felt,\n    prev_value: felt,\n    new_value: felt,\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/ec_point.cairo": "// Represents a point on an elliptic curve.\nstruct EcPoint {\n    x: felt,\n    y: felt,\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/hash.cairo": "from starkware.cairo.common.cairo_builtins import HashBuiltin\n\n// Computes the hash of two given field elements.\n// The hash function is defined by the hash_ptr used.\n// For example, pass the pedersen builtin pointer to compute Pedersen hash.\n//\n// Arguments:\n//   hash_ptr - the hash builtin pointer.\n//   x, y - the two field elements to be hashed, in this order.\n//\n// Returns:\n//   result - the field element result of the hash.\nfunc hash2{hash_ptr: HashBuiltin*}(x, y) -> (result: felt) {\n    hash_ptr.x = x;\n    hash_ptr.y = y;\n    let result = hash_ptr.result;\n    let hash_ptr = hash_ptr + HashBuiltin.SIZE;\n    return (result=result);\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/keccak_state.cairo": "// Represents 1600 bits of a Keccak state (8 felts each containing 200 bits).\nstruct KeccakBuiltinState {\n    s0: felt,\n    s1: felt,\n    s2: felt,\n    s3: felt,\n    s4: felt,\n    s5: felt,\n    s6: felt,\n    s7: felt,\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/math.cairo": "from starkware.cairo.common.bool import FALSE, TRUE\n\n// Inline functions with no locals.\n\n// Verifies that value != 0. The proof will fail otherwise.\nfunc assert_not_zero(value) {\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.value)\n        assert ids.value % PRIME != 0, f'assert_not_zero failed: {ids.value} = 0.'\n    %}\n    if (value == 0) {\n        // If value == 0, add an unsatisfiable requirement.\n        value = 1;\n    }\n\n    return ();\n}\n\n// Verifies that a != b. The proof will fail otherwise.\nfunc assert_not_equal(a, b) {\n    %{\n        from starkware.cairo.lang.vm.relocatable import RelocatableValue\n        both_ints = isinstance(ids.a, int) and isinstance(ids.b, int)\n        both_relocatable = (\n            isinstance(ids.a, RelocatableValue) and isinstance(ids.b, RelocatableValue) and\n            ids.a.segment_index == ids.b.segment_index)\n        assert both_ints or both_relocatable, \\\n            f'assert_not_equal failed: non-comparable values: {ids.a}, {ids.b}.'\n        assert (ids.a - ids.b) % PRIME != 0, f'assert_not_equal failed: {ids.a} = {ids.b}.'\n    %}\n    if (a == b) {\n        // If a == b, add an unsatisfiable requirement.\n        a = a + 1;\n    }\n\n    return ();\n}\n\n// Verifies that a >= 0 (or more precisely 0 <= a < RANGE_CHECK_BOUND).\nfunc assert_nn{range_check_ptr}(a) {\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.a)\n        assert 0 <= ids.a % PRIME < range_check_builtin.bound, f'a = {ids.a} is out of range.'\n    %}\n    a = [range_check_ptr];\n    let range_check_ptr = range_check_ptr + 1;\n    return ();\n}\n\n// Verifies that a <= b (or more precisely 0 <= b - a < RANGE_CHECK_BOUND).\nfunc assert_le{range_check_ptr}(a, b) {\n    assert_nn(b - a);\n    return ();\n}\n\n// Verifies that a <= b - 1 (or more precisely 0 <= b - 1 - a < RANGE_CHECK_BOUND).\nfunc assert_lt{range_check_ptr}(a, b) {\n    assert_le(a, b - 1);\n    return ();\n}\n\n// Verifies that 0 <= a <= b.\n//\n// Prover assumption: b < RANGE_CHECK_BOUND.\n//\n// This function is still sound without the prover assumptions. In that case, it is guaranteed\n// that a < RANGE_CHECK_BOUND and b < 2 * RANGE_CHECK_BOUND.\nfunc assert_nn_le{range_check_ptr}(a, b) {\n    assert_nn(a);\n    assert_le(a, b);\n    return ();\n}\n\n// Asserts that value is in the range [lower, upper).\n// Or more precisely:\n// (0 <= value - lower < RANGE_CHECK_BOUND) and (0 <= upper - 1 - value < RANGE_CHECK_BOUND).\n//\n// Prover assumption: 0 <= upper - lower <= RANGE_CHECK_BOUND.\nfunc assert_in_range{range_check_ptr}(value, lower, upper) {\n    assert_le(lower, value);\n    assert_le(value, upper - 1);\n    return ();\n}\n\n// Asserts that 'value' is in the range [0, 2**250).\n@known_ap_change\nfunc assert_250_bit{range_check_ptr}(value) {\n    const UPPER_BOUND = 2 ** 250;\n    const SHIFT = 2 ** 128;\n    const HIGH_BOUND = UPPER_BOUND / SHIFT;\n\n    let low = [range_check_ptr];\n    let high = [range_check_ptr + 1];\n\n    %{\n        from starkware.cairo.common.math_utils import as_int\n\n        # Correctness check.\n        value = as_int(ids.value, PRIME) % PRIME\n        assert value < ids.UPPER_BOUND, f'{value} is outside of the range [0, 2**250).'\n\n        # Calculation for the assertion.\n        ids.high, ids.low = divmod(ids.value, ids.SHIFT)\n    %}\n\n    assert [range_check_ptr + 2] = HIGH_BOUND - 1 - high;\n\n    // The assert below guarantees that\n    //   value = high * SHIFT + low <= (HIGH_BOUND - 1) * SHIFT + 2**128 - 1 =\n    //   HIGH_BOUND * SHIFT - SHIFT + SHIFT - 1 = 2**250 - 1.\n    assert value = high * SHIFT + low;\n\n    let range_check_ptr = range_check_ptr + 3;\n    return ();\n}\n\n// Splits the unsigned integer lift of a field element into the higher 128 bit and lower 128 bit.\n// The unsigned integer lift is the unique integer in the range [0, PRIME) that represents the field\n// element.\n// For example, if value=17 * 2^128 + 8, then high=17 and low=8.\n@known_ap_change\nfunc split_felt{range_check_ptr}(value) -> (high: felt, low: felt) {\n    // Note: the following code works because PRIME - 1 is divisible by 2**128.\n    const MAX_HIGH = (-1) / 2 ** 128;\n    const MAX_LOW = 0;\n\n    // Guess the low and high parts of the integer.\n    let low = [range_check_ptr];\n    let high = [range_check_ptr + 1];\n    let range_check_ptr = range_check_ptr + 2;\n\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert ids.MAX_HIGH < 2**128 and ids.MAX_LOW < 2**128\n        assert PRIME - 1 == ids.MAX_HIGH * 2**128 + ids.MAX_LOW\n        assert_integer(ids.value)\n        ids.low = ids.value & ((1 << 128) - 1)\n        ids.high = ids.value >> 128\n    %}\n    assert value = high * (2 ** 128) + low;\n    if (high == MAX_HIGH) {\n        assert_le(low, MAX_LOW);\n    } else {\n        assert_le(high, MAX_HIGH - 1);\n    }\n    return (high=high, low=low);\n}\n\n// Asserts that the unsigned integer lift (as a number in the range [0, PRIME)) of a is lower than\n// or equal to that of b.\n@known_ap_change\nfunc assert_le_felt{range_check_ptr}(a, b) {\n    // ceil(PRIME / 3 / 2 ** 128).\n    const PRIME_OVER_3_HIGH = 0x2aaaaaaaaaaaab05555555555555556;\n    // ceil(PRIME / 2 / 2 ** 128).\n    const PRIME_OVER_2_HIGH = 0x4000000000000088000000000000001;\n    // The numbers [0, a, b, PRIME - 1] should be ordered. To prove that, we show that two of the\n    // 3 arcs {0 -> a, a -> b, b -> PRIME - 1} are small:\n    //   One is less than PRIME / 3 + 2 ** 129.\n    //   Another is less than PRIME / 2 + 2 ** 129.\n    // Since the sum of the lengths of these two arcs is less than PRIME, there is no wrap-around.\n    %{\n        import itertools\n\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.a)\n        assert_integer(ids.b)\n        a = ids.a % PRIME\n        b = ids.b % PRIME\n        assert a <= b, f'a = {a} is not less than or equal to b = {b}.'\n\n        # Find an arc less than PRIME / 3, and another less than PRIME / 2.\n        lengths_and_indices = [(a, 0), (b - a, 1), (PRIME - 1 - b, 2)]\n        lengths_and_indices.sort()\n        assert lengths_and_indices[0][0] <= PRIME // 3 and lengths_and_indices[1][0] <= PRIME // 2\n        excluded = lengths_and_indices[2][1]\n\n        memory[ids.range_check_ptr + 1], memory[ids.range_check_ptr + 0] = (\n            divmod(lengths_and_indices[0][0], ids.PRIME_OVER_3_HIGH))\n        memory[ids.range_check_ptr + 3], memory[ids.range_check_ptr + 2] = (\n            divmod(lengths_and_indices[1][0], ids.PRIME_OVER_2_HIGH))\n    %}\n    // Guess two arc lengths.\n    tempvar arc_short = [range_check_ptr] + [range_check_ptr + 1] * PRIME_OVER_3_HIGH;\n    tempvar arc_long = [range_check_ptr + 2] + [range_check_ptr + 3] * PRIME_OVER_2_HIGH;\n    let range_check_ptr = range_check_ptr + 4;\n\n    // First, choose which arc to exclude from {0 -> a, a -> b, b -> PRIME - 1}.\n    // Then, to compare the set of two arc lengths, compare their sum and product.\n    let arc_sum = arc_short + arc_long;\n    let arc_prod = arc_short * arc_long;\n\n    // Exclude \"0 -> a\".\n    %{ memory[ap] = 1 if excluded != 0 else 0 %}\n    jmp skip_exclude_a if [ap] != 0, ap++;\n    assert arc_sum = (-1) - a;\n    assert arc_prod = (a - b) * (1 + b);\n    return ();\n\n    // Exclude \"a -> b\".\n    skip_exclude_a:\n    %{ memory[ap] = 1 if excluded != 1 else 0 %}\n    jmp skip_exclude_b_minus_a if [ap] != 0, ap++;\n    tempvar m1mb = (-1) - b;\n    assert arc_sum = a + m1mb;\n    assert arc_prod = a * m1mb;\n    return ();\n\n    // Exclude \"b -> PRIME - 1\".\n    skip_exclude_b_minus_a:\n    %{ assert excluded == 2 %}\n    assert arc_sum = b;\n    assert arc_prod = a * (b - a);\n    ap += 2;\n    return ();\n}\n\n// Asserts that the unsigned integer lift (as a number in the range [0, PRIME)) of a is lower than\n// that of b.\n@known_ap_change\nfunc assert_lt_felt{range_check_ptr}(a, b) {\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.a)\n        assert_integer(ids.b)\n        assert (ids.a % PRIME) < (ids.b % PRIME), \\\n            f'a = {ids.a % PRIME} is not less than b = {ids.b % PRIME}.'\n    %}\n    if (a == b) {\n        // If a == b, add an unsatisfiable requirement.\n        a = a + 1;\n    }\n    assert_le_felt(a, b);\n    return ();\n}\n\n// Returns the absolute value of value.\n// Prover asumption: -rc_bound < value < rc_bound.\n@known_ap_change\nfunc abs_value{range_check_ptr}(value) -> felt {\n    tempvar is_positive: felt;\n    %{\n        from starkware.cairo.common.math_utils import is_positive\n        ids.is_positive = 1 if is_positive(\n            value=ids.value, prime=PRIME, rc_bound=range_check_builtin.bound) else 0\n    %}\n    if (is_positive == 0) {\n        tempvar new_range_check_ptr = range_check_ptr + 1;\n        tempvar abs_value = value * (-1);\n        [range_check_ptr] = abs_value;\n        let range_check_ptr = new_range_check_ptr;\n        return abs_value;\n    } else {\n        [range_check_ptr] = value;\n        let range_check_ptr = range_check_ptr + 1;\n        return value;\n    }\n}\n\n// Returns the sign of value: -1, 0 or 1.\n// Prover asumption: -rc_bound < value < rc_bound.\n@known_ap_change\nfunc sign{range_check_ptr}(value) -> felt {\n    if (value == 0) {\n        ap += 2;\n        return 0;\n    }\n\n    tempvar is_positive: felt;\n    %{\n        from starkware.cairo.common.math_utils import is_positive\n        ids.is_positive = 1 if is_positive(\n            value=ids.value, prime=PRIME, rc_bound=range_check_builtin.bound) else 0\n    %}\n    if (is_positive == 0) {\n        assert [range_check_ptr] = value * (-1);\n        let range_check_ptr = range_check_ptr + 1;\n        return -1;\n    } else {\n        ap += 1;\n        [range_check_ptr] = value;\n        let range_check_ptr = range_check_ptr + 1;\n        return 1;\n    }\n}\n\n// Returns q and r such that:\n//  0 <= q < rc_bound, 0 <= r < div and value = q * div + r.\n//\n// Assumption: 0 < div <= PRIME / rc_bound.\n// Prover assumption: value / div < rc_bound.\n//\n// The value of div is restricted to make sure there is no overflow.\n// q * div + r < (q + 1) * div <= rc_bound * (PRIME / rc_bound) = PRIME.\nfunc unsigned_div_rem{range_check_ptr}(value, div) -> (q: felt, r: felt) {\n    let r = [range_check_ptr];\n    let q = [range_check_ptr + 1];\n    let range_check_ptr = range_check_ptr + 2;\n    %{\n        from starkware.cairo.common.math_utils import assert_integer\n        assert_integer(ids.div)\n        assert 0 < ids.div <= PRIME // range_check_builtin.bound, \\\n            f'div={hex(ids.div)} is out of the valid range.'\n        ids.q, ids.r = divmod(ids.value, ids.div)\n    %}\n    assert_le(r, div - 1);\n\n    assert value = q * div + r;\n    return (q, r);\n}\n\n// Returns q and r such that. -bound <= q < bound, 0 <= r < div and value = q * div + r.\n// value < PRIME / 2 is considered positive and value > PRIME / 2 is considered negative.\n//\n// Assumptions:\n//   0 < div <= PRIME / (rc_bound)\n//   bound <= rc_bound / 2.\n// Prover assumption:   -bound <= value / div < bound.\n//\n// The values of div and bound are restricted to make sure there is no overflow.\n// q * div + r <  (q + 1) * div <=  rc_bound / 2 * (PRIME / rc_bound)\n// q * div + r >=  q * div      >= -rc_bound / 2 * (PRIME / rc_bound).\nfunc signed_div_rem{range_check_ptr}(value, div, bound) -> (q: felt, r: felt) {\n    let r = [range_check_ptr];\n    let biased_q = [range_check_ptr + 1];  // == q + bound.\n    let range_check_ptr = range_check_ptr + 2;\n    %{\n        from starkware.cairo.common.math_utils import as_int, assert_integer\n\n        assert_integer(ids.div)\n        assert 0 < ids.div <= PRIME // range_check_builtin.bound, \\\n            f'div={hex(ids.div)} is out of the valid range.'\n\n        assert_integer(ids.bound)\n        assert ids.bound <= range_check_builtin.bound // 2, \\\n            f'bound={hex(ids.bound)} is out of the valid range.'\n\n        int_value = as_int(ids.value, PRIME)\n        q, ids.r = divmod(int_value, ids.div)\n\n        assert -ids.bound <= q < ids.bound, \\\n            f'{int_value} / {ids.div} = {q} is out of the range [{-ids.bound}, {ids.bound}).'\n\n        ids.biased_q = q + ids.bound\n    %}\n    let q = biased_q - bound;\n    assert value = q * div + r;\n    assert_le(r, div - 1);\n    assert_le(biased_q, 2 * bound - 1);\n    return (q, r);\n}\n\n// Splits the given (unsigned) value into n \"limbs\", where each limb is in the range [0, bound),\n// as follows:\n//   value = x[0] + x[1] * base + x[2] * base**2 + ... + x[n - 1] * base**(n - 1).\n// bound must be less than the range check bound (2**128).\n// Note that bound may be smaller than base, in which case the function will fail if there is a\n// limb which is >= bound.\n// Assumptions:\n//   1 < bound <= base\n//   base**n < field characteristic.\nfunc split_int{range_check_ptr}(value, n, base, bound, output: felt*) {\n    if (n == 0) {\n        %{ assert ids.value == 0, 'split_int(): value is out of range.' %}\n        assert value = 0;\n        return ();\n    }\n\n    %{\n        memory[ids.output] = res = (int(ids.value) % PRIME) % ids.base\n        assert res < ids.bound, f'split_int(): Limb {res} is out of range.'\n    %}\n    tempvar low_part = [output];\n    assert_nn_le(low_part, bound - 1);\n\n    return split_int(\n        value=(value - low_part) / base, n=n - 1, base=base, bound=bound, output=output + 1\n    );\n}\n\n// Returns the floor value of the square root of the given value.\n// Assumptions: 0 <= value < 2**250.\n@known_ap_change\nfunc sqrt{range_check_ptr}(value) -> felt {\n    alloc_locals;\n    local root: felt;\n\n    %{\n        from starkware.python.math_utils import isqrt\n        value = ids.value % PRIME\n        assert value < 2 ** 250, f\"value={value} is outside of the range [0, 2**250).\"\n        assert 2 ** 250 < PRIME\n        ids.root = isqrt(value)\n    %}\n\n    assert_nn_le(root, 2 ** 125 - 1);\n    tempvar root_plus_one = root + 1;\n    assert_in_range(value, root * root, root_plus_one * root_plus_one);\n\n    return root;\n}\n\n// Computes the evaluation of a polynomial on the given point.\nfunc horner_eval(n_coefficients: felt, coefficients: felt*, point: felt) -> (res: felt) {\n    if (n_coefficients == 0) {\n        return (res=0);\n    }\n\n    let (n_minus_one_res) = horner_eval(\n        n_coefficients=n_coefficients - 1, coefficients=&coefficients[1], point=point\n    );\n    return (res=n_minus_one_res * point + coefficients[0]);\n}\n\n// Returns TRUE if `x` is a quadratic residue modulo the STARK prime. Returns FALSE otherwise.\n// Returns TRUE on 0.\n@known_ap_change\nfunc is_quad_residue(x: felt) -> felt {\n    alloc_locals;\n    local y;\n    %{\n        from starkware.crypto.signature.signature import FIELD_PRIME\n        from starkware.python.math_utils import div_mod, is_quad_residue, sqrt\n\n        x = ids.x\n        if is_quad_residue(x, FIELD_PRIME):\n            ids.y = sqrt(x, FIELD_PRIME)\n        else:\n            ids.y = sqrt(div_mod(x, 3, FIELD_PRIME), FIELD_PRIME)\n    %}\n    // Relies on the fact that 3 is not a quadratic residue modulo the prime, so for every field\n    // element x, either:\n    //   * x is a quadratic residue and there exists y such that y^2 = x.\n    //   * x is not a quadratic residue and there exists y such that 3 * y^2 = x.\n    tempvar y_squared = y * y;\n    if (y_squared == x) {\n        ap += 1;\n        return TRUE;\n    } else {\n        assert 3 * y_squared = x;\n        return FALSE;\n    }\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/common/memcpy.cairo": "// Copies len field elements from src to dst.\nfunc memcpy(dst: felt*, src: felt*, len) {\n    struct LoopFrame {\n        dst: felt*,\n        src: felt*,\n    }\n\n    if (len == 0) {\n        return ();\n    }\n\n    %{ vm_enter_scope({'n': ids.len}) %}\n    tempvar frame = LoopFrame(dst=dst, src=src);\n\n    loop:\n    let frame = [cast(ap - LoopFrame.SIZE, LoopFrame*)];\n    assert [frame.dst] = [frame.src];\n\n    let continue_copying = [ap];\n    // Reserve space for continue_copying.\n    let next_frame = cast(ap + 1, LoopFrame*);\n    next_frame.dst = frame.dst + 1, ap++;\n    next_frame.src = frame.src + 1, ap++;\n    %{\n        n -= 1\n        ids.continue_copying = 1 if n > 0 else 0\n    %}\n    static_assert next_frame + LoopFrame.SIZE == ap + 1;\n    jmp loop if continue_copying != 0, ap++;\n    // Assert that the loop executed len times.\n    len = cast(next_frame.src, felt) - cast(src, felt);\n\n    %{ vm_exit_scope() %}\n    return ();\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/cairo/lang/compiler/lib/registers.cairo": "// Returns the contents of the fp and pc registers of the calling function.\n// The pc register's value is the address of the instruction that follows directly after the\n// invocation of get_fp_and_pc().\nfunc get_fp_and_pc() -> (fp_val: felt*, pc_val: felt*) {\n    // The call instruction itself already places the old fp and the return pc at\n    // [ap - 2], [ap - 1].\n    return (fp_val=cast([ap - 2], felt*), pc_val=cast([ap - 1], felt*));\n}\n\n// Returns the content of the ap register just before this function was invoked.\n@known_ap_change\nfunc get_ap() -> (ap_val: felt*) {\n    // Once get_ap() is invoked, fp points to ap + 2 (since the call instruction placed the old fp\n    // and pc in memory, advancing ap accordingly).\n    // Hence, the desired ap value is fp - 2.\n    let (fp_val, pc_val) = get_fp_and_pc();\n    return (ap_val=fp_val - 2);\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/starknet/common/storage.cairo": "from starkware.cairo.common.math import assert_250_bit\n\nconst MAX_STORAGE_ITEM_SIZE = 256;\n// Valid storage addresses should satisfy address + offset < 2**251 where\n// offset < MAX_STORAGE_ITEM_SIZE and address < ADDR_BOUND.\nconst ADDR_BOUND = 2 ** 251 - 256;\n\n// Computes addr % ADDR_BOUND so that the result will form a valid storage item address in the\n// storage tree. In particular, we need the result + MAX_STORAGE_ITEM_SIZE to be less that\n// 2**251.\n@known_ap_change\nfunc normalize_address{range_check_ptr}(addr: felt) -> (res: felt) {\n    tempvar is_small;\n    %{\n        # Verify the assumptions on the relationship between 2**250, ADDR_BOUND and PRIME.\n        ADDR_BOUND = ids.ADDR_BOUND % PRIME\n        assert (2**250 < ADDR_BOUND <= 2**251) and (2 * 2**250 < PRIME) and (\n                ADDR_BOUND * 2 > PRIME), \\\n            'normalize_address() cannot be used with the current constants.'\n        ids.is_small = 1 if ids.addr < ADDR_BOUND else 0\n    %}\n    if (is_small != 0) {\n        tempvar is_250;\n        %{ ids.is_250 = 1 if ids.addr < 2**250 else 0 %}\n        if (is_250 != 0) {\n            ap += 11;\n            // In this case addr < 2**250 < ADDR_BOUND, so addr % ADDR_BOUND = addr.\n            assert_250_bit(addr);\n        } else {\n            ap += 10;\n            // In this case 0 <= ADDR_BOUND - 1 - addr < 2**250, so addr < ADDR_BOUND.\n            assert_250_bit(ADDR_BOUND - 1 - addr);\n        }\n        return (res=addr);\n    } else {\n        // The first call to assert_250_bit() checks that 0 <= (addr - ADDR_BOUND) % PRIME < 2**250.\n        // The second call checks that 0 <= (-1 - addr) % PRIME < 2**250.\n        // Let x = (addr - ADDR_BOUND) % PRIME and y = (-1 - addr) % PRIME. Then,\n        //   x + y = (addr - ADDR_BOUND) + (-1 - addr) = PRIME - 1 - ADDR_BOUND  (mod PRIME).\n        // So we have:\n        //   x + y = PRIME - 1 - ADDR_BOUND  (mod PRIME).\n        // Since both hands are in the range [0, PRIME) (since 2 * 2**250 < PRIME),\n        // they must be equal as integers.\n        // In particular, x + ADDR_BOUND = PRIME - 1 - y < PRIME.\n        // Since addr = x + ADDR_BOUND (mod PRIME) and both sides are in the range [0, PRIME)\n        // we have addr = x + ADDR_BOUND (as integers).\n        // Therefore, we should subtract ADDR_BOUND to get addr % ADDR_BOUND.\n        let x = addr - ADDR_BOUND;\n        let y = (-1) - addr;\n        assert_250_bit(x);\n        assert_250_bit(y);\n        return (res=addr - ADDR_BOUND);\n    }\n}\n",
+                "/home/aurelou/cairo_venv/lib/python3.8/site-packages/starkware/starknet/common/syscalls.cairo": "from starkware.cairo.common.dict_access import DictAccess\n\nconst SEND_MESSAGE_TO_L1_SELECTOR = 'SendMessageToL1';\n\n// Describes the SendMessageToL1 system call format.\nstruct SendMessageToL1SysCall {\n    selector: felt,\n    to_address: felt,\n    payload_size: felt,\n    payload_ptr: felt*,\n}\n\nconst CALL_CONTRACT_SELECTOR = 'CallContract';\nconst DELEGATE_CALL_SELECTOR = 'DelegateCall';\nconst DELEGATE_L1_HANDLER_SELECTOR = 'DelegateL1Handler';\n\n// Describes the CallContract system call format.\nstruct CallContractRequest {\n    // The system call selector\n    // (= CALL_CONTRACT_SELECTOR, DELEGATE_CALL_SELECTOR or DELEGATE_L1_HANDLER_SELECTOR).\n    selector: felt,\n    // The address of the L2 contract to call.\n    contract_address: felt,\n    // The selector of the function to call.\n    function_selector: felt,\n    // The size of the calldata.\n    calldata_size: felt,\n    // The calldata.\n    calldata: felt*,\n}\n\nstruct CallContractResponse {\n    retdata_size: felt,\n    retdata: felt*,\n}\n\nstruct CallContract {\n    request: CallContractRequest,\n    response: CallContractResponse,\n}\n\nfunc call_contract{syscall_ptr: felt*}(\n    contract_address: felt, function_selector: felt, calldata_size: felt, calldata: felt*\n) -> (retdata_size: felt, retdata: felt*) {\n    let syscall = [cast(syscall_ptr, CallContract*)];\n    assert syscall.request = CallContractRequest(\n        selector=CALL_CONTRACT_SELECTOR,\n        contract_address=contract_address,\n        function_selector=function_selector,\n        calldata_size=calldata_size,\n        calldata=calldata);\n    %{ syscall_handler.call_contract(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n\n    let syscall_ptr = syscall_ptr + CallContract.SIZE;\n    return (retdata_size=response.retdata_size, retdata=response.retdata);\n}\n\nconst LIBRARY_CALL_SELECTOR = 'LibraryCall';\nconst LIBRARY_CALL_L1_HANDLER_SELECTOR = 'LibraryCallL1Handler';\n\n// Describes the LibraryCall system call format.\nstruct LibraryCallRequest {\n    // The system library call selector\n    // (= LIBRARY_CALL_SELECTOR or LIBRARY_CALL_L1_HANDLER_SELECTOR).\n    selector: felt,\n    // The hash of the class to run.\n    class_hash: felt,\n    // The selector of the function to call.\n    function_selector: felt,\n    // The size of the calldata.\n    calldata_size: felt,\n    // The calldata.\n    calldata: felt*,\n}\n\nstruct LibraryCall {\n    request: LibraryCallRequest,\n    response: CallContractResponse,\n}\n\n// Performs a library call: Runs an entry point of another contract class\n// on the current contract state.\nfunc library_call{syscall_ptr: felt*}(\n    class_hash: felt, function_selector: felt, calldata_size: felt, calldata: felt*\n) -> (retdata_size: felt, retdata: felt*) {\n    let syscall = [cast(syscall_ptr, LibraryCall*)];\n    assert syscall.request = LibraryCallRequest(\n        selector=LIBRARY_CALL_SELECTOR,\n        class_hash=class_hash,\n        function_selector=function_selector,\n        calldata_size=calldata_size,\n        calldata=calldata);\n    %{ syscall_handler.library_call(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n\n    let syscall_ptr = syscall_ptr + LibraryCall.SIZE;\n    return (retdata_size=response.retdata_size, retdata=response.retdata);\n}\n\n// Simialr to library_call(), except that the entry point is an L1 handler,\n// rather than an external function.\n// Note that this function does not consume an L1 message,\n// and thus it should only be called from a corresponding L1 handler.\nfunc library_call_l1_handler{syscall_ptr: felt*}(\n    class_hash: felt, function_selector: felt, calldata_size: felt, calldata: felt*\n) -> (retdata_size: felt, retdata: felt*) {\n    let syscall = [cast(syscall_ptr, LibraryCall*)];\n    assert syscall.request = LibraryCallRequest(\n        selector=LIBRARY_CALL_L1_HANDLER_SELECTOR,\n        class_hash=class_hash,\n        function_selector=function_selector,\n        calldata_size=calldata_size,\n        calldata=calldata);\n    %{ syscall_handler.library_call_l1_handler(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n\n    let syscall_ptr = syscall_ptr + LibraryCall.SIZE;\n    return (retdata_size=response.retdata_size, retdata=response.retdata);\n}\n\nconst DEPLOY_SELECTOR = 'Deploy';\n\n// Describes the Deploy system call format.\nstruct DeployRequest {\n    // The system call selector (= DEPLOY_SELECTOR).\n    selector: felt,\n    // The hash of the class to deploy.\n    class_hash: felt,\n    // A salt for the new contract address calculation.\n    contract_address_salt: felt,\n    // The size of the calldata for the constructor.\n    constructor_calldata_size: felt,\n    // The calldata for the constructor.\n    constructor_calldata: felt*,\n    // Used for deterministic contract address deployment.\n    deploy_from_zero: felt,\n}\n\nstruct DeployResponse {\n    contract_address: felt,\n    constructor_retdata_size: felt,\n    constructor_retdata: felt*,\n}\n\nstruct Deploy {\n    request: DeployRequest,\n    response: DeployResponse,\n}\n\n// Deploys a contract with the given class, and returns its address.\n// Fails if a contract with the same parameters was already deployed.\n// If 'deploy_from_zero' is 1, the contract address is not affected by the deployer's address.\nfunc deploy{syscall_ptr: felt*}(\n    class_hash: felt,\n    contract_address_salt: felt,\n    constructor_calldata_size: felt,\n    constructor_calldata: felt*,\n    deploy_from_zero: felt,\n) -> (contract_address: felt) {\n    let syscall = [cast(syscall_ptr, Deploy*)];\n    assert syscall.request = DeployRequest(\n        selector=DEPLOY_SELECTOR,\n        class_hash=class_hash,\n        contract_address_salt=contract_address_salt,\n        constructor_calldata_size=constructor_calldata_size,\n        constructor_calldata=constructor_calldata,\n        deploy_from_zero=deploy_from_zero);\n\n    %{ syscall_handler.deploy(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n    let syscall_ptr = syscall_ptr + Deploy.SIZE;\n\n    return (contract_address=response.contract_address);\n}\n\nconst GET_CALLER_ADDRESS_SELECTOR = 'GetCallerAddress';\n\n// Describes the GetCallerAddress system call format.\nstruct GetCallerAddressRequest {\n    // The system call selector (= GET_CALLER_ADDRESS_SELECTOR).\n    selector: felt,\n}\n\nstruct GetCallerAddressResponse {\n    caller_address: felt,\n}\n\nstruct GetCallerAddress {\n    request: GetCallerAddressRequest,\n    response: GetCallerAddressResponse,\n}\n\n// Returns the address of the calling contract or 0 if this transaction was not initiated by another\n// contract.\nfunc get_caller_address{syscall_ptr: felt*}() -> (caller_address: felt) {\n    let syscall = [cast(syscall_ptr, GetCallerAddress*)];\n    assert syscall.request = GetCallerAddressRequest(selector=GET_CALLER_ADDRESS_SELECTOR);\n    %{ syscall_handler.get_caller_address(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetCallerAddress.SIZE;\n    return (caller_address=syscall.response.caller_address);\n}\n\nconst GET_SEQUENCER_ADDRESS_SELECTOR = 'GetSequencerAddress';\n\n// Describes the GetSequencerAddress system call format.\nstruct GetSequencerAddressRequest {\n    // The system call selector (= GET_SEQUENCER_ADDRESS_SELECTOR).\n    selector: felt,\n}\n\nstruct GetSequencerAddressResponse {\n    sequencer_address: felt,\n}\n\nstruct GetSequencerAddress {\n    request: GetSequencerAddressRequest,\n    response: GetSequencerAddressResponse,\n}\n\n// Returns the address of the sequencer contract.\nfunc get_sequencer_address{syscall_ptr: felt*}() -> (sequencer_address: felt) {\n    let syscall = [cast(syscall_ptr, GetSequencerAddress*)];\n    assert syscall.request = GetSequencerAddressRequest(selector=GET_SEQUENCER_ADDRESS_SELECTOR);\n    %{ syscall_handler.get_sequencer_address(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetSequencerAddress.SIZE;\n    return (sequencer_address=syscall.response.sequencer_address);\n}\n\nconst GET_BLOCK_NUMBER_SELECTOR = 'GetBlockNumber';\n\nstruct GetBlockNumberRequest {\n    selector: felt,\n}\n\nstruct GetBlockNumberResponse {\n    block_number: felt,\n}\n\nstruct GetBlockNumber {\n    request: GetBlockNumberRequest,\n    response: GetBlockNumberResponse,\n}\n\nfunc get_block_number{syscall_ptr: felt*}() -> (block_number: felt) {\n    let syscall = [cast(syscall_ptr, GetBlockNumber*)];\n    assert syscall.request = GetBlockNumberRequest(selector=GET_BLOCK_NUMBER_SELECTOR);\n    %{ syscall_handler.get_block_number(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetBlockNumber.SIZE;\n    return (block_number=syscall.response.block_number);\n}\n\nconst GET_CONTRACT_ADDRESS_SELECTOR = 'GetContractAddress';\n\n// Describes the GetContractAddress system call format.\nstruct GetContractAddressRequest {\n    // The system call selector (= GET_CONTRACT_ADDRESS_SELECTOR).\n    selector: felt,\n}\n\nstruct GetContractAddressResponse {\n    contract_address: felt,\n}\n\nstruct GetContractAddress {\n    request: GetContractAddressRequest,\n    response: GetContractAddressResponse,\n}\n\nfunc get_contract_address{syscall_ptr: felt*}() -> (contract_address: felt) {\n    let syscall = [cast(syscall_ptr, GetContractAddress*)];\n    assert syscall.request = GetContractAddressRequest(selector=GET_CONTRACT_ADDRESS_SELECTOR);\n    %{ syscall_handler.get_contract_address(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetContractAddress.SIZE;\n    return (contract_address=syscall.response.contract_address);\n}\n\nconst GET_BLOCK_TIMESTAMP_SELECTOR = 'GetBlockTimestamp';\n\nstruct GetBlockTimestampRequest {\n    // The system call selector (= GET_BLOCK_TIMESTAMP_SELECTOR).\n    selector: felt,\n}\n\nstruct GetBlockTimestampResponse {\n    block_timestamp: felt,\n}\n\nstruct GetBlockTimestamp {\n    request: GetBlockTimestampRequest,\n    response: GetBlockTimestampResponse,\n}\n\nfunc get_block_timestamp{syscall_ptr: felt*}() -> (block_timestamp: felt) {\n    let syscall = [cast(syscall_ptr, GetBlockTimestamp*)];\n    assert syscall.request = GetBlockTimestampRequest(selector=GET_BLOCK_TIMESTAMP_SELECTOR);\n    %{ syscall_handler.get_block_timestamp(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetBlockTimestamp.SIZE;\n    return (block_timestamp=syscall.response.block_timestamp);\n}\n\nconst GET_TX_SIGNATURE_SELECTOR = 'GetTxSignature';\n\nstruct GetTxSignatureRequest {\n    // The system call selector (= GET_TX_SIGNATURE_SELECTOR).\n    selector: felt,\n}\n\nstruct GetTxSignatureResponse {\n    signature_len: felt,\n    signature: felt*,\n}\n\nstruct GetTxSignature {\n    request: GetTxSignatureRequest,\n    response: GetTxSignatureResponse,\n}\n\n// Returns the signature information of the transaction.\n//\n// NOTE: This function is deprecated. Use get_tx_info() instead.\nfunc get_tx_signature{syscall_ptr: felt*}() -> (signature_len: felt, signature: felt*) {\n    let syscall = [cast(syscall_ptr, GetTxSignature*)];\n    assert syscall.request = GetTxSignatureRequest(selector=GET_TX_SIGNATURE_SELECTOR);\n    %{ syscall_handler.get_tx_signature(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + GetTxSignature.SIZE;\n    return (signature_len=syscall.response.signature_len, signature=syscall.response.signature);\n}\n\nconst STORAGE_READ_SELECTOR = 'StorageRead';\n\n// Describes the StorageRead system call format.\nstruct StorageReadRequest {\n    // The system call selector (= STORAGE_READ_SELECTOR).\n    selector: felt,\n    address: felt,\n}\n\nstruct StorageReadResponse {\n    value: felt,\n}\n\nstruct StorageRead {\n    request: StorageReadRequest,\n    response: StorageReadResponse,\n}\n\nfunc storage_read{syscall_ptr: felt*}(address: felt) -> (value: felt) {\n    let syscall = [cast(syscall_ptr, StorageRead*)];\n    assert syscall.request = StorageReadRequest(selector=STORAGE_READ_SELECTOR, address=address);\n    %{ syscall_handler.storage_read(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n    let syscall_ptr = syscall_ptr + StorageRead.SIZE;\n    return (value=response.value);\n}\n\nconst STORAGE_WRITE_SELECTOR = 'StorageWrite';\n\n// Describes the StorageWrite system call format.\nstruct StorageWrite {\n    selector: felt,\n    address: felt,\n    value: felt,\n}\n\nfunc storage_write{syscall_ptr: felt*}(address: felt, value: felt) {\n    assert [cast(syscall_ptr, StorageWrite*)] = StorageWrite(\n        selector=STORAGE_WRITE_SELECTOR, address=address, value=value);\n    %{ syscall_handler.storage_write(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + StorageWrite.SIZE;\n    return ();\n}\n\nconst EMIT_EVENT_SELECTOR = 'EmitEvent';\n\n// Describes the EmitEvent system call format.\nstruct EmitEvent {\n    selector: felt,\n    keys_len: felt,\n    keys: felt*,\n    data_len: felt,\n    data: felt*,\n}\n\nfunc emit_event{syscall_ptr: felt*}(keys_len: felt, keys: felt*, data_len: felt, data: felt*) {\n    assert [cast(syscall_ptr, EmitEvent*)] = EmitEvent(\n        selector=EMIT_EVENT_SELECTOR, keys_len=keys_len, keys=keys, data_len=data_len, data=data);\n    %{ syscall_handler.emit_event(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let syscall_ptr = syscall_ptr + EmitEvent.SIZE;\n    return ();\n}\n\nstruct TxInfo {\n    // The version of the transaction. It is fixed (currently, 1) in the OS, and should be\n    // signed by the account contract.\n    // This field allows invalidating old transactions, whenever the meaning of the other\n    // transaction fields is changed (in the OS).\n    version: felt,\n\n    // The account contract from which this transaction originates.\n    account_contract_address: felt,\n\n    // The max_fee field of the transaction.\n    max_fee: felt,\n\n    // The signature of the transaction.\n    signature_len: felt,\n    signature: felt*,\n\n    // The hash of the transaction.\n    transaction_hash: felt,\n\n    // The identifier of the chain.\n    // This field can be used to prevent replay of testnet transactions on mainnet.\n    chain_id: felt,\n\n    // The transaction's nonce.\n    nonce: felt,\n}\n\nconst GET_TX_INFO_SELECTOR = 'GetTxInfo';\n\n// Describes the GetTxInfo system call format.\nstruct GetTxInfoRequest {\n    // The system call selector (= GET_TX_INFO_SELECTOR).\n    selector: felt,\n}\n\nstruct GetTxInfoResponse {\n    tx_info: TxInfo*,\n}\n\nstruct GetTxInfo {\n    request: GetTxInfoRequest,\n    response: GetTxInfoResponse,\n}\n\nfunc get_tx_info{syscall_ptr: felt*}() -> (tx_info: TxInfo*) {\n    let syscall = [cast(syscall_ptr, GetTxInfo*)];\n    assert syscall.request = GetTxInfoRequest(selector=GET_TX_INFO_SELECTOR);\n    %{ syscall_handler.get_tx_info(segments=segments, syscall_ptr=ids.syscall_ptr) %}\n    let response = syscall.response;\n    let syscall_ptr = syscall_ptr + GetTxInfo.SIZE;\n    return (tx_info=response.tx_info);\n}\n",
                 "autogen/starknet/arg_processor/01cba52f8515996bb9d7070bde81ff39281d096d7024a558efcba6e1fd2402cf.cairo": "assert [cast(fp + (-4), felt*)] = __calldata_actual_size;\n",
                 "autogen/starknet/arg_processor/293368f3a0e12cfcf22314a31e13b9801e95a5b8b2b71822a2fbbdf5a01ea795.cairo": "assert [__return_value_ptr] = ret_value.res;\nlet __return_value_ptr = __return_value_ptr + 1;\n",
                 "autogen/starknet/arg_processor/9eec7e90b202cfcb3e31d772692ddd9a3aafdb3dfe58ca5d6e01236d5178775b.cairo": "let __calldata_arg_password = [__calldata_ptr];\nlet __calldata_ptr = __calldata_ptr + 1;\n",
@@ -100,7 +104,7 @@
                 "autogen/starknet/external/test_password/93099bea078b47105ec080392b498d5fa602cf51e6076f4584216f16f5b4c273.cairo": "return (syscall_ptr,range_check_ptr,retdata_size,retdata);\n",
                 "autogen/starknet/external/test_password/b2c52ca2d2a8fc8791a983086d8716c5eacd0c3d62934914d2286f84b98ff4cb.cairo": "let syscall_ptr = [cast([cast(fp + (-5), felt**)] + 0, felt**)];\n",
                 "autogen/starknet/external/test_password/fd099223670ab5d428127810c2328d37c65c29951c7abc7cebaa651b40be0a6a.cairo": "let range_check_ptr = [cast([cast(fp + (-5), felt**)] + 1, felt*)];\n",
-                "second.cairo": "%lang starknet\n\n@contract_interface\nnamespace ITest_Password_Contract{\n    func test_password(password : felt) -> (res : felt){\n    }\n}\n\nconst PASSWORD = 1515;\n\n@view\nfunc test_password{syscall_ptr : felt*, range_check_ptr}(password : felt) -> (res : felt){\n    tempvar res :felt ;\n    if (password == PASSWORD) {\n        res = 1;\n    } else {\n        res = 0;\n    }\n    return (res,);\n}"
+                "second.cairo": "%lang starknet\n\n@contract_interface\nnamespace ITest_Password_Contract{\n    func test_password(password : felt) -> (res : felt){\n    }\n}\n\nconst PASSWORD = 1575;\n\n@view\nfunc test_password{syscall_ptr : felt*, range_check_ptr}(password : felt) -> (res : felt){\n    tempvar res :felt ;\n    tempvar test = PASSWORD * 3; \n    tempvar test1 = test - 9;\n    if (password == PASSWORD - 60) {\n        res = 1;\n    } else {\n        res = 0;\n    }\n    return (res,);\n}"
             },
             "instruction_locations": {
                 "0": {
@@ -130,12 +134,12 @@
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
-                        "end_col": 29,
+                        "end_col": 32,
                         "end_line": 14,
                         "input_file": {
                             "filename": "second.cairo"
                         },
-                        "start_col": 9,
+                        "start_col": 20,
                         "start_line": 14
                     }
                 },
@@ -148,13 +152,13 @@
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
-                        "end_col": 7,
-                        "end_line": 14,
+                        "end_col": 29,
+                        "end_line": 15,
                         "input_file": {
                             "filename": "second.cairo"
                         },
-                        "start_col": 5,
-                        "start_line": 14
+                        "start_col": 21,
+                        "start_line": 15
                     }
                 },
                 "6": {
@@ -166,13 +170,13 @@
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
-                        "end_col": 16,
-                        "end_line": 15,
+                        "end_col": 34,
+                        "end_line": 16,
                         "input_file": {
                             "filename": "second.cairo"
                         },
                         "start_col": 9,
-                        "start_line": 15
+                        "start_line": 16
                     }
                 },
                 "8": {
@@ -185,12 +189,12 @@
                     "hints": [],
                     "inst": {
                         "end_col": 7,
-                        "end_line": 14,
+                        "end_line": 16,
                         "input_file": {
                             "filename": "second.cairo"
                         },
                         "start_col": 5,
-                        "start_line": 14
+                        "start_line": 16
                     }
                 },
                 "10": {
@@ -220,6 +224,42 @@
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
+                        "end_col": 7,
+                        "end_line": 16,
+                        "input_file": {
+                            "filename": "second.cairo"
+                        },
+                        "start_col": 5,
+                        "start_line": 16
+                    }
+                },
+                "14": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__main__.test_password"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 16,
+                        "end_line": 19,
+                        "input_file": {
+                            "filename": "second.cairo"
+                        },
+                        "start_col": 9,
+                        "start_line": 19
+                    }
+                },
+                "16": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__main__.test_password"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
                         "end_col": 39,
                         "end_line": 12,
                         "input_file": {
@@ -235,12 +275,12 @@
                                 "parent_location": [
                                     {
                                         "end_col": 19,
-                                        "end_line": 19,
+                                        "end_line": 21,
                                         "input_file": {
                                             "filename": "second.cairo"
                                         },
                                         "start_col": 5,
-                                        "start_line": 19
+                                        "start_line": 21
                                     },
                                     "While trying to retrieve the implicit argument 'syscall_ptr' in:"
                                 ],
@@ -253,7 +293,7 @@
                         "start_line": 12
                     }
                 },
-                "13": {
+                "17": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -277,12 +317,12 @@
                                 "parent_location": [
                                     {
                                         "end_col": 19,
-                                        "end_line": 19,
+                                        "end_line": 21,
                                         "input_file": {
                                             "filename": "second.cairo"
                                         },
                                         "start_col": 5,
-                                        "start_line": 19
+                                        "start_line": 21
                                     },
                                     "While trying to retrieve the implicit argument 'range_check_ptr' in:"
                                 ],
@@ -295,7 +335,7 @@
                         "start_line": 12
                     }
                 },
-                "14": {
+                "18": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -312,12 +352,12 @@
                         "parent_location": [
                             {
                                 "end_col": 16,
-                                "end_line": 19,
+                                "end_line": 21,
                                 "input_file": {
                                     "filename": "second.cairo"
                                 },
                                 "start_col": 13,
-                                "start_line": 19
+                                "start_line": 21
                             },
                             "While expanding the reference 'res' in:"
                         ],
@@ -325,7 +365,7 @@
                         "start_line": 13
                     }
                 },
-                "15": {
+                "19": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -335,15 +375,15 @@
                     "hints": [],
                     "inst": {
                         "end_col": 19,
-                        "end_line": 19,
+                        "end_line": 21,
                         "input_file": {
                             "filename": "second.cairo"
                         },
                         "start_col": 5,
-                        "start_line": 19
+                        "start_line": 21
                     }
                 },
-                "16": {
+                "20": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -399,7 +439,7 @@
                         "start_line": 4
                     }
                 },
-                "18": {
+                "22": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -430,7 +470,7 @@
                         "start_line": 1
                     }
                 },
-                "19": {
+                "23": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -485,7 +525,7 @@
                         "start_line": 2
                     }
                 },
-                "21": {
+                "25": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -540,7 +580,7 @@
                         "start_line": 1
                     }
                 },
-                "22": {
+                "26": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -571,7 +611,7 @@
                         "start_line": 11
                     }
                 },
-                "23": {
+                "27": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -626,7 +666,7 @@
                         "start_line": 5
                     }
                 },
-                "24": {
+                "28": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -657,7 +697,7 @@
                         "start_line": 9
                     }
                 },
-                "25": {
+                "29": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -736,7 +776,7 @@
                         "start_line": 2
                     }
                 },
-                "27": {
+                "31": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -767,7 +807,7 @@
                         "start_line": 1
                     }
                 },
-                "28": {
+                "32": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -822,7 +862,7 @@
                         "start_line": 1
                     }
                 },
-                "29": {
+                "33": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -877,7 +917,7 @@
                         "start_line": 1
                     }
                 },
-                "30": {
+                "34": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -932,7 +972,7 @@
                         "start_line": 1
                     }
                 },
-                "31": {
+                "35": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -951,7 +991,7 @@
                         "start_line": 12
                     }
                 },
-                "33": {
+                "37": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1006,7 +1046,7 @@
                         "start_line": 1
                     }
                 },
-                "34": {
+                "38": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1037,7 +1077,7 @@
                         "start_line": 2
                     }
                 },
-                "36": {
+                "40": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1092,7 +1132,7 @@
                         "start_line": 1
                     }
                 },
-                "37": {
+                "41": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1147,7 +1187,7 @@
                         "start_line": 2
                     }
                 },
-                "38": {
+                "42": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1202,7 +1242,7 @@
                         "start_line": 2
                     }
                 },
-                "39": {
+                "43": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1257,7 +1297,7 @@
                         "start_line": 2
                     }
                 },
-                "40": {
+                "44": {
                     "accessible_scopes": [
                         "__main__",
                         "__main__",
@@ -1291,7 +1331,7 @@
             }
         },
         "hints": {
-            "16": [
+            "20": [
                 {
                     "accessible_scopes": [
                         "__main__",
@@ -1356,7 +1396,7 @@
             },
             "__main__.PASSWORD": {
                 "type": "const",
-                "value": 1515
+                "value": 1575
             },
             "__main__.test_password": {
                 "decorators": [
@@ -1403,7 +1443,7 @@
                 "decorators": [
                     "view"
                 ],
-                "pc": 25,
+                "pc": 29,
                 "type": "function"
             },
             "__wrappers__.test_password.Args": {
@@ -1432,7 +1472,7 @@
             },
             "__wrappers__.test_password_encode_return": {
                 "decorators": [],
-                "pc": 16,
+                "pc": 20,
                 "type": "function"
             },
             "__wrappers__.test_password_encode_return.Args": {
