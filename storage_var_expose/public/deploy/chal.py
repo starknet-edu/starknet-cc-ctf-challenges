@@ -11,7 +11,7 @@ async def deploy(client: AccountClient, player_address: int) -> int:
     storage_deployment = await Contract.deploy(
         client=client,
         compiled_contract=Path("compiled/storage_var_expose.cairo").read_text(),
-        constructor_args=[991928],
+        constructor_args=[42],
     )
     await storage_deployment.wait_for_acceptance()
 

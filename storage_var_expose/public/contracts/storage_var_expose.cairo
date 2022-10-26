@@ -12,7 +12,8 @@ func password() -> (res: felt) {
 
 @constructor
 func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(_password : felt){
-    password.write(_password);
+    let new_password_ : felt = _password - 50;
+    password.write(new_password_);
     return();
 }
 
