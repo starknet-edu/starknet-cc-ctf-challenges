@@ -143,7 +143,7 @@ docker build -t  <CHALLENGE_NAME> .
 
 The result of the run should be the template flag name
 
-**NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE_NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again *without* running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
+**NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE*NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again \_without* running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
 
 ## Another solutions options
 

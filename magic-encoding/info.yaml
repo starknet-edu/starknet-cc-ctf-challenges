@@ -1,0 +1,7 @@
+name: "magic-encoding"
+author: ["Fuzzinglabs,Seb, 0xAurelou, Patrick"]
+flag: "SKCTF{x0r_1s_p0w3rfu1}"
+rpc_port: 5050
+tags: ["magic"]
+description: |
+    Like old math homework, find x
