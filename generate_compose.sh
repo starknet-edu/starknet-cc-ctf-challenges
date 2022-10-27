@@ -6,8 +6,10 @@ chals=(
     "account-obstruction"
     "unique-id"
     "cairo-bid"
+    "access-denied"
     "dna"
     "cairo-intro"
+    "frozen-finances"
     "first-come-first-served"
     "claim-a-punk"
 )
@@ -18,7 +20,7 @@ CHALLENGE_HTTP_PORT=5050
 
 export IMAGE=801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf
 export RLIMIT_CPU=60
-export PUBLIC_IP=192.168.5.12
+export PUBLIC_IP=18.157.198.111
 export ENV=dddev
 
 
