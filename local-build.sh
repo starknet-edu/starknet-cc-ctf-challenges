@@ -16,6 +16,7 @@ declare -a chals=(
     "account-obstruction"
     "unique-id"
     "cairo-bid"
+    "access-denied"
     "dna"
     "cairo-intro"
     "first-come-first-served"
