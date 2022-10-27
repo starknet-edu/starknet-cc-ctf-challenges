@@ -5,10 +5,6 @@ from starkware.cairo.common.math_cmp import is_le_felt
 from starkware.cairo.common.uint256 import uint256_add, Uint256, uint256_le
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
-// THRESHOLD = 2381976568446569244243622252022377480238;
-const THRESHOLD_high = 7;
-const THRESHOLD_low = 46;
-
 const MAX_DEPOSITS = 7;
 
 @storage_var

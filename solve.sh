@@ -45,7 +45,7 @@ function solve_one() {
 }
 
 declare -a chals=(
-    "cairo-intro 0.0.0"
+    # "cairo-intro 0.0.0"
     "frozen-finances 0.0.0"
 )
 
