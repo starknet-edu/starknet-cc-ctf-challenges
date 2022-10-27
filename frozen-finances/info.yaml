@@ -1,0 +1,7 @@
+name: "frozen-finances"
+author: ["jorikschellekens"]
+rpc_port: 8555
+flag: "SNCTF{H0FFY-LXNQ8-QYU75-K0HB8-GS2H9}"
+tags: [""]
+description: |
+  your friend called, they sent money to an address they found on Twitter 🙄, guess you'll help them get it back.

@@ -46,6 +46,7 @@ function solve_one() {
 
 declare -a chals=(
     # "cairo-intro 0.0.0"
+    # "frozen-finances 0.0.0"
     # "first-come-first-served 0.0.0"
     # "magic-encoding 0.0.0"
     # "access-denied 0.0.0"
