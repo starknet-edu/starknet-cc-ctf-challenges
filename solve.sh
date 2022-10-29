@@ -55,6 +55,7 @@ declare -a chals=(
     # "cairo-bid 0.0.0"
     # "dna 0.0.0"
     # "claim-a-punk 0.0.0"
+    "puzzle-box 0.0.0"
 )
 
 for chal in "${chals[@]}"; do

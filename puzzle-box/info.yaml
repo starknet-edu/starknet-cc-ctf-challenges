@@ -1,0 +1,7 @@
+name: "puzzle-box"
+author: ["amanusk"]
+flag: "SNCTF{py24m1d}"
+rpc_port: 5050
+tags: ["puzzle"]
+description: |
+  What's in the box?

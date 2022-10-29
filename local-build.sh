@@ -22,6 +22,7 @@ declare -a chals=(
     "frozen-finances"
     "first-come-first-served"
     "claim-a-punk"
+    "puzzle-box"
 )
 
 for chal in "${chals[@]}"; do
