@@ -1,0 +1,7 @@
+name: "solve-me"
+author: ["amanusk"]
+flag: "SNCTF{937-7h15-901N9}"
+rpc_port: 5050
+tags: ["ez"]
+description: |
+  Just solve me

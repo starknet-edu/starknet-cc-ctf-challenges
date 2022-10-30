@@ -7,11 +7,11 @@ from starknet_py.contract import Contract
 from starkware.python.utils import to_bytes
 
 async def deploy(client: AccountClient, player_address: int) -> int:
-    print("[+] deploying cairo-intro")
+    print("[+] deploying solve-me")
     storage_deploy = await Contract.deploy(
         client=client,
-        compiled_contract=Path("compiled/cairo-intro.cairo").read_text(),
-        constructor_args=[0],
+        compiled_contract=Path("compiled/solve-me.json").read_text(),
+        constructor_args=[],
     )
     await storage_deploy.wait_for_acceptance()
 
