@@ -6,8 +6,7 @@ from starkware.cairo.common.math import unsigned_div_rem
 
 from starkware.cairo.common.math_cmp import is_le
 
-from starkware.starknet.common.syscalls import get_caller_address
-
+from starkware.starknet.common.syscalls import get_caller_address, get_block_timestamp
 
 // Storage var
 @storage_var
@@ -15,26 +14,28 @@ func balance() -> (res: felt) {
 }
 
 @storage_var
-func team_has_resolved() -> (bool : felt) {
+func solved() -> (bool: felt) {
 }
 
 @storage_var
-func owner () -> (owner : felt){
+func owner() -> (owner: felt) {
 }
 
 // Constructor
 
 @constructor
-func constructor {syscall_ptr : felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(_owner : felt) {
+func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(_owner: felt) {
     owner.write(_owner);
-    return();
+    let (timestamp) = get_block_timestamp();
+    balance.write(timestamp);
+    return ();
 }
 
 // View
 
 @view
-func is_challenge_done{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr} () -> (res : felt) {
-    let (test) = team_has_resolved.read();
+func is_solved{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (res: felt) {
+    let (test) = solved.read();
     return (test,);
 }
 
@@ -64,30 +65,25 @@ func increase_balance{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_chec
 
 @external
 func solve_challenge{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() {
-   let (caller : felt) = get_caller_address(); 
-   let (owner_ : felt) = owner.read();
-    with_attr error_msg("Only the owner can call this function"){
+    let (caller: felt) = get_caller_address();
+    let (owner_: felt) = owner.read();
+    with_attr error_msg("Only the owner can call this function") {
         assert caller = owner_;
     }
-    team_has_resolved.write(1);
+    solved.write(1);
     return ();
 }
 
 // Internal
-func owner_check{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(amount : felt){
-    let (caller : felt) = get_caller_address();
-    let (_,r : felt) = unsigned_div_rem(amount, 14);
-    if(r == 0){
-        let condition : felt = is_le(41,amount);
-        let condition2 : felt = is_le(amount,55);
-        if(condition == 1 ){
-            if(condition2 == 1) {
-            owner.write(caller);
-            return();
-            }
-            return();
-        }
-        return();
+func owner_check{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(amount: felt) {
+    alloc_locals;
+    let (caller: felt) = get_caller_address();
+    let (_, r: felt) = unsigned_div_rem(amount, 14);
+    let condition1: felt = is_le(31333333377, amount);
+    let condition2: felt = is_le(amount, 31333333391);
+    if (r == 0 and condition1 == 1 and condition2 == 1) {
+        owner.write(caller);
+        return ();
     }
-    return();
+    return ();
 }
