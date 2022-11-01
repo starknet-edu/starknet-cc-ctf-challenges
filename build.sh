@@ -8,11 +8,11 @@ build_challenge() {
 
     tag="801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/$name:latest"
 
-    docker buildx build --platform linux/amd64 --push -t "$tag" "$name/public"
+    docker buildx build --platform linux/amd64 --push -t "$tag" "$name/public" &
     #docker build -t "$tag" "$name/public" &
 }
 
-declare -a chals=(
+chals=(
     "magic-encoding"
     "account-obstruction"
     "unique-id"
@@ -23,6 +23,8 @@ declare -a chals=(
     "frozen-finances"
     "first-come-first-served"
     "claim-a-punk"
+    "puzzle-box"
+    "solve-me"
 )
 
 docker pull 801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/cairo-base:latest

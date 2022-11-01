@@ -8,10 +8,13 @@ imgs=(
     "account-obstruction"
     "unique-id"
     "cairo-bid"
+    "access-denied"
     "dna"
     "cairo-intro"
+    "frozen-finances"
     "first-come-first-served"
     "claim-a-punk"
+    "puzzle-box"
 )
 
 for img in "${imgs[@]}"; do

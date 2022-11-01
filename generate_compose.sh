@@ -12,6 +12,8 @@ chals=(
     "frozen-finances"
     "first-come-first-served"
     "claim-a-punk"
+    "puzzle-box"
+    "solve-me"
 )
 
 
