@@ -1,0 +1,140 @@
+version: "3.5"
+
+x-envs: &default-envs
+  - RLIMIT_CPU: "60"
+  - PUBLIC_IP: "18.157.198.111"
+  - ENV: "dddev"
+
+services:
+  magic-encoding:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/magic-encoding"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5050"
+      PORT: "31300"
+      FLAG: "SNCTF{x0r_1s_p0w3rfu1}"
+      CHALLENGE_ID: "magic-encoding"
+    ports:
+      - "31300:31300"
+      - "5050:5050"
+  account-obstruction:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/account-obstruction"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5051"
+      PORT: "31301"
+      FLAG: "SNCTF{83773r_w47ch_the_ch41n_1D}"
+      CHALLENGE_ID: "account-obstruction"
+    ports:
+      - "31301:31301"
+      - "5051:5051"
+  unique-id:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/unique-id"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5052"
+      PORT: "31302"
+      FLAG: "SNCTF{n0+_4ll_pr0x13s_4r3_+h3_s4m3}"
+      CHALLENGE_ID: "unique-id"
+    ports:
+      - "31302:31302"
+      - "5052:5052"
+  cairo-bid:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/cairo-bid"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5053"
+      PORT: "31303"
+      FLAG: "SNCTF{2137}"
+      CHALLENGE_ID: "cairo-bid"
+    ports:
+      - "31303:31303"
+      - "5053:5053"
+  access-denied:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/access-denied"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5054"
+      PORT: "31304"
+      FLAG: "SNCTF{HE6KE-7HOCC-3UCS1-AYA03-LCB6J}"
+      CHALLENGE_ID: "access-denied"
+    ports:
+      - "31304:31304"
+      - "5054:5054"
+  dna:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/dna"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5055"
+      PORT: "31305"
+      FLAG: "SNCTF{my_dna_yOur_DNa}"
+      CHALLENGE_ID: "dna"
+    ports:
+      - "31305:31305"
+      - "5055:5055"
+  cairo-intro:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/cairo-intro"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5056"
+      PORT: "31306"
+      FLAG: "SNCTF{1ntro_is_just_34sy}"
+      CHALLENGE_ID: "cairo-intro"
+    ports:
+      - "31306:31306"
+      - "5056:5056"
+  frozen-finances:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/frozen-finances"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5057"
+      PORT: "31307"
+      FLAG: "SNCTF{H0FFY-LXNQ8-QYU75-K0HB8-GS2H9}"
+      CHALLENGE_ID: "frozen-finances"
+    ports:
+      - "31307:31307"
+      - "5057:5057"
+  first-come-first-served:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/first-come-first-served"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5058"
+      PORT: "31308"
+      FLAG: "SNCTF{d1v1d1n9_8y_p21m35}"
+      CHALLENGE_ID: "first-come-first-served"
+    ports:
+      - "31308:31308"
+      - "5058:5058"
+  claim-a-punk:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/claim-a-punk"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5059"
+      PORT: "31309"
+      FLAG: "SNCTF{ch3ck5_eff3c7s_1n73r4c710n5}"
+      CHALLENGE_ID: "claim-a-punk"
+    ports:
+      - "31309:31309"
+      - "5059:5059"
+  puzzle-box:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/puzzle-box"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5060"
+      PORT: "31310"
+      FLAG: "SNCTF{py24m1d}"
+      CHALLENGE_ID: "puzzle-box"
+    ports:
+      - "31310:31310"
+      - "5060:5060"
+  solve-me:
+    image: "801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/solve-me"
+    environment:
+      <<: *default-envs
+      HTTP_PORT: "5061"
+      PORT: "31311"
+      FLAG: "SNCTF{937-7h15-901N9}"
+      CHALLENGE_ID: "solve-me"
+    ports:
+      - "31311:31311"
+      - "5061:5061"

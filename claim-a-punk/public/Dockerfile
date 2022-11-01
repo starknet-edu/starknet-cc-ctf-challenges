@@ -1,4 +1,4 @@
-FROM amanusk/cairo-base:latest
+FROM 801546505238.dkr.ecr.eu-central-1.amazonaws.com/starkware-ctf/cairo-base:latest
 
 COPY deploy/ /home/ctf/
 
