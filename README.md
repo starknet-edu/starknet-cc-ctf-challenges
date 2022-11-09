@@ -1,13 +1,21 @@
-# StarkNet.CC CTF 2022
+# StarkNet-CC CTF 2022 Challenges
 
-_NOTICE_ This is currently a scratchpad for challenges for the StarkNet.CC CTF
-
-Please add you challenge idea in a new directory via a PR.
-
-Challenges here are taken from the paradigm CTF, but can be a useful example of what should be the deliverables for the challenges:
+The repository hosts challenges given at the StarkNet-CC CTF, held on Nov 1st 2022 in Lisbon.
+The infra is based on the [Paradigm CTF]("https://github.com/paradigmxyz/paradigm-ctf-2022") infrastructure.
+Each challenge is a separate directory containing the following
 
 - Contracts in Cairo
-- Deployment script using starknet.py
+- Deployment script using [starknet.py]("https://github.com/software-mansion/starknet.py")
+
+## Versions
+
+The challenges are targeting the following versions:
+
+```
+cairo-lang==0.10.0
+starknet-devnet==0.3.3
+starknet-py==0.5.2a0
+```
 
 ## Installing
 
@@ -46,17 +54,16 @@ You'll also need to install the following:
 ### Build everything
 
 ```bash
-./build.sh
+./local-build.sh
 ```
 
 ### Run a challenge
 
-Running a challenge will open a port which users will `nc` to. For Starknet related
-challenges, an additional port must be supplied so that users can connect to the Starknet
-node
+Running a challenge will open a port which users will `nc` to.
+Challenge name is the same as its directory.
 
 ```
-./run.sh riddle-of-the-sphinx 31337 5050
+./local-run.sh solve-me 31337 5050
 ```
 
 On another terminal:
@@ -82,6 +89,11 @@ here's some useful information
 
 ### Running the autosolver
 
+All challenges come with a solution in the private directory (avoid if you do not want spoilers). To run the solution, start the challenge as explained above. _DO NOT_ run `nc`.
+Comment out all but the challenge you want to solve in the `solve.sh` file.
+
+Run:
+
 ```bash
 ./solve.sh
 ```
@@ -91,8 +103,8 @@ here's some useful information
 To create a new challenge, please create a new PR, following a similar structure to the existing examples.
 The new directory should contain:
 
-- A `public` dir
-- A `private` dir
+- A `public` dir (this will be made public to the contesters)
+- A `private` dir (this will remain private for testing and internal use)
 - A `info.yaml` file, with the authors name, and a short description of the challenge
 
 ### The public dir
@@ -118,7 +130,7 @@ The private dir should have a solution to the challenge, that we can easily run 
 
 ## Checking challenge packaging with docker
 
-The best way to make sure the challenge and the solution works is to build a local docker image, and to test it with the existing infra. Here are the instructios on how to do this:
+The best way to make sure the challenge and the solution works is to build a local docker image, and to test it with the existing infra. Here are the instructions on how to do this:
 
 1. Copy the same structure of the example challenges: `public`, `private`, `chal.py`, `Dockerfile`, etc. The infra expects the filenames in this format. The names `chal.py`, `solve.py` should be kept and only their content should be updated.
 2. Update `Dockerfile` with the current contract names and the order in which they should be compiled (see examples)
@@ -161,4 +173,4 @@ You can write and run a similar solution as well.
 
 - Following the structure of the examples should solve most of the issues.
 
-- For any question, please feel free to reach out to me @amanusk on Tg or open an issue here
+- For any question, please feel free to reach out to me @ amanusk on Tg or open an issue here
