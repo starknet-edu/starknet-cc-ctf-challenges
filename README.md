@@ -157,7 +157,7 @@ The result of the run should be the template flag name
 
 **NOTICE** first, check you can create a new instance by running the server with the <CHALLENGE*NAME> try to `nc` to it as described. To test the `solve.py` script, run the sever again \_without* running `nc`. Only run `solve.py` with on <CHALLENGE_NAME> uncommented.
 
-## Another solutions options
+## Running solutions manually
 
 The dir `./manual-solutions` has the example for the solution as it should be written by the contesters.
 You can write and run a similar solution as well.
@@ -173,4 +173,4 @@ You can write and run a similar solution as well.
 
 - Following the structure of the examples should solve most of the issues.
 
-- For any question, please feel free to reach out to me @ amanusk on Tg or open an issue here
+- For any question, please feel free to open an issue on this repo
